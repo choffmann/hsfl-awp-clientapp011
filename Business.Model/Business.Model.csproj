@@ -33,6 +33,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -41,8 +42,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BusinessObjects\Book.cs" />
+    <Compile Include="BusinessObjects\BookCollection.cs" />
     <Compile Include="BusinessObjects\Client.cs" />
     <Compile Include="BusinessObjects\ClientCollection.cs" />
+    <Compile Include="BusinessObjects\ENUM\Format.cs" />
+    <Compile Include="BusinessObjects\ENUM\Genre.cs" />
+    <Compile Include="BusinessObjects\ENUM\Language.cs" />
+    <Compile Include="BusinessObjects\Size.cs" />
+    <Compile Include="BusinessObjects\ENUM\Unit.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
