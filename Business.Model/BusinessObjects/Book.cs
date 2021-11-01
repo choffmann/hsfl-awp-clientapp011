@@ -29,7 +29,7 @@ namespace De.HsFlensburg.ClientApp011.Business.Model.BusinessObjects
         private Genre genre;
         private Format format;
         private Language language;
-        private Size size;
+        private Dimension dimension;
 
         public String Title
         {
@@ -235,16 +235,16 @@ namespace De.HsFlensburg.ClientApp011.Business.Model.BusinessObjects
                 OnPropertyChanged("Language");
             }
         }
-        public Size Size
+        public Dimension Dimension
         {
             get
             {
-                return size;
+                return dimension;
             }
             set
             {
-                size = value;
-                OnPropertyChanged("Size");
+                dimension = value;
+                OnPropertyChanged("Dimension");
             }
         }
 

@@ -49,7 +49,7 @@
     <Compile Include="BusinessObjects\ENUM\Format.cs" />
     <Compile Include="BusinessObjects\ENUM\Genre.cs" />
     <Compile Include="BusinessObjects\ENUM\Language.cs" />
-    <Compile Include="BusinessObjects\Size.cs" />
+    <Compile Include="BusinessObjects\Dimension.cs" />
     <Compile Include="BusinessObjects\ENUM\Unit.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

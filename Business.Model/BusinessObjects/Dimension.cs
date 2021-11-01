@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace De.HsFlensburg.ClientApp011.Business.Model.BusinessObjects
 {
-    public class Size
+    public class Dimension
     {
         public int Height { get; set; }
         public int Width { get; set; }
