@@ -53,6 +53,7 @@
     <Compile Include="ViewModelLocator.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Compile Include="ViewModels\NewClientWindowViewModel.cs" />
+    <Compile Include="ViewModels\PrintServiceWindowViewModel.cs" />
     <Compile Include="Wrapper\BookCollectionViewModel.cs" />
     <Compile Include="Wrapper\BookViewModel.cs" />
     <Compile Include="Wrapper\ClientCollectionViewModel.cs" />
