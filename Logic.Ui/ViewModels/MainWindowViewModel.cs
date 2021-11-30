@@ -20,9 +20,15 @@ namespace De.HsFlensburg.ClientApp011.Logic.Ui.ViewModels
         public ICommand SaveCommand { get; }
         public ICommand LoadCommand { get; }
         public ICommand OpenNewClientWindowCommand { get; }
+        public ICommand OpenNewBookWindowCommand { get; }
+
         private void OpenNewClientWindowMethod()
         {
             ServiceBus.Instance.Send(new OpenNewClientWindowMessage());
+        }
+        public void OpenNewBookWindowMethod()
+        {
+            ServiceBus.Instance.Send(new OpenNewBookWindowMessage());
         }
         public ClientCollectionViewModel MyList { get; set; }
 
@@ -32,6 +38,7 @@ namespace De.HsFlensburg.ClientApp011.Logic.Ui.ViewModels
             SaveCommand = new RelayCommand(SaveModel);
             LoadCommand = new RelayCommand(LoadModel);
             OpenNewClientWindowCommand = new RelayCommand(OpenNewClientWindowMethod);
+            OpenNewBookWindowCommand = new RelayCommand(OpenNewBookWindowMethod);
             MyList = viewModelCollection;
             modelFileHandler = new ModelFileHandler();
             pathForSerialization = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\ClientCollectionSerialization\\MyClients.cc";

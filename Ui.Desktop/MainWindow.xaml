@@ -18,7 +18,7 @@
             <ColumnDefinition></ColumnDefinition>
             <ColumnDefinition></ColumnDefinition>
         </Grid.ColumnDefinitions>
-        <UniformGrid Grid.Column="0" Rows="4">
+        <UniformGrid Grid.Column="0" Rows="5">
             <Label VerticalAlignment="Center" HorizontalAlignment="Right">Identifier</Label>
             <TextBox VerticalAlignment="Center" Text="{Binding ElementName=myDataGrid, Path=SelectedItem.Id}"></TextBox>
             <Label VerticalAlignment="Center" HorizontalAlignment="Right">Name</Label>
@@ -27,6 +27,7 @@
             <Button Command="{Binding OpenNewClientWindowCommand}">OpenClientWindow</Button>
             <Button Command="{Binding SaveCommand}">Save</Button>
             <Button Command="{Binding LoadCommand}">Load</Button>
+            <Button Command="{Binding OpenNewBookWindowCommand}">Create new Book</Button>
         </UniformGrid>
         <DataGrid Grid.Column="1" Name="myDataGrid" ItemsSource="{Binding Path=MyList}"></DataGrid>
     </Grid>
