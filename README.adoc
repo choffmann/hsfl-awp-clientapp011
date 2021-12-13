@@ -10,7 +10,7 @@ image:uml.png[]
 *NOTE:* Die Klasse `Size` wurde wegen Namenskonflikten zu `Dimension` umbenannt
 
 == Änderungen
-- Alte Klassen, welche durch die Vorlesungen kamen, wie `Client`, `ClientViewModel`, `MainWindow`, `NewClientWindow` usw. ,  wurden entfernt
+- Alte Klassen, welche durch die Vorlesungen kamen, wie `Client`, `ClientViewModel`, `MainWindow`, `NewClientWindow` usw. wurden entfernt
 - `RelayCommand` wurde durch `RelayCommand mit Parametern` ausgetauscht
 - `MainWindow` wurde überarbeitet. Mehrere `Buttons` sind sichtbar, welche zu den jeweiligen Features führen kann. 
 - Der erste Button im `MainWindow` füllt die `BookCollectionViewModel` mit 10 verschiedenen Büchern. Metadaten wie `Title`, `Author`, `Language`, `Cover` usw. werden befüllt.
