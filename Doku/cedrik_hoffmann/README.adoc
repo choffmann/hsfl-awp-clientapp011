@@ -1,0 +1,50 @@
+Anwendungprogrammierung - Dokumentation 
+Cedrik Hoffmann | 670339 | cedrik.hoffmann@stud.hs-flensburg.de
+:icons: font
+:nofooter:
+:source-highlighter: highlightjs
+:imagesdir: img
+
+== Einleitung
+Auf dem bereits bekannten `MVVM-Grundgerüst` wird ein neues Feature eingebaut. Das Feature soll eine Druckfunktion der gespeicherten Bücher ermöglichen. Dazu wird ein neues UI-Fenster erstellt. In der UI kann der Benutzer eine Auswahl an Büchern mittels einer `Checkbox` auswählen. Wird ein Buch angewählt, erscheint im Fenster eine deateiliertere Ansicht mit den entsprechen Metadaten zu den gewählten Buch.
+
+== Demo Bücher
+Zum Testen wurde eine eigene Methode geschreiben, welche Bücher in der `BookCollectionViewModel` hinzufügt. Um sicher zustellen, das alle Metadaten abgedeckt werden, werden hier alle `Properties` abgedeckt.
+
+[source, c#]
+----
+private void CreateDemoBooks() {
+    // DEMO BOOKS
+    Console.WriteLine("Create Demo Books...");
+    for (int i = 1; i <= 10; i++) {
+        BookViewModel book = new BookViewModel();
+        book.Title = "Book #" + i;
+        book.Author = "Author #" + i;
+        book.Publisher = "Publisher #" + i;
+        book.Description = "Lorem ipsum dolor sit amet, ...";
+        book.Extract = "Lorem ipsum dolor sit amet, ...";
+        book.Genre = Business.Model.BusinessObjects.ENUM.Genre.Horror;
+        book.Language = Business.Model.BusinessObjects.ENUM.Language.Deutsch;
+        book.Format = Business.Model.BusinessObjects.ENUM.Format.Taschenbuch;
+        book.Price = 2.3M;
+        book.Pages = 120;
+        book.Weight = 10;
+        book.Isbn = "ISBN " + i + "-" + i + 7645 + "-" + i + 2641 + "-" + i + 1;
+        book.Rating = 2.4;
+        book.Edition = i;
+        book.Bestseller = i % 2 == 0;
+        book.ReleaseDate = new DateTime();
+
+        Business.Model.BusinessObjects.Dimension dimension = new Business.Model.BusinessObjects.Dimension();
+        dimension.Depth = 1 * (i + 1);
+        dimension.Height = 2 * (i + 1);
+        dimension.Width = 3 * (i + 1);
+        book.Dimension = dimension;
+
+        Image image = Image.FromFile(@"C:\Users\hoffmann\Documents\FH Flensburg\AWP\image\" + i + ".png");
+        book.Cover = image;
+        BookList.Add(book);
+    }
+}
+----
+
