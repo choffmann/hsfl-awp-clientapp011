@@ -18,23 +18,6 @@ namespace De.HsFlensburg.ClientApp011.Logic.Ui.ViewModels
         public BookCollectionViewModel CheckedBooks { get; set; }
         public ICommand PrintBooks { get; }
 
-        private bool isSelected;
-        public bool IsSelected
-        {
-            get
-            {
-                return isSelected;
-            }
-            set
-            {
-                if(isSelected != value)
-                {
-                    isSelected = value;
-                    OnPropertyChanged("IsSelected");
-                }
-            }
-        }
-
         public PrintServiceWindowViewModel(BookCollectionViewModel bookCollectionViewModel)
         {
             PrintBooks = new RelayCommand(PrintBooksCommand);
@@ -83,17 +66,6 @@ namespace De.HsFlensburg.ClientApp011.Logic.Ui.ViewModels
         {
             PrintBookService printer = new PrintBookService(CheckedBooks.Model);
             printer.Printing();
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        protected virtual void OnPropertyChanged(string propertyName)
-        {
-            PropertyChangedEventHandler handler = PropertyChanged;
-            if (handler != null)
-            {
-                handler(this, new PropertyChangedEventArgs(propertyName));
-            }
         }
     }
 }
