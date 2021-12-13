@@ -4,8 +4,7 @@
              xmlns:local="clr-namespace:De.HsFlensburg.ClientApp011.Ui.Desktop"
              xmlns:viewModels="clr-namespace:De.HsFlensburg.ClientApp011.Logic.Ui;assembly=Logic.Ui"
              xmlns:desktop="clr-namespace:De.HsFlensburg.ClientApp011.Ui.Desktop.MessageBusLogic"
-             StartupUri="PrintServiceWindow.xaml">
-    <!--StartupUri="MainWindow.xaml">-->
+             StartupUri="MainWindow.xaml">
     <Application.Resources>
         <viewModels:ViewModelLocator x:Key="ViewModelLocator"></viewModels:ViewModelLocator>
         <desktop:MessageListener x:Key="MessageListener"></desktop:MessageListener>

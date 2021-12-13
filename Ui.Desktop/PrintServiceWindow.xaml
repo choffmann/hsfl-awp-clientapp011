@@ -8,7 +8,7 @@
         Title="PrintServiceWindow" Height="300" Width="700">
     <!-- Height="1024" Width="768" -->
     <Window.DataContext>
-        <Binding Source="{StaticResource ViewModelLocator}" Path="ThePrintServiceWindowViewModle"></Binding>
+        <Binding Source="{StaticResource ViewModelLocator}" Path="ThePrintServiceWindowViewModel"></Binding>
     </Window.DataContext>
     <Window.IsEnabled>
         <Binding Source="{StaticResource MessageListener}" Path="BindableProperty"></Binding>

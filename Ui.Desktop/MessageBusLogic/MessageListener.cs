@@ -1,4 +1,5 @@
-﻿using De.HsFlensburg.ClientApp011.Services.MessageBus;
+﻿using De.HsFlensburg.ClientApp011.Logic.Ui.MessageBusMessages;
+using De.HsFlensburg.ClientApp011.Services.MessageBus;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,7 +18,12 @@ namespace De.HsFlensburg.ClientApp011.Ui.Desktop.MessageBusLogic
 
         private void InitMessenger()
         {
-            
+            ServiceBus.Instance.Register<OpenPrintServiceWindowMessage>(this, OpenPrintServiceWindow);
+        }
+        private void OpenPrintServiceWindow()
+        {
+            PrintServiceWindow printServiceWindow = new PrintServiceWindow();
+            printServiceWindow.ShowDialog();
         }
     }
 }
