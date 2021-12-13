@@ -7,7 +7,7 @@
 .UML-Diagram
 image:uml.png[]
 
-NOTE: Die Klasse `Size` wurde wegen Namenskonflikten zu `Dimension` umbenannt
+*NOTE:* Die Klasse `Size` wurde wegen Namenskonflikten zu `Dimension` umbenannt
 
 == Änderungen
 - Alte Klassen, welche durch die Vorlesungen kamen, wie `Client`, `ClientViewModel`, `MainWindow`, `NewClientWindow` usw. ,  wurden entfernt
