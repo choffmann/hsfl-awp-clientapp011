@@ -17,13 +17,32 @@ namespace De.HsFlensburg.ClientApp011.Logic.Ui.ViewModels
     {
         public BookCollectionViewModel BookList { get; set; }
         public BookCollectionViewModel CheckedBooks { get; set; }
+        private BookViewModel selectedBook;
+        public BookViewModel SelectedBook
+        {
+            get
+            {
+                return selectedBook;
+            }
+            set
+            {
+                if(value != null)
+                {
+                    Console.WriteLine("Add Book to Collection: " + value.Title);
+                    selectedBook = value;
+                    CheckedBooks.Add(selectedBook);
+                }
+            }
+        }
         public ICommand PrintBooks { get; }
         public ICommand CloseWindow { get; }
+        public ICommand Selected { get; }
 
         public PrintServiceWindowViewModel(BookCollectionViewModel bookCollectionViewModel)
         {
             PrintBooks = new RelayCommand(PrintBooksCommand);
             CloseWindow = new RelayCommand(param => CloseWindowCommand(param));
+            Selected = new RelayCommand(param => SelectedCommand(param));
             BookList = bookCollectionViewModel;
             CheckedBooks = new BookCollectionViewModel();
         }
@@ -38,6 +57,10 @@ namespace De.HsFlensburg.ClientApp011.Logic.Ui.ViewModels
         {
             Window window = (Window)param;
             window.Close();
+        }
+        private void SelectedCommand(object param)
+        {
+            Console.WriteLine(param);
         }
     }
 }

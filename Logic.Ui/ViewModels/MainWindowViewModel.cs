@@ -34,8 +34,8 @@ namespace De.HsFlensburg.ClientApp011.Logic.Ui.ViewModels
                 book.Title = "Book #" + i;
                 book.Author = "Author #" + i;
                 book.Publisher = "Publisher #" + i;
-                book.Description = "Lorem ipsum dolor sit amet, ...";
-                book.Extract = "Lorem ipsum dolor sit amet, ...";
+                book.Description = "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At";
+                book.Extract = "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.";
                 book.Genre = Business.Model.BusinessObjects.ENUM.Genre.Horror;
                 book.Language = Business.Model.BusinessObjects.ENUM.Language.Deutsch;
                 book.Format = Business.Model.BusinessObjects.ENUM.Format.Taschenbuch;
