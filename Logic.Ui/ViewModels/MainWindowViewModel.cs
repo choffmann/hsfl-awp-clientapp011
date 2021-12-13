@@ -1,4 +1,6 @@
-﻿using De.HsFlensburg.ClientApp011.Logic.Ui.Wrapper;
+﻿using De.HsFlensburg.ClientApp011.Logic.Ui.MessageBusMessages;
+using De.HsFlensburg.ClientApp011.Logic.Ui.Wrapper;
+using De.HsFlensburg.ClientApp011.Services.MessageBus;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -12,13 +14,21 @@ namespace De.HsFlensburg.ClientApp011.Logic.Ui.ViewModels
 {
     public class MainWindowViewModel
     {
-        public ICommand FillBookList { get; set; }
+        public ICommand FillBookList { get; }
+        public ICommand OpenNewBookWindow { get; }
         public BookCollectionViewModel BookCollection { get; set; }
         public MainWindowViewModel(BookCollectionViewModel bookCollectionViewModel)
         {
             BookCollection = bookCollectionViewModel;
             FillBookList = new RelayCommand(FillBookListCommand);
+            OpenNewBookWindow = new RelayCommand(OpenNewBookWindowCommand);
         }
+
+        private void OpenNewBookWindowCommand()
+        {
+            ServiceBus.Instance.Send(new OpenNewBookWindowMessage());
+        }
+
 
         private void FillBookListCommand()
         {

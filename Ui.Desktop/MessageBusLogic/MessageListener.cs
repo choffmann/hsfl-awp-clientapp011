@@ -18,7 +18,12 @@ namespace De.HsFlensburg.ClientApp011.Ui.Desktop.MessageBusLogic
 
         private void InitMessenger()
         {
-            
+            ServiceBus.Instance.Register<OpenNewBookWindowMessage>(this, OpenNewBookWindow);
+        }
+        private void OpenNewBookWindow()
+        {
+            NewBookEntry newBookWindow = new NewBookEntry();
+            newBookWindow.ShowDialog();
         }
     }
 }
