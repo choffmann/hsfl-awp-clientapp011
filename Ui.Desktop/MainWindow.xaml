@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:De.HsFlensburg.ClientApp011.Ui.Desktop"
         xmlns:viewModels="clr-namespace:De.HsFlensburg.ClientApp011.Logic.Ui;assembly=Logic.Ui"
         mc:Ignorable="d"
-        Title="MainWindow" Height="250" Width="500">
+        Title="MainWindow" Height="450" Width="800">
     <Window.DataContext>
         <Binding Source="{StaticResource ViewModelLocator}" Path="TheMainWindowViewModel"></Binding>
     </Window.DataContext>
@@ -15,20 +15,14 @@
     </Window.IsEnabled>
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition></ColumnDefinition>
-            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <UniformGrid Grid.Column="0" Rows="5">
-            <Label VerticalAlignment="Center" HorizontalAlignment="Right">Identifier</Label>
-            <TextBox VerticalAlignment="Center" Text="{Binding ElementName=myDataGrid, Path=SelectedItem.Id}"></TextBox>
-            <Label VerticalAlignment="Center" HorizontalAlignment="Right">Name</Label>
-            <TextBox VerticalAlignment="Center" Text="{Binding ElementName=myDataGrid, Path=SelectedItem.Name}"></TextBox>
-            <Button Command="{Binding RenameValueInModelCommand}">Rename first Item</Button>
-            <Button Command="{Binding OpenNewClientWindowCommand}">OpenClientWindow</Button>
-            <Button Command="{Binding SaveCommand}">Save</Button>
-            <Button Command="{Binding LoadCommand}">Load</Button>
-            <Button Command="{Binding OpenNewBookWindowCommand}">Create new Book</Button>
-        </UniformGrid>
-        <DataGrid Grid.Column="1" Name="myDataGrid" ItemsSource="{Binding Path=MyList}"></DataGrid>
+        <Button Content="Fill BookCollection" Grid.Column="0" HorizontalAlignment="Center"  VerticalAlignment="Center" Width="150" Height="150" Command="{Binding FillBookList}"/>
+        <Button Content="$empty" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Width="150" Height="150"/>
+        <Button Content="$empty" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" Width="150" Height="150" />
+        <Button Content="$empty" Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center" Width="150" Height="150" />
     </Grid>
 </Window>
