@@ -2,5 +2,8 @@
 :imagesdir: img
 :nofooter:
 
-.UML-Diagram
+== UML Diagram
+
 image:uml.png[]
+
+*NOTE:* Die Klasse `Size` wurde wegen Namenskonflikten zu `Dimension` umbenannt
