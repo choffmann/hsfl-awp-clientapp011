@@ -1,5 +1,4 @@
-﻿using De.HsFlensburg.ClientApp011.Logic.Ui.MessageBusMessages;
-using De.HsFlensburg.ClientApp011.Services.MessageBus;
+﻿using De.HsFlensburg.ClientApp011.Services.MessageBus;
 using System;
 using System.Collections.Generic;
 using System.Linq;
