@@ -12,7 +12,7 @@ using System.Windows.Input;
 
 namespace De.HsFlensburg.ClientApp011.Logic.Ui.ViewModels
 {
-    public class PrintServiceWindowViewModel: INotifyPropertyChanged
+    public class PrintServiceWindowViewModel
     {
         public BookCollectionViewModel BookList { get; set; }
         public BookCollectionViewModel CheckedBooks { get; set; }
