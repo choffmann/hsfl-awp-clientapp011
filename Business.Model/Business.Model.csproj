@@ -44,8 +44,6 @@
   <ItemGroup>
     <Compile Include="BusinessObjects\Book.cs" />
     <Compile Include="BusinessObjects\BookCollection.cs" />
-    <Compile Include="BusinessObjects\Client.cs" />
-    <Compile Include="BusinessObjects\ClientCollection.cs" />
     <Compile Include="BusinessObjects\ENUM\Format.cs" />
     <Compile Include="BusinessObjects\ENUM\Genre.cs" />
     <Compile Include="BusinessObjects\ENUM\Language.cs" />
