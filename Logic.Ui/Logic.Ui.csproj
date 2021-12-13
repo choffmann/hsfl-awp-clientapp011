@@ -68,6 +68,10 @@
       <Project>{0b5b1e65-23f6-49fd-baea-63df24894a03}</Project>
       <Name>Services.MessageBus</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Services.PrintService\Services.PrintService.csproj">
+      <Project>{dea7cccc-7f86-42b8-bc5e-25012e299eaf}</Project>
+      <Name>Services.PrintService</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Services.SerializationService\Services.SerializationService.csproj">
       <Project>{7840c4d4-72e6-4d83-ae66-ebb34e666595}</Project>
       <Name>Services.SerializationService</Name>
