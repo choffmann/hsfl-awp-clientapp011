@@ -13,5 +13,5 @@ image:uml.png[]
 - Alte Klassen, welche durch die Vorlesungen kamen, wie `Client`, `ClientViewModel`, `MainWindow`, `NewClientWindow` usw. wurden entfernt
 - `RelayCommand` wurde durch `RelayCommand mit Parametern` ausgetauscht
 - `MainWindow` wurde überarbeitet. Mehrere `Buttons` sind sichtbar, welche zu den jeweiligen Features führen kann. 
-- Der erste Button im `MainWindow` füllt die `BookCollectionViewModel` mit 10 verschiedenen Büchern. Metadaten wie `Title`, `Author`, `Language`, `Cover` usw. werden befüllt.
 - Serialisierung wurde implementiert, dafür musste im Model in der Klasse `Dimension` das Attributen `[Serializable]` hinzugefügt werden (siehe https://github.com/choffmann/hsfl-awp-clientapp011/pull/1[Pull request #1])
+- Der erste Button im `MainWindow` lädt die Datei `BooksGroup017.bmf` und befüllt somit die `BookCollectionViewModel` mit Demo-Büchern.
