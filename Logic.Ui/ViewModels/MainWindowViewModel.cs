@@ -1,6 +1,8 @@
-﻿using De.HsFlensburg.ClientApp011.Logic.Ui.MessageBusMessages;
+using De.HsFlensburg.ClientApp011.Logic.Ui.MessageBusMessages;
 using De.HsFlensburg.ClientApp011.Logic.Ui.Wrapper;
 using De.HsFlensburg.ClientApp011.Services.MessageBus;
+using De.HsFlensburg.ClientApp011.Logic.Ui.Wrapper;
+using De.HsFlensburg.ClientApp011.Services.SerializationService;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -16,12 +18,31 @@ namespace De.HsFlensburg.ClientApp011.Logic.Ui.ViewModels
     {
         public ICommand FillBookList { get; set; }
         public ICommand OpenPrintServiceWindow { get; }
+        private ModelFileHandler modelFileHandler;
+        private string pathForSerialization;
+        public ICommand FillBookList { get; }
+        public ICommand SaveToFile { get; }
+        public ICommand LoadFromFile { get; }
         public BookCollectionViewModel BookCollection { get; set; }
         public MainWindowViewModel(BookCollectionViewModel bookCollectionViewModel)
         {
             BookCollection = bookCollectionViewModel;
             FillBookList = new RelayCommand(FillBookListCommand);
             OpenPrintServiceWindow = new RelayCommand(OpenPrintServiceWindowCommand);
+            SaveToFile = new RelayCommand(SaveToFileCommand);
+            LoadFromFile = new RelayCommand(LoadFromFileCommand);
+            modelFileHandler = new ModelFileHandler();
+            pathForSerialization = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\BookManagerSerialization\\BooksGroup017.bmf";
+        }
+
+        private void SaveToFileCommand()
+        {
+            modelFileHandler.WriteModelToFile(pathForSerialization, BookCollection.Model);
+        }
+
+        private void LoadFromFileCommand()
+        {
+            BookCollection.Model = modelFileHandler.ReadModelFromFile(pathForSerialization);
         }
 
         private void FillBookListCommand()
