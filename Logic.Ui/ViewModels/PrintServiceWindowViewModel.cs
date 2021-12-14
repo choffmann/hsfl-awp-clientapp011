@@ -25,28 +25,18 @@ namespace De.HsFlensburg.ClientApp011.Logic.Ui.ViewModels
 
         public PrintServiceWindowViewModel(BookCollectionViewModel bookCollectionViewModel)
         {
+            BookList = bookCollectionViewModel;
+            CheckedBooks = new BookCollectionViewModel();
             PrintBooks = new RelayCommand(PrintBooksCommand);
             CloseWindow = new RelayCommand(param => CloseWindowCommand(param));
             AddSelectedBookToCollection = new RelayCommand(param => AddSelectedBookToCollectionCommand(param));
             RemoveSelectedBookToCollection = new RelayCommand(param => RemoveSelectedBookToCollectionCommand(param));
-            BookList = bookCollectionViewModel;
-            CheckedBooks = new BookCollectionViewModel();
         }
 
-        private void PrintBooksCommand()
-        {
-            PrintBookService printer = new PrintBookService(CheckedBooks.Model);
-            printer.Printing();
-        }
-
-        private void CloseWindowCommand(object param)
-        {
-            Window window = (Window)param;
-            window.Close();
-        }
+        // Command to add selected book to BookCollection "CheckedBooks"
         private void AddSelectedBookToCollectionCommand(object param)
         {
-            // Save System.Windows.Controls.SelectedItemCollection to IList to Cast to List<BookViewModel>
+            // Save System.Windows.Controls.SelectedItemCollection to IList and Cast to List<BookViewModel>
             // https://stackoverflow.com/questions/1877949/how-to-cast-a-system-windows-controls-selecteditemcollection
             System.Collections.IList items = (System.Collections.IList)param;
             var collection = items.Cast<BookViewModel>();
@@ -59,9 +49,11 @@ namespace De.HsFlensburg.ClientApp011.Logic.Ui.ViewModels
                 }
             }
         }
+
+        // Command to remove selected book of BookCollection "CheckedBooks"
         private void RemoveSelectedBookToCollectionCommand(object param)
         {
-            // Save System.Windows.Controls.SelectedItemCollection to IList to Cast to List<BookViewModel>
+            // Save System.Windows.Controls.SelectedItemCollection to IList and Cast to List<BookViewModel>
             // https://stackoverflow.com/questions/1877949/how-to-cast-a-system-windows-controls-selecteditemcollection
             System.Collections.IList items = (System.Collections.IList)param;
             var collection = items.Cast<BookViewModel>();
@@ -72,6 +64,22 @@ namespace De.HsFlensburg.ClientApp011.Logic.Ui.ViewModels
             }
         }
 
+        // Command to open PrintService
+        private void PrintBooksCommand()
+        {
+            PrintBookService printer = new PrintBookService(CheckedBooks.Model);
+            printer.Printing();
+        }
+
+        // Command to Close Window
+        private void CloseWindowCommand(object param)
+        {
+            CheckedBooks.Clear();
+            Window window = (Window)param;
+            window.Close();
+        }
+
+        // Helper Function to check if book is present in collection
         private bool CheckItemIsInCheckedBooks(BookViewModel currentBook)
         {
             foreach(BookViewModel book in CheckedBooks)

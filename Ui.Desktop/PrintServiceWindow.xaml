@@ -16,61 +16,52 @@
     </Window.IsEnabled>
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="150"></ColumnDefinition>
-            <ColumnDefinition Width="*"></ColumnDefinition>
+            <!-- Book Control -->
+            <ColumnDefinition Width="150"/>
+            <!-- Book Preview -->
+            <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <Grid Grid.Column="0" Margin="5">
             <Grid.RowDefinitions>
-                <RowDefinition Height="*"></RowDefinition>
-                <RowDefinition Height="50"></RowDefinition>
+                <!-- All Book TextBox -->
+                <RowDefinition Height="18" />
+                <!-- All Book ListView -->
+                <RowDefinition Height="*" />
+                <!-- ListView Control Buttons-->
+                <RowDefinition Height="50" />
+                <!-- Selected Book TextBox -->
+                <RowDefinition Height="18" />
+                <!-- Selected Book ListView-->
+                <RowDefinition Height="*" />
+                <!-- Print and Close Button -->
+                <RowDefinition Height="50" />
             </Grid.RowDefinitions>
-            <UniformGrid Grid.Row="0">
-                <Grid Grid.Row="0">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="*"></RowDefinition>
-                        <RowDefinition Height="50"></RowDefinition>
-                        <RowDefinition Height="*"></RowDefinition>
-                    </Grid.RowDefinitions>
-                    <Grid Grid.Row="0">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="18"></RowDefinition>
-                            <RowDefinition Height="*"></RowDefinition>
-                        </Grid.RowDefinitions>
-                        <TextBlock Text="All Books" FontWeight="Bold" />
-                        <ListBox Grid.Row="1" x:Name="BookListBox" ItemsSource="{Binding BookList}" SelectionMode="Extended">
-                            <ListBox.ItemTemplate>
-                                <DataTemplate>
-                                    <TextBlock Text="{Binding Title}" />
-                                </DataTemplate>
-                            </ListBox.ItemTemplate>
-                        </ListBox>
-                    </Grid>
-                    <UniformGrid Grid.Row="1" Columns="2" Rows="1">
-                        <Button Content="Add" Margin="0,5,5,5" CommandParameter="{Binding ElementName=BookListBox, Path=SelectedItems}" Command="{Binding AddSelectedBookToCollection}"/>
-                        <Button Content="Remove" Margin="5,5,0,5" CommandParameter="{Binding ElementName=BookListBox, Path=SelectedItems}" Command="{Binding RemoveSelectedBookToCollection}"/>
-                    </UniformGrid>
-                    <Grid Grid.Row="2">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="18"></RowDefinition>
-                            <RowDefinition Height="*"></RowDefinition>
-                        </Grid.RowDefinitions>
-                        <TextBlock Grid.Row="0" Text="Selected Books" FontWeight="Bold" />
-                        <ListView Grid.Row="1" ItemsSource="{Binding CheckedBooks}">
-                            <ListView.ItemContainerStyle>
-                                <Style TargetType="ListViewItem">
-                                    <Setter Property="Focusable" Value="False"/>
-                                </Style>
-                            </ListView.ItemContainerStyle>
-                            <ListView.ItemTemplate>
-                                <DataTemplate>
-                                    <TextBlock Text="{Binding Title}" />
-                                </DataTemplate>
-                            </ListView.ItemTemplate>
-                        </ListView>
-                    </Grid>
-                </Grid>
+            <TextBlock Grid.Row="0" Text="All Books" FontWeight="Bold" />
+            <ListBox Grid.Row="1" x:Name="BookListBox" ItemsSource="{Binding BookList}" SelectionMode="Extended">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding Title}" />
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+            <UniformGrid Grid.Row="2" Columns="2" Rows="1">
+                <Button Content="Add" Margin="0,5,5,5" CommandParameter="{Binding ElementName=BookListBox, Path=SelectedItems}" Command="{Binding AddSelectedBookToCollection}"/>
+                <Button Content="Remove" Margin="5,5,0,5" CommandParameter="{Binding ElementName=BookListBox, Path=SelectedItems}" Command="{Binding RemoveSelectedBookToCollection}"/>
             </UniformGrid>
-            <UniformGrid Grid.Row="1" Columns="2" Rows="1">
+            <TextBlock Grid.Row="3" Text="Selected Books" FontWeight="Bold" />
+            <ListView Grid.Row="4" ItemsSource="{Binding CheckedBooks}">
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="ListViewItem">
+                        <Setter Property="Focusable" Value="False"/>
+                    </Style>
+                </ListView.ItemContainerStyle>
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding Title}" />
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+            <UniformGrid Grid.Row="5" Columns="2" Rows="1">
                 <Button Command="{Binding PrintBooks}" Content="Print" Margin="0,5,5,5"/>
                 <Button Command="{Binding CloseWindow}" CommandParameter="{Binding ElementName=PrintServiceWindowName}" Content="Close" Margin="5,5,0,5" />
             </UniformGrid>
