@@ -28,6 +28,9 @@ namespace De.HsFlensburg.ClientApp011.Logic.Ui.ViewModels
             LoadFromFile = new RelayCommand(LoadFromFileCommand);
             modelFileHandler = new ModelFileHandler();
             pathForSerialization = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\BookManagerSerialization\\BooksGroup017.bmf";
+
+            // Open PrintService Window
+            OpenPrintServiceWindow = new RelayCommand(OpenPrintServiceWindowCommand);
         }
 
         private void LoadFromFileCommand()
