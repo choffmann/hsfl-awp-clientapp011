@@ -15,66 +15,19 @@ namespace De.HsFlensburg.ClientApp011.Logic.Ui.ViewModels
     {
         private ModelFileHandler modelFileHandler;
         private string pathForSerialization;
-        public ICommand FillBookList { get; }
-        public ICommand SaveToFile { get; }
         public ICommand LoadFromFile { get; }
         public BookCollectionViewModel BookCollection { get; set; }
         public MainWindowViewModel(BookCollectionViewModel bookCollectionViewModel)
         {
             BookCollection = bookCollectionViewModel;
-            FillBookList = new RelayCommand(FillBookListCommand);
-            SaveToFile = new RelayCommand(SaveToFileCommand);
             LoadFromFile = new RelayCommand(LoadFromFileCommand);
             modelFileHandler = new ModelFileHandler();
             pathForSerialization = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\BookManagerSerialization\\BooksGroup017.bmf";
         }
 
-        private void SaveToFileCommand()
-        {
-            modelFileHandler.WriteModelToFile(pathForSerialization, BookCollection.Model);
-        }
-
         private void LoadFromFileCommand()
         {
             BookCollection.Model = modelFileHandler.ReadModelFromFile(pathForSerialization);
-        }
-
-        private void FillBookListCommand()
-        {
-            // DEMO BOOKS
-            Console.WriteLine("Create Demo Books...");
-            for (int i = 1; i <= 10; i++)
-            {
-                BookViewModel book = new BookViewModel();
-                book.Title = "Book #" + i;
-                book.Author = "Author #" + i;
-                book.Publisher = "Publisher #" + i;
-                book.Description = "Lorem ipsum dolor sit amet, ...";
-                book.Extract = "Lorem ipsum dolor sit amet, ...";
-                book.Genre = Business.Model.BusinessObjects.ENUM.Genre.Horror;
-                book.Language = Business.Model.BusinessObjects.ENUM.Language.Deutsch;
-                book.Format = Business.Model.BusinessObjects.ENUM.Format.Taschenbuch;
-                book.Price = 2.3M;
-                book.Pages = 120;
-                book.Weight = 10;
-                book.Isbn = "ISBN " + i + "-" + i + 7645 + "-" + i + 2641 + "-" + i + 1;
-                book.Rating = 2.4;
-                book.Edition = i;
-                book.Bestseller = i % 2 == 0;
-                book.ReleaseDate = new DateTime();
-
-                Business.Model.BusinessObjects.Dimension dimension = new Business.Model.BusinessObjects.Dimension();
-                dimension.Depth = 1 * (i + 1);
-                dimension.Height = 2 * (i + 1);
-                dimension.Width = 3 * (i + 1);
-                book.Dimension = dimension;
-
-                // Root Directory of Repository => \img\
-                string path = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.FullName + "\\img\\" + i + ".png";
-                Image image = Image.FromFile(path);
-                book.Cover = image;
-                BookCollection.Add(book);
-            }
         }
     }
 }
