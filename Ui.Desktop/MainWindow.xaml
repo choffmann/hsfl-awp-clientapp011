@@ -20,7 +20,12 @@
             <ColumnDefinition/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <Button Content="Fill BookCollection" Grid.Column="0" HorizontalAlignment="Center"  VerticalAlignment="Center" Width="150" Height="150" Command="{Binding FillBookList}"/>
+        <!--<UniformGrid Grid.Column="0" Rows="3">
+            <Button Content="Fill local BookCollection" HorizontalAlignment="Center"  VerticalAlignment="Center" Width="150" Height="100" Command="{Binding FillBookList}"/>
+            <Button Content="Save to *.bmf" HorizontalAlignment="Center"  VerticalAlignment="Center" Width="150" Height="100" Command="{Binding SaveToFile}"/>
+            <Button Content="Load from *.bmf" HorizontalAlignment="Center"  VerticalAlignment="Center" Width="150" Height="100" Command="{Binding LoadFromFile}"/>
+        </UniformGrid>-->
+        <Button Content="Load Collection from *.bmf" Grid.Column="0" HorizontalAlignment="Center"  VerticalAlignment="Center" Width="150" Height="150" Command="{Binding LoadFromFile}"/>
         <Button Content="$empty" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Width="150" Height="150"/>
         <Button Content="$empty" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" Width="150" Height="150" />
         <Button Content="$empty" Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center" Width="150" Height="150" />

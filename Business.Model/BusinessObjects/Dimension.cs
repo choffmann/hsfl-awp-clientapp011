@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace De.HsFlensburg.ClientApp011.Business.Model.BusinessObjects
 {
+    [Serializable]
     public class Dimension
     {
         public int Height { get; set; }
