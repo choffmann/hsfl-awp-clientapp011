@@ -20,7 +20,6 @@ namespace De.HsFlensburg.ClientApp011.Logic.Ui.ViewModels
         public ICommand OpenPrintServiceWindow { get; }
         private ModelFileHandler modelFileHandler;
         private string pathForSerialization;
-        public ICommand FillBookList { get; }
         public ICommand SaveToFile { get; }
         public ICommand LoadFromFile { get; }
         public BookCollectionViewModel BookCollection { get; set; }
