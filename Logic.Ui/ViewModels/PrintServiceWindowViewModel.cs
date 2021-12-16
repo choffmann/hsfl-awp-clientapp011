@@ -67,8 +67,19 @@ namespace De.HsFlensburg.ClientApp011.Logic.Ui.ViewModels
         // Command to open PrintService
         private void PrintBooksCommand()
         {
-            PrintBookService printer = new PrintBookService(CheckedBooks.Model);
-            printer.Printing();
+            if(CheckedBooks.Count == 0)
+            {
+                // Show MessageBox if no book is selected
+                string caption = "No Book Selected!";
+                string msg = "No Book selected. You have to select at least one book!";
+                MessageBoxButton messageBoxButton = MessageBoxButton.OK;
+                MessageBoxImage messageBoxIcon = MessageBoxImage.Information;
+                MessageBox.Show(msg, caption, messageBoxButton, messageBoxIcon);
+            } else
+            {
+                PrintBookService printer = new PrintBookService(CheckedBooks.Model);
+                printer.Printing();
+            }
         }
 
         // Command to Close Window
