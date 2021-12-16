@@ -9,7 +9,10 @@
         x:Name="PrintServiceWindowName">
     <!-- Height="1024" Width="768" -->
     <Window.DataContext>
-        <Binding Source="{StaticResource ViewModelLocator}" Path="ThePrintServiceWindowViewModel"></Binding>
+        <Binding Source="{StaticResource ViewModelLocator}" 
+                 Path="ThePrintServiceWindowViewModel">
+            
+        </Binding>
     </Window.DataContext>
     <Window.IsEnabled>
         <Binding Source="{StaticResource MessageListener}" Path="BindableProperty"></Binding>
@@ -37,7 +40,9 @@
                 <RowDefinition Height="50" />
             </Grid.RowDefinitions>
             <TextBlock Grid.Row="0" Text="All Books" FontWeight="Bold" />
-            <ListBox Grid.Row="1" x:Name="BookListBox" ItemsSource="{Binding BookList}" SelectionMode="Extended">
+            <ListBox Grid.Row="1" x:Name="BookListBox" 
+                     ItemsSource="{Binding BookList}" 
+                     SelectionMode="Extended">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <TextBlock Text="{Binding Title}" />
@@ -45,8 +50,12 @@
                 </ListBox.ItemTemplate>
             </ListBox>
             <UniformGrid Grid.Row="2" Columns="2" Rows="1">
-                <Button Content="Add" Margin="0,5,5,5" CommandParameter="{Binding ElementName=BookListBox, Path=SelectedItems}" Command="{Binding AddSelectedBookToCollection}"/>
-                <Button Content="Remove" Margin="5,5,0,5" CommandParameter="{Binding ElementName=BookListBox, Path=SelectedItems}" Command="{Binding RemoveSelectedBookToCollection}"/>
+                <Button Content="Add" Margin="0,5,5,5" 
+                        CommandParameter="{Binding ElementName=BookListBox, Path=SelectedItems}"
+                        Command="{Binding AddSelectedBookToCollection}"/>
+                <Button Content="Remove" Margin="5,5,0,5" 
+                        CommandParameter="{Binding ElementName=BookListBox, Path=SelectedItems}"
+                        Command="{Binding RemoveSelectedBookToCollection}"/>
             </UniformGrid>
             <TextBlock Grid.Row="3" Text="Selected Books" FontWeight="Bold" />
             <ListView Grid.Row="4" ItemsSource="{Binding CheckedBooks}">
@@ -63,7 +72,9 @@
             </ListView>
             <UniformGrid Grid.Row="5" Columns="2" Rows="1">
                 <Button Command="{Binding PrintBooks}" Content="Print" Margin="0,5,5,5"/>
-                <Button Command="{Binding CloseWindow}" CommandParameter="{Binding ElementName=PrintServiceWindowName}" Content="Close" Margin="5,5,0,5" />
+                <Button Command="{Binding CloseWindow}" 
+                        CommandParameter="{Binding ElementName=PrintServiceWindowName}" 
+                        Content="Close" Margin="5,5,0,5" />
             </UniformGrid>
         </Grid>
         <Grid Grid.Column="1">
@@ -78,47 +89,68 @@
             </Grid.RowDefinitions>
             <TextBlock Grid.Row="0" Grid.Column="0" Text="Book Preview" FontWeight="Bold" />
             <StackPanel Margin="0,0,5,0" Grid.Row="1" Grid.Column="0">
-                <Image Source="{Binding ElementName=BookListBox, Path=SelectedItem.BindableCoverImage}" Stretch="Uniform" RenderTransformOrigin="0.5,0.5" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
+                <Image 
+                    Source="{Binding ElementName=BookListBox,
+                                     Path=SelectedItem.BindableCoverImage}" 
+                    Stretch="Uniform" RenderTransformOrigin="0.5,0.5" 
+                    VerticalAlignment="Stretch" 
+                    HorizontalAlignment="Stretch"/>
             </StackPanel>
             <StackPanel Grid.Row="1" Grid.Column="1">
                 <TextBlock FontWeight="Bold" Text="Title: "/>
-                <TextBlock Text="{Binding ElementName=BookListBox, Path=SelectedItem.Title}"/>
+                <TextBlock Text="{Binding ElementName=BookListBox, 
+                    Path=SelectedItem.Title}"/>
                 <TextBlock FontWeight="Bold" Text="Author: "/>
-                <TextBlock Text="{Binding ElementName=BookListBox, Path=SelectedItem.Author}"/>
+                <TextBlock Text="{Binding ElementName=BookListBox, 
+                    Path=SelectedItem.Author}"/>
                 <TextBlock FontWeight="Bold" Text="Weight: "/>
-                <TextBlock Text="{Binding ElementName=BookListBox, Path=SelectedItem.Weight}"/>
+                <TextBlock Text="{Binding ElementName=BookListBox, 
+                    Path=SelectedItem.Weight}"/>
                 <TextBlock FontWeight="Bold" Text="Size: "/>
                 <WrapPanel Orientation="Horizontal">
-                    <TextBlock Text="{Binding ElementName=BookListBox, Path=SelectedItem.Dimension.Height}"/>
+                    <TextBlock Text="{Binding ElementName=BookListBox, 
+                        Path=SelectedItem.Dimension.Height}"/>
                     <TextBlock Text="x"/>
-                    <TextBlock Text="{Binding ElementName=BookListBox, Path=SelectedItem.Dimension.Width}"/>
+                    <TextBlock Text="{Binding ElementName=BookListBox, 
+                        Path=SelectedItem.Dimension.Width}"/>
                     <TextBlock Text="x"/>
-                    <TextBlock Text="{Binding ElementName=BookListBox, Path=SelectedItem.Dimension.Depth}"/>
+                    <TextBlock Text="{Binding ElementName=BookListBox, 
+                        Path=SelectedItem.Dimension.Depth}"/>
                 </WrapPanel>
                 <TextBlock FontWeight="Bold" Text="Publisher: "/>
-                <TextBlock Text="{Binding ElementName=BookListBox, Path=SelectedItem.Publisher}"/>
+                <TextBlock Text="{Binding ElementName=BookListBox, 
+                    Path=SelectedItem.Publisher}"/>
                 <TextBlock FontWeight="Bold" Text="Bestseller: "/>
-                <TextBlock Text="{Binding ElementName=BookListBox, Path=SelectedItem.Bestseller}"/>
+                <TextBlock Text="{Binding ElementName=BookListBox, 
+                    Path=SelectedItem.Bestseller}"/>
                 <TextBlock FontWeight="Bold" Text="Genre: "/>
-                <TextBlock Text="{Binding ElementName=BookListBox, Path=SelectedItem.Genre}"/>
+                <TextBlock Text="{Binding ElementName=BookListBox,
+                    Path=SelectedItem.Genre}"/>
                 <TextBlock FontWeight="Bold" Text="ISBN: "/>
-                <TextBlock Text="{Binding ElementName=BookListBox, Path=SelectedItem.Isbn}"/>
+                <TextBlock Text="{Binding ElementName=BookListBox,
+                    Path=SelectedItem.Isbn}"/>
                 <TextBlock FontWeight="Bold" Text="Description: "/>
-                <TextBlock Text="{Binding ElementName=BookListBox, Path=SelectedItem.Description}" TextWrapping="Wrap"/>
+                <TextBlock Text="{Binding ElementName=BookListBox, 
+                    Path=SelectedItem.Description}" TextWrapping="Wrap"/>
             </StackPanel>
             <StackPanel Grid.Row="2" Grid.Column="0">
                 <TextBlock FontWeight="Bold" Text="Exctract: "/>
-                <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
-                    <TextBlock Text="{Binding ElementName=BookListBox, Path=SelectedItem.Extract}" TextWrapping="Wrap" />
+                <ScrollViewer VerticalScrollBarVisibility="Auto" 
+                              HorizontalScrollBarVisibility="Disabled">
+                    <TextBlock Text="{Binding ElementName=BookListBox, Path=SelectedItem.Extract}" 
+                               TextWrapping="Wrap" />
                 </ScrollViewer>
             </StackPanel>
             <StackPanel Grid.Row="2" Grid.Column="1">
                 <TextBlock FontWeight="Bold" Text="Release Date: "/>
-                <TextBlock Text="{Binding ElementName=BookListBox, Path=SelectedItem.ReleaseDate}"/>
+                <TextBlock Text="{Binding ElementName=BookListBox, 
+                    Path=SelectedItem.ReleaseDate}"/>
                 <TextBlock FontWeight="Bold" Text="Language: "/>
-                <TextBlock Text="{Binding ElementName=BookListBox, Path=SelectedItem.Language}"/>
+                <TextBlock Text="{Binding ElementName=BookListBox, 
+                    Path=SelectedItem.Language}"/>
                 <TextBlock FontWeight="Bold" Text="Edition: "/>
-                <TextBlock Text="{Binding ElementName=BookListBox, Path=SelectedItem.Edition}"/>
+                <TextBlock Text="{Binding ElementName=BookListBox, 
+                    Path=SelectedItem.Edition}"/>
             </StackPanel>
         </Grid>
     </Grid>

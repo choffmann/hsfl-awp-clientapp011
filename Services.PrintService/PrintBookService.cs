@@ -75,7 +75,7 @@ namespace De.HsFlensburg.ClientApp011.Services.PrintService
                 // Second Column fill with new Content
                 currentRow = contentTable.RowGroups[0].Rows[3];
                 currentRow.FontFamily = consolas;
-                currentRow.Cells.Add(new TableCell(new Paragraph(new Run("Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At"))));
+                currentRow.Cells.Add(new TableCell(new Paragraph(new Run(book.Description))));
                 currentRow.Cells[0].ColumnSpan = 4;
 
                 // Create new 1x2 Table to display Image and content table

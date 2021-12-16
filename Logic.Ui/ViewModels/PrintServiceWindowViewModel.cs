@@ -29,15 +29,17 @@ namespace De.HsFlensburg.ClientApp011.Logic.Ui.ViewModels
             CheckedBooks = new BookCollectionViewModel();
             PrintBooks = new RelayCommand(PrintBooksCommand);
             CloseWindow = new RelayCommand(param => CloseWindowCommand(param));
-            AddSelectedBookToCollection = new RelayCommand(param => AddSelectedBookToCollectionCommand(param));
-            RemoveSelectedBookToCollection = new RelayCommand(param => RemoveSelectedBookToCollectionCommand(param));
+            AddSelectedBookToCollection = 
+                new RelayCommand(param => AddSelectedBookToCollectionCommand(param));
+            RemoveSelectedBookToCollection = 
+                new RelayCommand(param => RemoveSelectedBookToCollectionCommand(param));
         }
 
         // Command to add selected book to BookCollection "CheckedBooks"
         private void AddSelectedBookToCollectionCommand(object param)
         {
-            // Save System.Windows.Controls.SelectedItemCollection to IList and Cast to List<BookViewModel>
-            // https://stackoverflow.com/questions/1877949/how-to-cast-a-system-windows-controls-selecteditemcollection
+            // Save System.Windows.Controls.SelectedItemCollection 
+            // to IList and Cast to List<BookViewModel>
             System.Collections.IList items = (System.Collections.IList)param;
             var collection = items.Cast<BookViewModel>();
 
@@ -53,8 +55,8 @@ namespace De.HsFlensburg.ClientApp011.Logic.Ui.ViewModels
         // Command to remove selected book of BookCollection "CheckedBooks"
         private void RemoveSelectedBookToCollectionCommand(object param)
         {
-            // Save System.Windows.Controls.SelectedItemCollection to IList and Cast to List<BookViewModel>
-            // https://stackoverflow.com/questions/1877949/how-to-cast-a-system-windows-controls-selecteditemcollection
+            // Save System.Windows.Controls.SelectedItemCollection 
+            // to IList and Cast to List<BookViewModel>
             System.Collections.IList items = (System.Collections.IList)param;
             var collection = items.Cast<BookViewModel>();
 
