@@ -1,7 +1,6 @@
 using De.HsFlensburg.ClientApp011.Logic.Ui.MessageBusMessages;
 using De.HsFlensburg.ClientApp011.Logic.Ui.Wrapper;
 using De.HsFlensburg.ClientApp011.Services.MessageBus;
-using De.HsFlensburg.ClientApp011.Logic.Ui.Wrapper;
 using De.HsFlensburg.ClientApp011.Services.SerializationService;
 using System;
 using System.Collections.Generic;
@@ -18,6 +17,7 @@ namespace De.HsFlensburg.ClientApp011.Logic.Ui.ViewModels
     {
         public ICommand FillBookList { get; set; }
         public ICommand OpenPrintServiceWindow { get; }
+        public ICommand OpenNewTexBookCollectionWindow { get; }
         private ModelFileHandler modelFileHandler;
         private string pathForSerialization;
         public ICommand LoadFromFile { get; }
@@ -31,6 +31,9 @@ namespace De.HsFlensburg.ClientApp011.Logic.Ui.ViewModels
 
             // Open PrintService Window
             OpenPrintServiceWindow = new RelayCommand(OpenPrintServiceWindowCommand);
+
+            // Open BibInport Window
+            OpenNewTexBookCollectionWindow = new RelayCommand(OpenNewTexBookCollectionWindowMethod);
         }
 
         private void LoadFromFileCommand()
@@ -41,6 +44,11 @@ namespace De.HsFlensburg.ClientApp011.Logic.Ui.ViewModels
         private void OpenPrintServiceWindowCommand()
         {
             ServiceBus.Instance.Send(new OpenPrintServiceWindowMessage());
+        }
+
+        private void OpenNewTexBookCollectionWindowMethod()
+        {
+            ServiceBus.Instance.Send(new OpenNewTexBookCollectionWindowMessage());
         }
     }
 }
