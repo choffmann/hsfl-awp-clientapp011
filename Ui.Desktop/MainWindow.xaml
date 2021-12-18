@@ -27,6 +27,7 @@
             <Button Command="{Binding OpenNewClientWindowCommand}">OpenClientWindow</Button>
             <Button Command="{Binding SaveCommand}">Save</Button>
             <Button Command="{Binding LoadCommand}">Load</Button>
+            <Button Command="{Binding OpenNewTexBookCollectionWindowCommand}">Import</Button>
         </UniformGrid>
         <DataGrid Grid.Column="1" Name="myDataGrid" ItemsSource="{Binding Path=MyList}"></DataGrid>
     </Grid>

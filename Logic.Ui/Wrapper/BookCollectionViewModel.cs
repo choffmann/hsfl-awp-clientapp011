@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace De.HsFlensburg.ClientApp011.Logic.Ui.Wrapper
 {
-    class BookCollectionViewModel : ViewModelSyncCollection<BookViewModel, Book, BookCollection>
+    public class BookCollectionViewModel : ViewModelSyncCollection<BookViewModel, Book, BookCollection>
     {
         public override void NewModelAssigned()
         {
