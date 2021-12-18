@@ -18,14 +18,14 @@ namespace De.HsFlensburg.ClientApp011.Ui.Desktop.MessageBusLogic
 
         private void InitMessenger()
         {
-            ServiceBus.Instance.Register<OpenNewClientWindowMessage>(this, OpenNewClientWindow);
             ServiceBus.Instance.Register<OpenNewTexBookCollectionWindowMessage>(this, OpenNewTexBookCollectionWindow);
             ServiceBus.Instance.Register<OpenNewErrorWindowMessage>(this, OpenNewErrorWindow);
+            ServiceBus.Instance.Register<OpenPrintServiceWindowMessage>(this, OpenPrintServiceWindow);
         }
-        private void OpenNewClientWindow()
+        private void OpenPrintServiceWindow()
         {
-            NewClientWindow myWindow = new NewClientWindow();
-            myWindow.ShowDialog();
+            PrintServiceWindow printServiceWindow = new PrintServiceWindow();
+            printServiceWindow.ShowDialog();
         }
 
         private void OpenNewTexBookCollectionWindow()

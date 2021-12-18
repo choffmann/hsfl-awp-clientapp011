@@ -10,18 +10,16 @@ namespace De.HsFlensburg.ClientApp011.Logic.Ui
 {
     public class ViewModelLocator
     {
-        public ClientCollectionViewModel TheClientCollectionViewModel { get; set; }
-        public BookCollectionViewModel TheBookCollectionViewModel { get; set; }
         public MainWindowViewModel TheMainWindowViewModel { get; set; }
-        public NewClientWindowViewModel TheNewClientWindowViewModel { get; set; }
+        public BookCollectionViewModel TheBookCollectionViewModel { get; set; }
+        public PrintServiceWindowViewModel ThePrintServiceWindowViewModel { get; }
         public TexBookCollectionWindowViewModel TheTexBookCollectionWindowViewModel { get; set; }
 
         public ViewModelLocator()
         {
-            TheClientCollectionViewModel = new ClientCollectionViewModel();
             TheBookCollectionViewModel = new BookCollectionViewModel();
-            TheMainWindowViewModel = new MainWindowViewModel(TheClientCollectionViewModel);
-            TheNewClientWindowViewModel = new NewClientWindowViewModel(TheClientCollectionViewModel);
+            TheMainWindowViewModel = new MainWindowViewModel(TheBookCollectionViewModel);
+            ThePrintServiceWindowViewModel = new PrintServiceWindowViewModel(TheBookCollectionViewModel);
             TheTexBookCollectionWindowViewModel = new TexBookCollectionWindowViewModel(TheBookCollectionViewModel);
         }
     }

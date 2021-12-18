@@ -39,7 +39,6 @@
                 <DataGridTextColumn Binding="{Binding Path=Format}" Header="Format"></DataGridTextColumn>
                 <DataGridTextColumn Binding="{Binding Path=Language}" Header="Language"></DataGridTextColumn>
             </DataGrid.Columns>
-            
         </DataGrid>
     </Grid>
 </Window>

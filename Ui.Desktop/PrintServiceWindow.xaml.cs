@@ -15,11 +15,11 @@ using System.Windows.Shapes;
 namespace De.HsFlensburg.ClientApp011.Ui.Desktop
 {
     /// <summary>
-    /// Interaction logic for NewClientWindow.xaml
+    /// Interaction logic for PrintServiceWindow.xaml
     /// </summary>
-    public partial class NewClientWindow : Window
+    public partial class PrintServiceWindow : Window
     {
-        public NewClientWindow()
+        public PrintServiceWindow()
         {
             InitializeComponent();
         }
