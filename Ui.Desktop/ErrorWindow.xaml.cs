@@ -14,9 +14,6 @@ using System.Windows.Shapes;
 
 namespace De.HsFlensburg.ClientApp011.Ui.Desktop
 {
-    /// <summary>
-    /// Interaction logic for ErrorWindow.xaml
-    /// </summary>
     public partial class ErrorWindow : Window
     {
         public ErrorWindow()

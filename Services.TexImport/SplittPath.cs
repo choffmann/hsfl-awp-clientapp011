@@ -40,7 +40,7 @@ namespace De.HsFlensburg.ClientApp011.Services.TexImport
 
         private void SplittTheBook(string stringItem, Book currentBook)
         {
-            string[] splittLine = new string[3] { "\n\t", "\n", "" }; // Leerstring vielleicht 
+            string[] splittLine = new string[3] { "\n\t", "\n", "" };
             var devidedLines = stringItem.Split(splittLine, StringSplitOptions.None);
             devidedLines[0] = "";
             foreach (var line in devidedLines)

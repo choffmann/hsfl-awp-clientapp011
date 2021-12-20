@@ -35,12 +35,11 @@ namespace De.HsFlensburg.ClientApp011.Services.TexImport
             {
                 if (Property != null)
                 {
-                    string[] splittProperty = new string[8]
+                    string[] splittPropertyContent = new string[8]
                     {$"{property}={{", $"{property} = {{", $"{property} =\"",
                     $"{property} = \"", $"{property} = ", "},", "\",", "}"};
-                    string[] propertyArray = currentLine.Split(splittProperty, StringSplitOptions.None);
-                    //return propertyArray.Length > 0 ? propertyArray[1] : propertyArray[0];
-                    return propertyArray[1];
+                    string[] propertyContentArray = currentLine.Split(splittPropertyContent, StringSplitOptions.None);
+                    return propertyContentArray[1];
                 }
                 return null;
             }
@@ -50,14 +49,5 @@ namespace De.HsFlensburg.ClientApp011.Services.TexImport
         {
             currentLine = line;
         }
-
-        //private string[] GetDevidedProperty(string line)
-        //{
-        //    string[] splittProperty = new string[7]
-        //        {$"{property}={{", $"{property} = {{", $"{property} =\"",
-        //        $"{property} = \"", $"{property} = ", "},", "\","};
-        //    string[] devidedProperty = line.Split(splittProperty, StringSplitOptions.None);
-        //    return devidedProperty;
-        //}
     }
 }

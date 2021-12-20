@@ -37,20 +37,10 @@ namespace De.HsFlensburg.ClientApp011.Logic.Ui.ViewModels
             openFileDialog.ShowDialog();
             var path = openFileDialog.FileName;
             string readText = File.ReadAllText(path);
-
-            //ClearTempBooks();
             SplittPath mySplittPath = new SplittPath(readText);
             mySplittPath.AddItemsToCollection(TempBooks.Model);
             Debug.WriteLine(readText);
         }
-
-        //private void ClearTempBooks()
-        //{
-        //    if (TempBooks.Count != 0)
-        //    {
-        //        TempBooks = new BookCollectionViewModel();
-        //    }
-        //}
 
         public void ImportFileMethod()
         {
