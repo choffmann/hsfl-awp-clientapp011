@@ -27,86 +27,95 @@ namespace De.HsFlensburg.ClientApp011.Services.PrintService
             FontFamily arial = new FontFamily("Arial");
             FontFamily consolas = new FontFamily("Consolas");
 
-            // Create header Title of List
-            Run header = new Run("Print BookList of " + bookCollection.Count + " Books" );
-            header.FontFamily = arial;
-            header.FontSize = 24;
-            flowDocument.Blocks.Add(new Paragraph(header));
-
+            // Add Header to Document
+            flowDocument.Blocks.Add(CreateHeader(bookCollection.Count));
             foreach (var book in bookCollection)
             {
-                // Create 4x4 Table to show Book content
-                Table contentTable = new Table();
-                contentTable.Columns.Add(new TableColumn());
-                contentTable.Columns.Add(new TableColumn());
-                contentTable.Columns.Add(new TableColumn());
-                contentTable.Columns.Add(new TableColumn());
-                contentTable.Columns.Add(new TableColumn());
-                contentTable.RowGroups.Add(new TableRowGroup());
-                contentTable.RowGroups[0].Rows.Add(new TableRow());
-                contentTable.RowGroups[0].Rows.Add(new TableRow());
-                contentTable.RowGroups[0].Rows.Add(new TableRow());
-                contentTable.RowGroups[0].Rows.Add(new TableRow());
+                Table mainTable = CreateTable(1, 2);
+                Table contentTable = CreateTable(4, 4);
 
                 // First Column fill with Headers
-                TableRow currentRow = contentTable.RowGroups[0].Rows[0];
-                currentRow.FontFamily = arial;
-                currentRow.FontWeight = FontWeights.Bold;
-                currentRow.Cells.Add(new TableCell(new Paragraph(new Run("Title:"))));
-                currentRow.Cells.Add(new TableCell(new Paragraph(new Run("Author:"))));
-                currentRow.Cells.Add(new TableCell(new Paragraph(new Run("Genre:"))));
-                currentRow.Cells.Add(new TableCell(new Paragraph(new Run("Preis:"))));
-
+                String[] headers = { "Title:", "Author:", "Genre:", "Preis:" };
+                SetRowContent(contentTable.RowGroups[0].Rows[0], headers, arial, FontWeights.Bold);
                 // Second Column fill with Content
-                currentRow = contentTable.RowGroups[0].Rows[1];
-                currentRow.FontFamily = consolas;
-                currentRow.Cells.Add(new TableCell(new Paragraph(new Run(book.Title))));
-                currentRow.Cells.Add(new TableCell(new Paragraph(new Run(book.Author))));
-                currentRow.Cells.Add(new TableCell(new Paragraph(new Run(book.Genre.ToString()))));
-                currentRow.Cells.Add(new TableCell(new Paragraph(new Run(book.Price.ToString()))));
-
+                String[] content = { book.Title, book.Author, book.Genre.ToString(), book.Price.ToString() };
+                SetRowContent(contentTable.RowGroups[0].Rows[1], content, consolas, FontWeights.Normal);
                 // Third Column fill with new Header
-                currentRow = contentTable.RowGroups[0].Rows[2];
-                currentRow.FontFamily = arial;
-                currentRow.FontWeight = FontWeights.Bold;
-                currentRow.Cells.Add(new TableCell(new Paragraph(new Run("Kurzbeschreibung:"))));
+                String[] descriptionHeader = { "Kurzbeschreibung"};
+                TableRow currentRow = contentTable.RowGroups[0].Rows[2];
+                SetRowContent(currentRow, descriptionHeader, arial, FontWeights.Bold);
                 currentRow.Cells[0].ColumnSpan = 4;
-
                 // Second Column fill with new Content
+                String[] description = { book.Description };
                 currentRow = contentTable.RowGroups[0].Rows[3];
-                currentRow.FontFamily = consolas;
-                currentRow.Cells.Add(new TableCell(new Paragraph(new Run(book.Description))));
+                SetRowContent(currentRow, description, consolas, FontWeights.Normal);
                 currentRow.Cells[0].ColumnSpan = 4;
-
-                // Create new 1x2 Table to display Image and content table
-                Table mainTable = new Table();
-                TableColumn imageColumn = new TableColumn();
-                mainTable.Columns.Add(imageColumn);
-                mainTable.Columns.Add(new TableColumn());
-                mainTable.RowGroups.Add(new TableRowGroup());
-                mainTable.RowGroups[0].Rows.Add(new TableRow());
-
                 // Insert Image in main table first row, first column 
+                SetRowImage(mainTable.RowGroups[0].Rows[0], book.Cover);
                 // Insert content table in first row, second column
-                currentRow = mainTable.RowGroups[0].Rows[0];
-                Image cover = new Image();
-                cover.Source = ConvertModelToBitMapImage(book.Cover);
-                cover.Width = 150;
-                cover.Height = 150;
-                currentRow.Cells.Add(new TableCell(new BlockUIContainer(cover)));
-                currentRow.Cells.Add(new TableCell(contentTable));
-
+                SetRowToContentTable(mainTable.RowGroups[0].Rows[0], contentTable);
                 // Change Table Space / Width
                 mainTable.Columns[0].Width = new GridLength(175);
-
                 // Add border to main table
-                mainTable.Padding = new Thickness(15);
-                mainTable.BorderBrush = Brushes.Gray;
-                mainTable.BorderThickness = new Thickness(2);
+                AddBorder(mainTable);
 
                 flowDocument.Blocks.Add(mainTable);
             }
             return flowDocument;
+        }
+
+        private Paragraph CreateHeader(int bookCollectionSize)
+        {
+            Run header = new Run("Print BookList of " + bookCollectionSize + " Books");
+            header.FontFamily = new FontFamily("Arial");
+            header.FontSize = 24;
+            return new Paragraph(header);
+        }
+
+        private Table CreateTable(int rows, int columns)
+        {
+            Table table = new Table();
+            for(int i = 0; i < columns; i++)
+            {
+                table.Columns.Add(new TableColumn());
+            }
+            table.RowGroups.Add(new TableRowGroup());
+            for (int i = 0; i < rows; i++)
+            {
+                table.RowGroups[0].Rows.Add(new TableRow());
+            }
+            return table;
+        }
+
+        private void SetRowContent(TableRow row, String[] contents, FontFamily fontFamily, FontWeight fontWeight)
+        {
+            row.FontFamily = fontFamily;
+            row.FontWeight = fontWeight;
+            foreach(string param in contents)
+            {
+                row.Cells.Add(new TableCell(new Paragraph(new Run(param))));
+            }
+        }
+
+        private void SetRowImage(TableRow row, System.Drawing.Image image)
+        {
+            Image cover = new Image();
+            cover.Source = ConvertModelToBitMapImage(image);
+            cover.Width = 150;
+            cover.Height = 150;
+            row.Cells.Add(new TableCell(new BlockUIContainer(cover)));
+        }
+
+        private void SetRowToContentTable(TableRow row, Table contentTable)
+        {
+            row.Cells.Add(new TableCell(contentTable));
+        }
+
+        private void AddBorder(Table table)
+        {
+            table.Padding = new Thickness(15);
+            table.BorderBrush = Brushes.Gray;
+            table.BorderThickness = new Thickness(2);
         }
 
         // Convert Image to BitmapImage to print on FlowDocument
