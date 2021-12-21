@@ -116,10 +116,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Business.Model\Business.Model.csproj">
-      <Project>{b0d6bad3-a2fd-4148-b9f4-a59265c7ec9e}</Project>
-      <Name>Business.Model</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Logic.Ui\Logic.Ui.csproj">
       <Project>{9e0c1133-9bdf-4042-ace6-b45905950cbf}</Project>
       <Name>Logic.Ui</Name>
