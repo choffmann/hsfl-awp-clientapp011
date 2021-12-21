@@ -10,11 +10,9 @@
             <ColumnDefinition />
             <ColumnDefinition />
             <ColumnDefinition />
-            <ColumnDefinition />
         </Grid.ColumnDefinitions>
         <Button Content="Load Collection from *.bmf" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" Width="150" Height="150" Command="{Binding LoadFromFile}" />
         <Button Content="Open PrintService Window" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Width="150" Height="150" Command="{Binding OpenPrintServiceWindow}" />
         <Button Content="Open Bib Import" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" Width="150" Height="150" Command="{Binding OpenNewTexBookCollectionWindow}" />
-        <Button Content="$empty" Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center" Width="150" Height="150" />
     </Grid>
 </Window>
