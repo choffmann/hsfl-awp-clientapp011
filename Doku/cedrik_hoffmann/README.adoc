@@ -4,6 +4,13 @@ Cedrik Hoffmann | 670339 | cedrik.hoffmann@stud.hs-flensburg.de
 :nofooter:
 :source-highlighter: highlightjs
 :imagesdir: img
+:sectnums:
+:sectnumlevels: 2
+:toc: left
+:toclevels: 2
+
+== Einleitung
+Auf dem bereits bekannten MVVM-Grundgerüst wird ein neues Feature eingebaut. Das Feature soll eine Druckfunktion der gespeicherten Bücher ermöglichen. Dazu wird ein neues Ui-Fenster erstellt. In der Ui kann der Benutzer eine Auswahl an Büchern in einer ListView auswählen. Das angeklickte Buch wird im Bereich Book Preview im Detail angezeigt. Mit dem Button Add wird das gewählte Buch zum Drucken makiert. Es können mehrere Bücher ausgewählt werden. Die ausgewählten Bücher können im Bereich Selected Books eingesehen werden. Zudem hat der Benutzer die möglichkeit, ein Buch aus der Liste wieder zu entfernen.
 
 == Übersicht des Programms aus Nutzersicht
 Wird das Programm gestartet, ladet der User auf der Startseite des Programmes. Siehe hierzu die gemeinsame Kurzanleitung. Möchte der Benutzer, die bereits angelegten Bücher in einer Liste ausdrücken, so bietet das Feature „PrintService“ die Möglichkeit, eine sortierte Liste der gewählten Bücher auszudrucken. 
@@ -22,3 +29,30 @@ image:BookPreview.gif[]
 
 ==== Add Books
 image:AddBooks.gif[]
+
+== Übersicht über die Solution
+Auf die Solution, welche in der Vorlesung erstellt wurde, wurden folgende `Datein / Klassen / Klassenbibliotheken` hinzugefügt:
+[listing]
+----
+Logic
+|-- Logig.Ui
+|   |-- MessageBusMessages
+|   |   |--+ OpenPrintServiceWindowMessage.cs
+|   | 
+|   |-- ViewModel
+|   |   |--+ PrintServiceWindowViewModel.cs
+
+Ui
+|-- Ui.Desktop
+|   |--+ PrintServiceWindow.xaml
+|   |--+ PrintServiceWindow.xaml.cs
+
+Services
+|--+ Services.PrintService
+|    |--+ PrintBookService.cs
+----
+
+- `PrintServiceWindow.xaml` wird für die Ui verwendet.
+- `PrintServiceWindowViewModel.cs` beschreibt das `ViewModel` zur `View`. `PrintServiceWindow.xaml` hat über den `ViewModelLocator` zugriff auf das ViewModel `PrintServiceWindowViewModel`
+- `OpenPrintServiceWindowMessage.cs` wurde erstellt, damit über den `MessageBus` aus dem `MainWindow` die Ui geöffnet wird.
+- `Services.PrintService` ist die entsprechende Klassenbibliothek, welche die Druckfunktion ermöglicht.
