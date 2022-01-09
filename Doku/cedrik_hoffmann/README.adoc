@@ -60,8 +60,13 @@ Hier wurde in `Ui.Desktop` ein neues WPF Fenster mit den Namen `PrintServiceWind
 *In der ViewModel Schicht:* +
 Jedes `View` hat auch ein `ViewModel`, somit wurde in dem Projekt `Logic.Ui` im Ordner ViewModel die Klasse bzw. das ViewModel `PrintServiceWindowViewModel.cs` erstellt. Hierhinter verbirgt sich die Logik hinter der View `PrintServiceWindow.xaml`.
 
+Zudem wurde die Klasse `OpenPrintServiceWindow.cs` erstellt, diese dient für den `MessageBus`, damit aus dem Hauptfenster das Fenster der Druckfunktion geöffnet werden kann.
+
 *Als Service:* +
 Da die Druckfunktion als Service zu sehen ist, wurde im Ordner `Services` eine neue Klassenbibliothek `Service.PrintService` angelegt. In dieser Klassenbibliothek befindet sich die Klasse `PrintBookService.cs`, welche die Logik des Service beinhaltet.
+
+=== UML-Diagramm
+image:UML.svg[]
 
 === Die View - PrintServiceWindow.xaml
 Die View der Druckfunktion wurde mittels XAML Definiert. Das Layout teilt sich in zwei Spalten auf (`BookControl` links und `BookPreview` rechts) und wurde mittels `Grid` realisiert.
@@ -110,7 +115,7 @@ Die Liste `Selected Books` zeigt wie schon erwähnt, die Bücher der Collection 
 </ListView>
 ----
 
-Der Bereich der `BookPreview` besteht größtenteils aus der Komponente `<TextBlock>`, welche den Wert des Buches ausgibt, welches aktuell vom Benutzer in der Liste „All Books“ angeklickt wurde. Dazu werden die TextBlock Komponenten an die ListView gebindet. Wird nun ein anderes Buch in der ListView angeklickt, passt sich die Preview zu dem angeklickten Buche an.
+Der Bereich der `BookPreview` besteht größtenteils aus der Komponente `<TextBlock>`, welche den Wert des Buches ausgibt, welches aktuell vom Benutzer in der Liste „All Books“ angeklickt wurde. Dazu werden die `TextBlock` Komponenten über das Binding an die `ListView` gebunden. Wird nun ein anderes Buch in der `ListView` angeklickt, passt sich die Preview zu dem angeklickten Buch an.
 
 [source, xaml]
 ----
@@ -121,3 +126,35 @@ Der Bereich der `BookPreview` besteht größtenteils aus der Komponente `<TextBl
 <TextBlock FontWeight="Bold" Text="Weight: "/>
 <TextBlock Text="{Binding ElementName=BookListBox, Path=SelectedItem.Weight}"/>
 ----
+
+=== Das ViewModel - PrintServiceWindowViewModel
+Das ViewModel beinhaltet die Logik der UI. Die Klasse `PrintServiceWindowViewModel` ist somit das zugehörige ViewModel zur View `PrintServiceWindow`. Dieses ViewModel enthält mehrere Properties, wo die View drauf Zugriff hat, welche im Folgenden kurz beschrieben werden.
+
+|===
+|Property |Funktion |Typ
+
+|`BookList`
+|Enthält die bereits angelegten Bücher der Anwendung
+|`BookCollectionViewModel`
+
+|`CheckedBooks`
+|Beinhaltet die Bücher, welche der Benutzer ausdrucken möchte
+|`BookCollectionViewModel`
+
+|`PrintBooks`
+|RelayCommand, welches ausgeführt wird, wenn der Benutzer den Button `[PRINT]` in der UI auswählt. Dies startet den Druckvorgang
+|`ICommand`
+
+|`CloseWindow`
+|RelayCommand, welches ausgeführt wird, wenn der Benutzer den Button `[CLOSE]` in der UI auswählt. Schließt das aktuelle Fenster.
+|`ICommand`
+
+|`AddSelectedBookToCollection`
+|RelayCommand, welches ausgeführt wird, wenn der Benutzer den Button `[ADD]` in der UI auswählt. Fügt der Collection `CheckedBooks` die übergebenden Bücher der View hinzu.
+|`ICommand`
+
+|`RemoveSelectedBookToCollection`
+|RelayCommand, welches ausgeführt wird, wenn der Benutzer den Button `[REMOVE]` in der UI auswählt. Entfernt die übergebenden Bücher von der View in der Collection `CheckedBooks`
+|`ICommand`
+|===
+
