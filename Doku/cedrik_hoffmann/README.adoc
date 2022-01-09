@@ -32,6 +32,8 @@ image:AddBooks.gif[]
 
 == Übersicht über die Solution
 Auf die Solution, welche in der Vorlesung erstellt wurde, wurden folgende `Datein / Klassen / Klassenbibliotheken` hinzugefügt:
+
+*Solution Explorer Ansicht:*
 [listing]
 ----
 Logic
@@ -52,7 +54,28 @@ Services
 |    |--+ PrintBookService.cs
 ----
 
-- `PrintServiceWindow.xaml` wird für die Ui verwendet.
-- `PrintServiceWindowViewModel.cs` beschreibt das `ViewModel` zur `View`. `PrintServiceWindow.xaml` hat über den `ViewModelLocator` zugriff auf das ViewModel `PrintServiceWindowViewModel`
-- `OpenPrintServiceWindowMessage.cs` wurde erstellt, damit über den `MessageBus` aus dem `MainWindow` die Ui geöffnet wird.
-- `Services.PrintService` ist die entsprechende Klassenbibliothek, welche die Druckfunktion ermöglicht.
+*In der View Schicht:* +
+Hier wurde in `Ui.Desktop` ein neues WPF Fenster mit den Namen `PrintServiceWindow` angelegt. Daraus folgen die Dateien `PrintServiceWindow.xaml` und `PrintServiceWindow.xaml.cs`. `PrintServiceWindow.xaml` beschreibt die XAML-Datei für das WPF Fenster bzw. der UI. `PrintServiceWindow.xaml.cs` beschreibt die `Code-Behind` und bliebt im MVVM-Pattern zwingend leer, da die Logik der UI im `ViewModel` erstellt wird.
+
+*In der ViewModel Schicht:* +
+Jedes `View` hat auch ein `ViewModel`, somit wurde in dem Projekt `Logic.Ui` im Ordner ViewModel die Klasse bzw. das ViewModel `PrintServiceWindowViewModel.cs` erstellt. Hierhinter verbirgt sich die Logik hinter der View `PrintServiceWindow.xaml`.
+
+*Als Service:* +
+Da die Druckfunktion als Service zu sehen ist, wurde im Ordner `Services` eine neue Klassenbibliothek `Service.PrintService` angelegt. In dieser Klassenbibliothek befindet sich die Klasse `PrintBookService.cs`, welche die Logik des Service beinhaltet.
+
+=== Die View - PrintServiceWindow.xaml
+Die View der Druckfunktion wurde mittels XAML Definiert. Das Layout teilt sich in zwei Spalten auf (`BookControl` links und `BookPreview` rechts) und wurde mittels `Grid` realisiert.
+
+*Layout BookControl:* +
+Die `BookControl` besteht aus den UI Elementen, womit der User interagieren kann. In diesem Fall die Listen `All Books` und `Selected Books`, sowie die einzelnen Buttons. Das Layout besteht aus einer Spalte und sechs Reihen. Die Reihen werden jeweils den Komponenten zugeteilt, siehe Abbildung Layout Row.
+
+*Layout BookPreview:* +
+Die BookPreview dient nur zur Vorschau der Daten des Buches, welches vom User in der BookControl ausgewählt wird. Dieses Layout besteht aus 2 Spalten mit 3 Reihen. Die entsprechenden Komponenten wurden hier auch dem Layout zugeteilt, siehe Abbildung Layout Row.
+
+|===
+|image:GridLayoutGlobal.png[] |image:GridLayoutRow.png[]
+
+|Abbildung Globales Layout
+|Abbildung Layout detailliert
+|===
+
