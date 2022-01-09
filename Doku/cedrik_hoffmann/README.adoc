@@ -15,7 +15,7 @@ Auf dem bereits bekannten MVVM-Grundgerüst wird ein neues Feature eingebaut. Da
 == Übersicht des Programms aus Nutzersicht
 Wird das Programm gestartet, ladet der User auf der Startseite des Programmes. Siehe hierzu die gemeinsame Kurzanleitung. Möchte der Benutzer, die bereits angelegten Bücher in einer Liste ausdrücken, so bietet das Feature „PrintService“ die Möglichkeit, eine sortierte Liste der gewählten Bücher auszudrucken. 
 
-.Ansicht PrintServiceWindow
+==== Ansicht PrintServiceWindow
 image:UI.PNG[]
 
 === Walkthrough
