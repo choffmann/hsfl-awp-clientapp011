@@ -68,7 +68,7 @@ Da die Druckfunktion als Service zu sehen ist, wurde im Ordner `Services` eine n
 === UML-Diagramm
 image:UML.svg[]
 
-=== Die View - PrintServiceWindow.xaml
+=== View - PrintServiceWindow.xaml
 Die View der Druckfunktion wurde mittels XAML Definiert. Das Layout teilt sich in zwei Spalten auf (`BookControl` links und `BookPreview` rechts) und wurde mittels `Grid` realisiert.
 
 ==== Layout
@@ -89,7 +89,7 @@ Die BookPreview dient nur zur Vorschau der Daten des Buches, welches vom User in
 ==== Funktion
 Die Bücher in der Liste `All Books` sind in einer 'BookCollectionViewModel' im ViewModel gespeichert. Beim Starten des UI-Fensters, wird die `BookCollectionViewModel` mit den angelegten Büchern an das `PrintServiceWindowViewModel` im `ViewModelLocator` übergeben. Da die UI übers `Binding` Zugriff auf das `PrintServiceWindowViewModel` hat, kann die UI mittels einer `ListView` die Daten von der Collection in einer Liste anzeigen.
 
-Die Liste `Selected Books` ist ähnlich wie die Liste `All Books` aufgebaut. Diese besteht auch aus einer Collection des Typen `BookCollectionViewModel`. Wird über den Button '[ADD]' ein oder mehrere Bücher ausgewählt, werden diese Bücher im ViewModel der Collection `CheckedBooks` hinzugefügt, welche in der View dann angezeigt wird. Dazu übergibt die View mittels des `RelayCommands mit Parametern` die Bücher, welche vom Benutzer selektiert wurden, an das ViewModel. Diese werden in der `ListView` als `System.Windows.Controls.SelectedItemCollection` an das ViewModel gesendet. Ähnliche Logik verbirgt sich auch hinter den Button `[REMOVE]`, nur das hier entsprechend die übergebenen Bücher der Collection `CheckedBooks` entfernt werden.
+Die Liste `Selected Books` ist ähnlich wie die Liste `All Books` aufgebaut. Diese besteht auch aus einer Collection des Typen `BookCollectionViewModel`. Wird über den Button `[ADD]` ein oder mehrere Bücher ausgewählt, werden diese Bücher im ViewModel der Collection `CheckedBooks` hinzugefügt, welche in der View dann angezeigt wird. Dazu übergibt die View mittels des `RelayCommands mit Parametern` die Bücher, welche vom Benutzer selektiert wurden, an das ViewModel. Diese werden in der `ListView` als `System.Windows.Controls.SelectedItemCollection` an das ViewModel gesendet. Ähnliche Logik verbirgt sich auch hinter den Button `[REMOVE]`, nur das hier entsprechend die übergebenen Bücher der Collection `CheckedBooks` entfernt werden. Die genauere Logik hierhinter wird in dem Kapitel https://github.com/choffmann/hsfl-awp-clientapp011/tree/update_doc/Doku/cedrik_hoffmann#33-viewmodel---printservicewindowviewmodel[ViewModel] genauer erläutert.
 
 [source, xaml]
 ----
@@ -127,7 +127,7 @@ Der Bereich der `BookPreview` besteht größtenteils aus der Komponente `<TextBl
 <TextBlock Text="{Binding ElementName=BookListBox, Path=SelectedItem.Weight}"/>
 ----
 
-=== Das ViewModel - PrintServiceWindowViewModel
+=== ViewModel - PrintServiceWindowViewModel
 Das ViewModel beinhaltet die Logik der UI. Die Klasse `PrintServiceWindowViewModel` ist somit das zugehörige ViewModel zur View `PrintServiceWindow`. Dieses ViewModel enthält mehrere Properties, wo die View drauf Zugriff hat, welche im Folgenden kurz beschrieben werden.
 
 |===
