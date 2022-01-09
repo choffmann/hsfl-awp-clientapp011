@@ -1,0 +1,138 @@
+= Anwendungprogrammierung - Dokumentation 
+Cedrik Hoffmann | 670339 | cedrik.hoffmann@stud.hs-flensburg.de
+:icons: font
+:nofooter:
+:source-highlighter: highlightjs
+:imagesdir: img
+
+== Einleitung
+Auf dem bereits bekannten `MVVM-Grundgerüst` wird ein neues Feature eingebaut. Das Feature soll eine Druckfunktion der gespeicherten Bücher ermöglichen. Dazu wird ein neues Ui-Fenster erstellt. In der Ui kann der Benutzer eine Auswahl an Büchern in einer `ListView` auswählen. Das angeklickte Buch wird im Bereich `Book Preview` im Detail angezeigt. Mit dem Button `Add` wird das gewählte Buch zum Drucken makiert. Es können mehrere Bücher ausgewählt werden. Die ausgewählten Bücher können im Bereich `Selected Books` eingesehen werden. Zudem hat der Benutzer die möglichkeit, ein Buch aus der Liste wieder zu entfernen.
+
+=== Erstellte Datein
+Auf das `MVVM-Grundgerüst` wurden folgende `Datein / Klassen / Klassenbibliotheken` erstellt:
+[listing]
+----
+Logic
+|-- Logig.Ui
+|   |-- MessageBusMessages
+|   |   |--+ OpenPrintServiceWindowMessage.cs
+|   | 
+|   |-- ViewModel
+|   |   |--+ PrintServiceWindowViewModel.cs
+
+Ui
+|-- Ui.Desktop
+|   |--+ PrintServiceWindow.xaml
+|   |--+ PrintServiceWindow.xaml.cs
+
+Services
+|--+ Services.PrintService
+|    |--+ PrintBookService.cs
+----
+
+- `PrintServiceWindow.xaml` wird für die Ui verwendet.
+- `PrintServiceWindowViewModel.cs` beschreibt das `ViewModel` zur `View`. `PrintServiceWindow.xaml` hat über den `ViewModelLocator` zugriff auf das ViewModel `PrintServiceWindowViewModel`
+- `OpenPrintServiceWindowMessage.cs` wurde erstellt, damit über den `MessageBus` aus dem `MainWindow` die Ui geöffnet wird.
+- `Services.PrintService` ist somit die entsprechende Klassenbibliothek, welche die Druckfunktion ermöglicht.
+
+== Aufbau / Funktion der Ui
+Im Folgenden werden die einzelnen Design Entscheidungen und Ui-Funktionen beschrieben.
+
+.Ansicht Ui
+image:UI.PNG[]
+
+=== Layout
+Das Layout wird weitesgehend mittels `Grid` realisiert. Knapp 1/3 der Ui wird für die `Auswahl / Hinzufügen / Entfernen / Buttons` der Bücher verwendet. Der restliche Bereich ist für die Darstellung der Bücher im Detail. In der Abbildung ist eine grobe Skizze des Layout zu sehen. 
+
+|===
+|image:GridLayoutGlobal.png[] |image:GridLayoutRow.png[]
+
+|Diese Abbildung illustriert die Aufteilung des "Globalen Grids". 
+|Diese Abbildung illustriert die Aufteilung der einzelnen Reihen der Komponenten. 
+|===
+
+=== Auswahl Bücher
+Die gespiecherten Bücher sind im `ViewModel` in der `BookCollectionViewModel` gespeichert. Beim Aufruf des Ui-Fensters wird die `BookCollectionViewModel` an das `PrintServiceWindowViewModel` übergeben. Da die Ui zugriff auf die `PrintServiceWindowViewModel` hat, kann die Ui bzw. die `ListView` auf die Collection zugreifen und somit in der Ui anzeigen.
+
+=== BookPreview Funktion
+image:BookPreview.gif[]
+
+Die Preview Funktion erfolgt durch `Binding` an das aktuell ausgewählte Element in der `ListView`. Die Eigenschaften des ausgewählte Elements bzw. Buch aus `BookViewModel` wird in der entsprechenden `TextBox` ausgegeben.
+
+[source, xaml]
+----
+<TextBlock FontWeight="Bold" Text="Title: "/>
+<TextBlock Text="{Binding ElementName=BookListBox, Path=SelectedItem.Title}"/>
+<TextBlock FontWeight="Bold" Text="Author: "/>
+<TextBlock Text="{Binding ElementName=BookListBox, Path=SelectedItem.Author}"/>
+<TextBlock FontWeight="Bold" Text="Weight: "/>
+<TextBlock Text="{Binding ElementName=BookListBox, Path=SelectedItem.Weight}"/>
+----
+
+=== Bücher zum drucken hinzufügen
+image:AddBooks.gif[]
+
+Wenn der Benutzer ein oder mehrere Bücher auswählt, werden diese in einer neue `Collection` gespeichert, welche anschließend an die Klassenbibliothek  `Service.PrintService` zum drucken weitergeben werden. Die ausgewählten Bücher werden mittels des Buttons `Add` an das ViewModel übergeben. Über das `RelayCommand mit Parametern` werden die Bücher in der `ListView` als `System.Windows.Controls.SelectedItemCollection` an das `ViewModel` übergeben. Ähnliche Logik verbirgt sich auch hinter den Button `Remove`. Unterschied hierbei ist, dass die ausgewählten Bücher nicht der Collection hinzugefügt, sondern entfernt werden. Die Logik hinter den Buttons verbirgt sich im `ViewModel`, welche im Kapitel https://github.com/choffmann/hsfl-awp-clientapp011/tree/cedrik/Doku/cedrik_hoffmann#viewmodel[ViewModle] erläutert werden.
+
+[source, xaml]
+----
+<Button Content="Add" Margin="0,5,5,5" 
+    CommandParameter="{Binding ElementName=BookListBox, Path=SelectedItems}" 
+    Command="{Binding AddSelectedBookToCollection}"  />
+<Button Content="Remove" Margin="5,5,0,5" 
+    CommandParameter="{Binding ElementName=BookListBox, Path=SelectedItems}" 
+    Command="{Binding RemoveSelectedBookToCollection}" />
+----
+
+Der Bereich `Selected Books` zeigt die entsprechende Collection der ausgewählten Bücher an. Diese Komponente ist auch eine `ListView`, welche auf die `CheckedBooks` vom Typ `BookCollectionViewModel` zugreift. Diese `ListView` wurde die Eigenschaft des anwählens mittels dem Parameter `<ListView.ItemContainerStyle>` entfernt.
+
+[source, xaml]
+----
+<ListView Grid.Row="4" ItemsSource="{Binding CheckedBooks}">
+    <ListView.ItemContainerStyle>
+        <Style TargetType="ListViewItem">
+            <Setter Property="Focusable" Value="False"/>
+        </Style>
+    </ListView.ItemContainerStyle>
+    <ListView.ItemTemplate>
+        <DataTemplate>
+            <TextBlock Text="{Binding Title}" />
+        </DataTemplate>
+    </ListView.ItemTemplate>
+</ListView>
+----
+
+== ViewModel
+Im `ViewModel` ist die Logik der Ui definiert. Hier werden die Properties und Funktionen kurz beschrieben.
+
+=== Verfügbare Properties
+- Die Property `BookList` beinhaltet alle bereits angelegten Bücher.
+- In der Property `CheckedBooks` werden alle Bücher abgespeichert, welche der Benutzer zum drucken ausgewählt hat.
+- Die Properties `PrintBooks, CloseWindow` werden zum starten des Druckvorgangs, bzw. zum shcließen des Fensters verwendet.
+- Die Properties `AddSelectedBookToCollection, RemoveSelectedBookToCollection` werden zum hinzufügen, bzw. entfernen der ausgewählten Bücher in `CheckedBooks Collection`.
+
+=== Funktion
+Im folgenden wird die Funktionsweise von der Funktion `AddSelectedBookToCollectionCommand` beschrieben.
+
+[source, c#]
+----
+private void AddSelectedBookToCollectionCommand(object param)
+{
+    System.Collections.IList items = (System.Collections.IList)param; <1>
+    var collection = items.Cast<BookViewModel>(); <2>
+
+    foreach (BookViewModel book in collection) <3>
+    {
+        if(!CheckItemIsInCheckedBooks(book)) <4>
+        {
+            CheckedBooks.Add(book); 
+        }
+    }
+}
+----
+<1> Hier wird das übergebene Objekt, welches vom Typ `System.Windows.Controls.SelectedItemCollection` stammt in einer neuen Liste gespeichert.
+<2> Hier wird die Liste in eine neue Liste vom Typ `BookViewModle` gecastet.
+<3> Nun wird die Colletion durchgegangen und in der `CheckedBooks Collection` hinzugefügt
+<4> `CheckItemIsInCheckedBooks` ist eine Hilfsmethode, welche überprüft, ob ein Buch bereits in der `CheckedBooks Collection` vorhanden ist. Ist dies der Fall, wird dieses Buch dementsprechend nicht nochmal hinzugefügt.
+
+== Service.PrintService
