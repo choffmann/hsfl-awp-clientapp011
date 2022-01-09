@@ -66,6 +66,8 @@ Da die Druckfunktion als Service zu sehen ist, wurde im Ordner `Services` eine n
 === Die View - PrintServiceWindow.xaml
 Die View der Druckfunktion wurde mittels XAML Definiert. Das Layout teilt sich in zwei Spalten auf (`BookControl` links und `BookPreview` rechts) und wurde mittels `Grid` realisiert.
 
+==== Layout
+
 *Layout BookControl:* +
 Die `BookControl` besteht aus den UI Elementen, womit der User interagieren kann. In diesem Fall die Listen `All Books` und `Selected Books`, sowie die einzelnen Buttons. Das Layout besteht aus einer Spalte und sechs Reihen. Die Reihen werden jeweils den Komponenten zugeteilt, siehe Abbildung Layout Row.
 
@@ -79,3 +81,43 @@ Die BookPreview dient nur zur Vorschau der Daten des Buches, welches vom User in
 |Abbildung Layout detailliert
 |===
 
+==== Funktion
+Die Bücher in der Liste `All Books` sind in einer 'BookCollectionViewModel' im ViewModel gespeichert. Beim Starten des UI-Fensters, wird die `BookCollectionViewModel` mit den angelegten Büchern an das `PrintServiceWindowViewModel` im `ViewModelLocator` übergeben. Da die UI übers `Binding` Zugriff auf das `PrintServiceWindowViewModel` hat, kann die UI mittels einer `ListView` die Daten von der Collection in einer Liste anzeigen.
+
+Die Liste `Selected Books` ist ähnlich wie die Liste `All Books` aufgebaut. Diese besteht auch aus einer Collection des Typen `BookCollectionViewModel`. Wird über den Button '[ADD]' ein oder mehrere Bücher ausgewählt, werden diese Bücher im ViewModel der Collection `CheckedBooks` hinzugefügt, welche in der View dann angezeigt wird. Dazu übergibt die View mittels des `RelayCommands mit Parametern` die Bücher, welche vom Benutzer selektiert wurden, an das ViewModel. Diese werden in der `ListView` als `System.Windows.Controls.SelectedItemCollection` an das ViewModel gesendet. Ähnliche Logik verbirgt sich auch hinter den Button `[REMOVE]`, nur das hier entsprechend die übergebenen Bücher der Collection `CheckedBooks` entfernt werden.
+
+[source, xaml]
+----
+<Button Content="Add" Margin="0,5,5,5"
+    CommandParameter="{Binding ElementName=BookListBox, Path=SelectedItems}"
+    Command="{Binding AddSelectedBookToCollection}"  />
+<Button Content="Remove" Margin="5,5,0,5"
+    CommandParameter="{Binding ElementName=BookListBox, Path=SelectedItems}"
+    Command="{Binding RemoveSelectedBookToCollection}" />
+----
+
+Die Liste `Selected Books` zeigt wie schon erwähnt, die Bücher der Collection `CheckedBooks` an. Diese `ListView` hat die Eigenschaft, dass diese nicht angeklickt werden kann. Dies Eigenschaft wurde mittels des Parameters `<ListView.ItemContainerStyle>` deaktiviert.
+
+[source, xaml]
+----
+<ListView Grid.Row="4" ItemsSource="{Binding CheckedBooks}">
+    <ListView.ItemContainerStyle>
+        <Style TargetType="ListViewItem">
+            <Setter Property="Focusable" Value="False"/>
+        </Style>
+     </ListView.ItemContainerStyle>
+     ...
+</ListView>
+----
+
+Der Bereich der `BookPreview` besteht größtenteils aus der Komponente `<TextBlock>`, welche den Wert des Buches ausgibt, welches aktuell vom Benutzer in der Liste „All Books“ angeklickt wurde. Dazu werden die TextBlock Komponenten an die ListView gebindet. Wird nun ein anderes Buch in der ListView angeklickt, passt sich die Preview zu dem angeklickten Buche an.
+
+[source, xaml]
+----
+<TextBlock FontWeight="Bold" Text="Title: "/>
+<TextBlock Text="{Binding ElementName=BookListBox, Path=SelectedItem.Title}"/>
+<TextBlock FontWeight="Bold" Text="Author: "/>
+<TextBlock Text="{Binding ElementName=BookListBox, Path=SelectedItem.Author}"/>
+<TextBlock FontWeight="Bold" Text="Weight: "/>
+<TextBlock Text="{Binding ElementName=BookListBox, Path=SelectedItem.Weight}"/>
+----
