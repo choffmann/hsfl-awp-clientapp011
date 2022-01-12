@@ -10,7 +10,7 @@ Cedrik Hoffmann | 670339 | cedrik.hoffmann@stud.hs-flensburg.de
 :toclevels: 2
 
 == Einleitung
-Auf dem bereits bekannten MVVM-Grundgerüst wird ein neues Feature eingebaut. Das Feature soll eine Druckfunktion der gespeicherten Bücher ermöglichen. Dazu wird ein neues Ui-Fenster erstellt. In der Ui kann der Benutzer eine Auswahl an Büchern in einer ListView auswählen. Das angeklickte Buch wird im Bereich Book Preview im Detail angezeigt. Mit dem Button Add wird das gewählte Buch zum Drucken makiert. Es können mehrere Bücher ausgewählt werden. Die ausgewählten Bücher können im Bereich Selected Books eingesehen werden. Zudem hat der Benutzer die möglichkeit, ein Buch aus der Liste wieder zu entfernen.
+Auf dem bereits bekannten MVVM-Grundgerüst wird ein neues Feature eingebaut. Das Feature soll eine Druckfunktion der gespeicherten Bücher ermöglichen. Dazu wird ein neues Ui-Fenster erstellt. In der Ui kann der Benutzer eine Auswahl an Büchern in einer ListView auswählen. Das angeklickte Buch wird im Bereich Book Preview im Detail angezeigt. Mit dem Button Add wird das gewählte Buch zum Drucken markiert. Es können mehrere Bücher ausgewählt werden. Die ausgewählten Bücher können im Bereich Selected Books eingesehen werden. Zudem hat der Benutzer die Möglichkeit, ein Buch aus der Liste wieder zu entfernen.
 
 == Übersicht des Programms aus Nutzersicht
 Wird das Programm gestartet, ladet der User auf der Startseite des Programmes. Siehe hierzu die gemeinsame Kurzanleitung. Möchte der Benutzer, die bereits angelegten Bücher in einer Liste ausdrücken, so bietet das Feature „PrintService“ die Möglichkeit, eine sortierte Liste der gewählten Bücher auszudrucken. 
@@ -58,7 +58,7 @@ Services
 Hier wurde in `Ui.Desktop` ein neues WPF Fenster mit den Namen `PrintServiceWindow` angelegt. Daraus folgen die Dateien `PrintServiceWindow.xaml` und `PrintServiceWindow.xaml.cs`. `PrintServiceWindow.xaml` beschreibt die XAML-Datei für das WPF Fenster bzw. der UI. `PrintServiceWindow.xaml.cs` beschreibt die `Code-Behind` und bliebt im MVVM-Pattern zwingend leer, da die Logik der UI im `ViewModel` erstellt wird.
 
 *In der ViewModel Schicht:* +
-Jedes `View` hat auch ein `ViewModel`, somit wurde in dem Projekt `Logic.Ui` im Ordner ViewModel die Klasse bzw. das ViewModel `PrintServiceWindowViewModel.cs` erstellt. Hierhinter verbirgt sich die Logik hinter der View `PrintServiceWindow.xaml`.
+Jede `View` hat auch ein `ViewModel`, somit wurde in dem Projekt `Logic.Ui` im Ordner ViewModel die Klasse bzw. das ViewModel `PrintServiceWindowViewModel.cs` erstellt. Hierhinter verbirgt sich die Logik hinter der View `PrintServiceWindow.xaml`.
 
 Zudem wurde die Klasse `OpenPrintServiceWindow.cs` erstellt, diese dient für den `MessageBus`, damit aus dem Hauptfenster das Fenster der Druckfunktion geöffnet werden kann.
 
@@ -77,7 +77,7 @@ Die View der Druckfunktion wurde mittels XAML Definiert. Das Layout teilt sich i
 Die `BookControl` besteht aus den UI Elementen, womit der User interagieren kann. In diesem Fall die Listen `All Books` und `Selected Books`, sowie die einzelnen Buttons. Das Layout besteht aus einer Spalte und sechs Reihen. Die Reihen werden jeweils den Komponenten zugeteilt, siehe Abbildung Layout Row.
 
 *Layout BookPreview:* +
-Die BookPreview dient nur zur Vorschau der Daten des Buches, welches vom User in der BookControl ausgewählt wird. Dieses Layout besteht aus 2 Spalten mit 3 Reihen. Die entsprechenden Komponenten wurden hier auch dem Layout zugeteilt, siehe Abbildung Layout Row.
+Die `BookPreview` dient nur zur Vorschau der Daten des Buches, welches vom User in der `BookControl` ausgewählt wird. Dieses Layout besteht aus 2 Spalten mit 3 Reihen. Die entsprechenden Komponenten wurden hier auch dem Layout zugeteilt, siehe Abbildung Layout Row.
 
 |===
 |image:GridLayoutGlobal.png[] |image:GridLayoutRow.png[]
@@ -115,7 +115,7 @@ Die Liste `Selected Books` zeigt wie schon erwähnt, die Bücher der Collection 
 </ListView>
 ----
 
-Der Bereich der `BookPreview` besteht größtenteils aus der Komponente `<TextBlock>`, welche den Wert des Buches ausgibt, welches aktuell vom Benutzer in der Liste „All Books“ angeklickt wurde. Dazu werden die `TextBlock` Komponenten über das Binding an die `ListView` gebunden. Wird nun ein anderes Buch in der `ListView` angeklickt, passt sich die Preview zu dem angeklickten Buch an.
+Der Bereich der `BookPreview` besteht größtenteils aus der Komponente `<TextBlock>`, welche den Wert des Buches ausgibt, welches aktuell vom Benutzer in der Liste `All Books` angeklickt wurde. Dazu werden die `TextBlock` Komponenten über das Binding an die `ListView` gebunden. Wird nun ein anderes Buch in der `ListView` angeklickt, passt sich die Preview zu dem angeklickten Buch an.
 
 [source, xaml]
 ----
@@ -134,15 +134,15 @@ Das ViewModel beinhaltet die Logik der UI. Die Klasse `PrintServiceWindowViewMod
 |Property |Funktion |Typ
 
 |`BookList`
-|Enthält die bereits angelegten Bücher der Anwendung
+|Enthält die bereits angelegten Bücher der Anwendung.
 |`BookCollectionViewModel`
 
 |`CheckedBooks`
-|Beinhaltet die Bücher, welche der Benutzer ausdrucken möchte
+|Beinhaltet die Bücher, welche der Benutzer ausdrucken möchte.
 |`BookCollectionViewModel`
 
 |`PrintBooks`
-|RelayCommand, welches ausgeführt wird, wenn der Benutzer den Button `[PRINT]` in der UI auswählt. Dies startet den Druckvorgang
+|RelayCommand, welches ausgeführt wird, wenn der Benutzer den Button `[PRINT]` in der UI auswählt. Dies startet den Druckvorgang.
 |`ICommand`
 
 |`CloseWindow`
@@ -154,7 +154,7 @@ Das ViewModel beinhaltet die Logik der UI. Die Klasse `PrintServiceWindowViewMod
 |`ICommand`
 
 |`RemoveSelectedBookToCollection`
-|RelayCommand, welches ausgeführt wird, wenn der Benutzer den Button `[REMOVE]` in der UI auswählt. Entfernt die übergebenden Bücher von der View in der Collection `CheckedBooks`
+|RelayCommand, welches ausgeführt wird, wenn der Benutzer den Button `[REMOVE]` in der UI auswählt. Entfernt die übergebenden Bücher von der View in der Collection `CheckedBooks`.
 |`ICommand`
 |===
 
