@@ -68,7 +68,7 @@ Da die Druckfunktion als Service zu sehen ist, wurde im Ordner `Services` eine n
 === UML-Diagramm
 image:UML.svg[]
 
-=== View - PrintServiceWindow.xaml
+=== Die View Schicht
 Die View der Druckfunktion wurde mittels XAML Definiert. Das Layout teilt sich in zwei Spalten auf (`BookControl` links und `BookPreview` rechts) und wurde mittels `Grid` realisiert.
 
 ==== Layout
@@ -127,8 +127,17 @@ Der Bereich der `BookPreview` besteht größtenteils aus der Komponente `<TextBl
 <TextBlock Text="{Binding ElementName=BookListBox, Path=SelectedItem.Weight}"/>
 ----
 
-=== ViewModel - PrintServiceWindowViewModel
-Das ViewModel beinhaltet die Logik der UI. Die Klasse `PrintServiceWindowViewModel` ist somit das zugehörige ViewModel zur View `PrintServiceWindow`. Dieses ViewModel enthält mehrere Properties, wo die View drauf Zugriff hat, welche im Folgenden kurz beschrieben werden.
+=== Die ViewModel Schicht
+Das ViewModel beinhaltet die Logik der UI. Die Klasse `PrintServiceWindowViewModel` ist somit das zugehörige ViewModel zur View `PrintServiceWindow`.
+Im ViewModel muss folgende Logik enthalten sein: 
+
+*1.* User fügt ein oder mehrere Bücher der Liste „Selected Books“ hinzu. +
+*2.* User entfernt ein oder mehrere Bücher aus der Liste „Selected Books“. +
+*3.* User möchte die ausgewählten Bücher ausdrucken. +
+*4.* User schließt das Fenster. +
+ 
+==== Verfügbare Properties
+Dieses ViewModel enthält mehrere Properties, wo die View drauf Zugriff hat.
 
 |===
 |Property |Funktion |Typ
@@ -158,3 +167,32 @@ Das ViewModel beinhaltet die Logik der UI. Die Klasse `PrintServiceWindowViewMod
 |`ICommand`
 |===
 
+==== Funktion
+*User fügt ein oder mehrere Bücher hinzu:* +
+In diesem Moment wird von der View eine Collection vom Typen `SelectedItemCollection` an das ViewModel geschickt. Die Methode `AddSelectedBookToCollectionCommand(object param)` wird dabei aufgerufen. Die Methode castet den Inhalt der Collection zum Typen `BookViewModel`. Im Anschluss werden die Bücher, welche sich in der Collection befinden, der Collection `CheckedBooks` hinzugefügt. In diesem Zuge wird zudem überprüft, ob sich bereits ein Buch in der Collection `CheckedBooks` befindet. Dies wird mit der Hilfsmethode `CheckItemIsInCheckedBooks(BookViewModel currentBook)` überprüft.
+
+[source, c#]
+----
+// Command to add selected book to BookCollection "CheckedBooks"
+private void AddSelectedBookToCollectionCommand(object param) {
+    // Save System.Windows.Controls.SelectedItemCollection 
+    // to IList and Cast to List<BookViewModel>
+    System.Collections.IList items = (System.Collections.IList)param;
+    var collection = items.Cast<BookViewModel>();
+    foreach (BookViewModel book in collection) {
+         if(!CheckItemIsInCheckedBooks(book)) {
+              CheckedBooks.Add(book);
+         }
+    }
+}
+
+// Helper Function to check if book is present in collection
+private bool CheckItemIsInCheckedBooks(BookViewModel currentBook) {
+    foreach(BookViewModel book in CheckedBooks) {
+         if(book.Equals(currentBook)) {
+              return true;
+         }
+    }
+    return false;
+}
+----
