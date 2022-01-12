@@ -12,8 +12,10 @@ Cedrik Hoffmann | 670339 | cedrik.hoffmann@stud.hs-flensburg.de
 == Einleitung
 Auf dem bereits bekannten MVVM-Grundgerüst wird ein neues Feature eingebaut. Das Feature soll eine Druckfunktion der gespeicherten Bücher ermöglichen. Dazu wird ein neues Ui-Fenster erstellt. In der Ui kann der Benutzer eine Auswahl an Büchern in einer ListView auswählen. Das angeklickte Buch wird im Bereich Book Preview im Detail angezeigt. Mit dem Button Add wird das gewählte Buch zum Drucken markiert. Es können mehrere Bücher ausgewählt werden. Die ausgewählten Bücher können im Bereich Selected Books eingesehen werden. Zudem hat der Benutzer die Möglichkeit, ein Buch aus der Liste wieder zu entfernen.
 
+In der folgenden Dokumentation wird das Projekt zum Feature `PrintService` genauer beschrieben. Es folgt eine Walkthrough aus Benutzerperspektive, sowie eine Übersicht über die Solution wo Funktions- und Designentscheidungen genauer erläutert werden.
+
 == Übersicht des Programms aus Nutzersicht
-Wird das Programm gestartet, ladet der User auf der Startseite des Programmes. Siehe hierzu die gemeinsame Kurzanleitung. Möchte der Benutzer, die bereits angelegten Bücher in einer Liste ausdrücken, so bietet das Feature „PrintService“ die Möglichkeit, eine sortierte Liste der gewählten Bücher auszudrucken. 
+Wird das Programm gestartet, ladet der User auf der Startseite des Programmes. Siehe hierzu die gemeinsame Kurzanleitung. Möchte der Benutzer, die bereits angelegten Bücher in einer Liste ausdrücken, so bietet das Feature `PrintService` die Möglichkeit, eine sortierte Liste der gewählten Bücher auszudrucken. 
 
 ==== Ansicht PrintServiceWindow
 image:UI.PNG[]
@@ -168,8 +170,11 @@ Dieses ViewModel enthält mehrere Properties, wo die View drauf Zugriff hat.
 |===
 
 ==== Funktion
-*User fügt ein oder mehrere Bücher hinzu:* +
-In diesem Moment wird von der View eine Collection vom Typen `SelectedItemCollection` an das ViewModel geschickt. Die Methode `AddSelectedBookToCollectionCommand(object param)` wird dabei aufgerufen. Die Methode castet den Inhalt der Collection zum Typen `BookViewModel`. Im Anschluss werden die Bücher, welche sich in der Collection befinden, der Collection `CheckedBooks` hinzugefügt. In diesem Zuge wird zudem überprüft, ob sich bereits ein Buch in der Collection `CheckedBooks` befindet. Dies wird mit der Hilfsmethode `CheckItemIsInCheckedBooks(BookViewModel currentBook)` überprüft.
+*Konstruktor:* +
+wird das Fenster in der Ui geöffnet, wird über den `ViewModelLocator` die bereits angelegten Bücher, welche sich im `ViewModelLocator` in der Property `TheBookCollectionViewModel` befinden, über den Konstruktor an das ViewModel übergeben. Diese Collection wird dann schließlich beim Konstruktor Aufruf der Property `BookList` zugewiesen. Neben dieser Zuweisung werden den `ICommand` Properties mittels `RelayCommand` den entsprechenden Methoden zugeteilt.
+
+*User fügt ein oder mehrere Bücher der Liste „Selected Books“ hinzu:* +
+in diesem Moment wird von der View eine Collection vom Typen `SelectedItemCollection` an das ViewModel geschickt. Die Methode `AddSelectedBookToCollectionCommand(object param)` wird dabei aufgerufen. Die Methode castet den Inhalt der Collection zum Typen `BookViewModel`. Im Anschluss werden die Bücher, welche sich in der Collection befinden, der Collection `CheckedBooks` hinzugefügt. In diesem Zuge wird zudem überprüft, ob sich bereits ein Buch in der Collection `CheckedBooks` befindet. Dies wird mit der Hilfsmethode `CheckItemIsInCheckedBooks(BookViewModel currentBook)` überprüft.
 
 [source, c#]
 ----
@@ -196,3 +201,22 @@ private bool CheckItemIsInCheckedBooks(BookViewModel currentBook) {
     return false;
 }
 ----
+
+*User entfernt ein oder mehrere Bücher aus der Liste Selected Books:* +
+wählt der User ein Buch aus, welches aus der Liste entfernt werden soll, ist die Logik ähnlich wie das hinzufügen eines Buches. Die View schickt auch hier eine Collection des Typen `SelectedItemCollection`. Auch hier wird der Inhalt der Collection zu `BookViewModel` gecastet. Anschließend werden die Bücher in der Collection `CheckedBooks` über die Methode `Remove()` entfernt.
+
+*User möchte die ausgewählten Bücher ausdrucken:* +
+Ist die Liste `Selected Books` gefüllt und der User startet den Druckvorgang, wird die Methode `PrintBooksCommand()` ausgeführt. Hier ist die Besonderheit, dass überprüft wird, ob sich mindestens ein Buch in der Collection `CheckedBooks` befindet. Ist dies der Fall, wird die Collection an das Objekt `PrintBookService` übergeben, welches die Daten der Collection in ein `FlowDocument` konvertiert. (Näheres dazu im Kapitel https://github.com/choffmann/hsfl-awp-clientapp011/tree/update_doc/Doku/cedrik_hoffmann#33-viewmodel---printservicewindowviewmodel[Service Schicht]). Befindet sich kein Buch in der Collection, wird eine `MessageBox` erstellt, welche dem User mitteilt, dass sich mindestens ein Buch in der Liste befinden muss.
+
+*User schließt das Fenster:* +
+schließt der User über den Button `[CLOSE]` das `PrintService` Fenster, wird die Methode `CloseWindowCommand(object param)` ausgeführt. Diese ist analog zu der Methode, welche im Skript vorgestellt wurde. Allerdings wird hier noch vor dem schließen die Collection `CheckedBooks` mittels der Methode `Clear()` geleert, damit diese beim neu Aufruf des Fensters leer ist. 
+
+=== Die Service Schicht
+Das schlussendliche Feature `PrintService` verbirgt sich als `Klassenbibliothek` im Ordner `Services`. In der Klasse `PrintBookService.cs` wird das `FlowDocument` erstellt, welches anschließend an den Drucker gesendet wird. `FlowDocument` bietet eine gute Möglichkeit, ein dynamisches Dokument zu erstellen, welches sich dem Text entsprechend anpasst.
+
+image:FlowDocumentExport.png[]
+
+==== Layout
+Das Layout besteht aus zwei Tabellen. Die erste Tabelle `MainTable`, besteht aus einer Reihe und zwei Spalten. In der ersten Spalte befindet sich das `Cover Image` vom Buch. In der zweiten Spalte befindet sich eine weitere Tabelle `ContentTable`. Diese Tabelle wird dazu verwendet, die Metadaten des Buches strukturiert anzeigen zu können. Die ContentTable besteht dabei aus 4 Reihen und 4 Spalten, wo sich die jeweiligen Überschriften wie `Title, Author, Genre, Preis und Kurzbeschreibung`, sowie die entsprechenden Attribute beinhaltet. Die Reihen Kurzbeschreibung und das dazugehörige Attribut erstrecken sich über die 4 Spalten.
+
+image:FlowDocumentLayout.png[]
