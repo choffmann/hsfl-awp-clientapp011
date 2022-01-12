@@ -5,9 +5,9 @@ Cedrik Hoffmann | 670339 | cedrik.hoffmann@stud.hs-flensburg.de
 :source-highlighter: highlightjs
 :imagesdir: img
 :sectnums:
-:sectnumlevels: 2
+:sectnumlevels: 3
 :toc: left
-:toclevels: 2
+:toclevels: 3
 
 == Einleitung
 Auf dem bereits bekannten MVVM-Grundgerüst wird ein neues Feature eingebaut. Das Feature soll eine Druckfunktion der gespeicherten Bücher ermöglichen. Dazu wird ein neues Ui-Fenster erstellt. In der Ui kann der Benutzer eine Auswahl an Büchern in einer ListView auswählen. Das angeklickte Buch wird im Bereich Book Preview im Detail angezeigt. Mit dem Button Add wird das gewählte Buch zum Drucken markiert. Es können mehrere Bücher ausgewählt werden. Die ausgewählten Bücher können im Bereich Selected Books eingesehen werden. Zudem hat der Benutzer die Möglichkeit, ein Buch aus der Liste wieder zu entfernen.
@@ -26,10 +26,10 @@ Wird das `PrintServiceWindow` gestartet, sieht der Benutzer links oben in der Li
 === Ergänzende Hinweise 
 Der Benutzer hat die Möglichkeit, mittels `STGR + <KLICK AUF BUCH>` mehrere Bücher in der Liste `All Books` auszuwählen. Somit können mehrere Bücher gleichzeitig zur `Selected Book` Liste hinzugefügt werden https://github.com/choffmann/hsfl-awp-clientapp011/tree/update_doc/Doku/cedrik_hoffmann#add-books[siehe Add Books]. Es muss zwingend `>= 1` Buch in der Liste `Selected Books` beim Starten des Druckvorgangs vorhanden sein, ansonsten erscheint eine Meldung, dass nicht genug Bücher in der Liste vorhanden sind und der Druckvorgang wird abgebrochen.
 
-==== Book Preview
+.Book Preview
 image:BookPreview.gif[]
 
-==== Add Books
+.Add Books
 image:AddBooks.gif[]
 
 == Übersicht über die Solution
