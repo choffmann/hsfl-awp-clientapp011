@@ -14,7 +14,7 @@ Im Vorfeld wurde die `BookCollection` bzw. die `BookCollectionViewModel` mit Dem
 
 Ist die Datei im angegebenden Pfad enthalten, kann nun über den ersten Button "Load Collection from *.bmf" die Datei geladen werden, um die `BookCollectionViewModel` mit Daten zu füllen.
 
-== Feature Fenster öffnen
+=== Feature Fenster öffnen
 Möchte der User nun eines der Feature ausführen (Ausdruck oder Bib Import), kann dies über die anderen beiden Buttons realisiert werden. Über den Button "Open PrintService Window" öffnet sich die Ui der Druckfunktion. Der Button "Open Bib Import" führt zu der Ui des Features `Import eines Tex-Files (.bib)`
 
 == Verweise
