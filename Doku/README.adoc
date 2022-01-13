@@ -12,13 +12,13 @@ image:MainWindow.jpg[]
 === Serialisierung
 Im Vorfeld wurde die `BookCollection` bzw. die `BookCollectionViewModel` mit Demo Büchern erstellt, da es zurzeit keine Möglichkeit gibt bzw. das Feature noch nicht aktiv ist, um die Bücher über eine Ui zu erstellen. Somit ergeben sich 10 Demo Bücher mit zufälligem Inhalt, sowie verschiedene Cover Images. Die Datei, welche zum laden der Collection benötigt wird, befindet sich im Repository unter `BooksGroup017.bmf`. Diese Datei muss im File-Explorer unter `C:\Users\<USER>\Documents\BookManagerSerialization\BooksGroup017.bmf` hinterlegt werden.
 
-Ist die Datei im angegebenden Pfad enthalten, kann nun über den ersten Button "Load Collection from *.bmf" die Datei geladen werden, um die `BookCollectionViewModel` mit Daten zu füllen.
+Ist die Datei im angegebenen Pfad enthalten, kann nun über den ersten Button "Load Collection from *.bmf" die Datei geladen werden, um die `BookCollectionViewModel` mit Daten zu füllen.
 
 === Feature Fenster öffnen
 Möchte der User nun eines der Feature ausführen (Ausdruck oder Bib Import), kann dies über die anderen beiden Buttons realisiert werden. Über den Button "Open PrintService Window" öffnet sich die Ui der `Druckfunktion`. Der Button "Open Bib Import" führt zu der Ui des Features `Import eines Tex-Files (.bib)`.
 
-=== Hinweis zur verletzung des SyleGuides
-Da wir eine Menge an Properties im Model `Book` haben, wurde hier die Anzahl der Zeilen von 250 überschritten. Allerdings kann durch GitHub nachgeweisen werden, dass das Model am 28.10.2021 erstellt bzw. in Repository gepusht wurde. Zu diesem Zeitpunkt war die aktuelle Skriptversion `3.5.0`. Hier ist im StyleGuide beschrieben, dass die Anzahl von 1000 Zeilen nicht überschritten werden sollte. In dieser Vorgabe liegt unser Model.
+=== Hinweis zur Verletzung des SyleGuides
+Da wir eine Menge an Properties im Model `Book` haben, wurde hier die Anzahl der Zeilen von 250 überschritten. Allerdings kann durch GitHub nachgewiesen werden, dass das Model am 28.10.2021 erstellt bzw. in Repository gepusht wurde. Zu diesem Zeitpunkt war die aktuelle Skriptversion `3.5.0`. Hier ist im StyleGuide beschrieben, dass die Anzahl von 1000 Zeilen nicht überschritten werden sollte. In dieser Vorgabe liegt unser Model.
 
 == Verweise
 - https://github.com/choffmann/hsfl-awp-clientapp011/tree/main/Doku/cedrik_hoffmann[PrintService Dokumentation]
