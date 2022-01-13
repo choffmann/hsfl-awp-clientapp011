@@ -21,5 +21,5 @@ Möchte der User nun eines der Feature ausführen (Ausdruck oder Bib Import), ka
 Da wir eine Menge an Properties im Model `Book` haben, wurde hier die Anzahl der Zeilen von 250 überschritten. Allerdings kann durch GitHub nachgeweisen werden, dass das Model am 28.10.2021 erstellt bzw. in Repository gepusht wurde. Zu diesem Zeitpunkt war die aktuelle Skriptversion `3.5.0`. Hier ist im StyleGuide beschrieben, dass die Anzahl von 1000 Zeilen nicht überschritten werden sollte. In dieser Vorgabe liegt unser Model.
 
 == Verweise
-- https://github.com/choffmann/hsfl-awp-clientapp011/tree/update_doc/Doku/cedrik_hoffmann[PrintService Dokumentation]
-- https://github.com/choffmann/hsfl-awp-clientapp011/blob/update_doc/Doku/dimi_dorn/017-Doku-AWP-Hausarbreit.pdf[Import Tex-Files Dokumentation]
+- https://github.com/choffmann/hsfl-awp-clientapp011/tree/main/Doku/cedrik_hoffmann[PrintService Dokumentation]
+- https://github.com/choffmann/hsfl-awp-clientapp011/blob/main/Doku/dimi_dorn/017-Doku-AWP-Hausarbreit.pdf[Import Tex-Files Dokumentation]
