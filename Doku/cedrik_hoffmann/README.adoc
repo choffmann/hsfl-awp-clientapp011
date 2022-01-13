@@ -1,15 +1,41 @@
-= Anwendungprogrammierung - Dokumentation 
+= Anwendungprogrammierung - Dokumentation zum Feature PrintService
 Cedrik Hoffmann | 670339 | cedrik.hoffmann@stud.hs-flensburg.de
 :icons: font
 :nofooter:
 :source-highlighter: highlightjs
 :imagesdir: img
+:sectnums:
+:sectnumlevels: 3
+:toc: left
+:toclevels: 3
 
 == Einleitung
-Auf dem bereits bekannten `MVVM-Grundgerüst` wird ein neues Feature eingebaut. Das Feature soll eine Druckfunktion der gespeicherten Bücher ermöglichen. Dazu wird ein neues Ui-Fenster erstellt. In der Ui kann der Benutzer eine Auswahl an Büchern in einer `ListView` auswählen. Das angeklickte Buch wird im Bereich `Book Preview` im Detail angezeigt. Mit dem Button `Add` wird das gewählte Buch zum Drucken makiert. Es können mehrere Bücher ausgewählt werden. Die ausgewählten Bücher können im Bereich `Selected Books` eingesehen werden. Zudem hat der Benutzer die möglichkeit, ein Buch aus der Liste wieder zu entfernen.
+Auf dem bereits bekannten MVVM-Grundgerüst wird ein neues Feature eingebaut. Das Feature soll eine Druckfunktion der gespeicherten Bücher ermöglichen. Dazu wird ein neues Ui-Fenster erstellt. In der Ui kann der Benutzer eine Auswahl an Büchern in einer ListView auswählen. Das angeklickte Buch wird im Bereich Book Preview im Detail angezeigt. Mit dem Button Add wird das gewählte Buch zum Drucken markiert. Es können mehrere Bücher ausgewählt werden. Die ausgewählten Bücher können im Bereich Selected Books eingesehen werden. Zudem hat der Benutzer die Möglichkeit, ein Buch aus der Liste wieder zu entfernen.
 
-=== Erstellte Datein
-Auf das `MVVM-Grundgerüst` wurden folgende `Datein / Klassen / Klassenbibliotheken` erstellt:
+In der folgenden Dokumentation wird das Projekt zum Feature `PrintService` genauer beschrieben. Es folgt eine Walkthrough aus Benutzerperspektive, sowie eine Übersicht über die Solution wo Funktions- und Designentscheidungen genauer erläutert werden.
+
+== Übersicht des Programms aus Nutzersicht
+Wird das Programm gestartet, ladet der User auf der Startseite des Programmes. Siehe hierzu die gemeinsame Kurzanleitung. Möchte der Benutzer, die bereits angelegten Bücher in einer Liste ausdrücken, so bietet das Feature `PrintService` die Möglichkeit, eine sortierte Liste der gewählten Bücher auszudrucken. 
+
+==== Ansicht PrintServiceWindow
+image:UI.PNG[]
+
+=== Walkthrough
+Wird das `PrintServiceWindow` gestartet, sieht der Benutzer links oben in der Liste `All Books` alle Bücher, welche in der Anwendung bereits angelegt wurden. Unter der Liste befinden sich zwei Buttons, um die gewählten Bücher zur Auswahl hinzuzufügen `[ADD]`, oder das Buch aus der Liste wieder zu entfernen `[REMOVE]`. Die ausgewählten Bücher, welche in der Liste `Selected Books` zu sehen sind, werden anschließend in einer Liste ausgedruckt. Unter dieser Liste verbergen sich wiederum zwei Buttons. Zum einen, um den Druckvorgang zu starten `[PRINT]` und zum anderen, um das Fenster zu schließen `[CLOSE]`, um wieder zur Startseite zu gelangen. Wählt der Benutzer ein Buch in der Liste `All Books` aus, wird die Vorschau mit den entsprechenden Metadaten des Buches angepasst, welches angeklickt wurde https://github.com/choffmann/hsfl-awp-clientapp011/tree/update_doc/Doku/cedrik_hoffmann#book-preview[siehe Book Preview]. Hat der Benutzer die Bücher, welche ausgedruckt werden sollen, der Liste `Selected Books` hinzugefügt, kann der Benutzer über den Button `[PRINT]` den Druckvorgang starten. Es öffnet sich nun das Standard Windows Druckerfenster, wo der Benutzer seinen Drucker auswählen kann und somit die Liste der Bücher ausgedruckt wird.
+
+=== Ergänzende Hinweise 
+Der Benutzer hat die Möglichkeit, mittels `STGR + <KLICK AUF BUCH>` mehrere Bücher in der Liste `All Books` auszuwählen. Somit können mehrere Bücher gleichzeitig zur `Selected Book` Liste hinzugefügt werden https://github.com/choffmann/hsfl-awp-clientapp011/tree/update_doc/Doku/cedrik_hoffmann#add-books[siehe Add Books]. Es muss zwingend `>= 1` Buch in der Liste `Selected Books` beim Starten des Druckvorgangs vorhanden sein, ansonsten erscheint eine Meldung, dass nicht genug Bücher in der Liste vorhanden sind und der Druckvorgang wird abgebrochen.
+
+===== Book Preview
+image:BookPreview.gif[]
+
+===== Add Books
+image:AddBooks.gif[]
+
+== Übersicht über die Solution
+Auf die Solution, welche in der Vorlesung erstellt wurde, wurden folgende `Datein / Klassen / Klassenbibliotheken` hinzugefügt:
+
+*Solution Explorer Ansicht:*
 [listing]
 ----
 Logic
@@ -30,34 +56,68 @@ Services
 |    |--+ PrintBookService.cs
 ----
 
-- `PrintServiceWindow.xaml` wird für die Ui verwendet.
-- `PrintServiceWindowViewModel.cs` beschreibt das `ViewModel` zur `View`. `PrintServiceWindow.xaml` hat über den `ViewModelLocator` zugriff auf das ViewModel `PrintServiceWindowViewModel`
-- `OpenPrintServiceWindowMessage.cs` wurde erstellt, damit über den `MessageBus` aus dem `MainWindow` die Ui geöffnet wird.
-- `Services.PrintService` ist somit die entsprechende Klassenbibliothek, welche die Druckfunktion ermöglicht.
+*In der View Schicht:* +
+Hier wurde in `Ui.Desktop` ein neues WPF Fenster mit den Namen `PrintServiceWindow` angelegt. Daraus folgen die Dateien `PrintServiceWindow.xaml` und `PrintServiceWindow.xaml.cs`. `PrintServiceWindow.xaml` beschreibt die XAML-Datei für das WPF Fenster bzw. der UI. `PrintServiceWindow.xaml.cs` beschreibt die `Code-Behind` und bliebt im MVVM-Pattern zwingend leer, da die Logik der UI im `ViewModel` erstellt wird.
 
-== Aufbau / Funktion der Ui
-Im Folgenden werden die einzelnen Design Entscheidungen und Ui-Funktionen beschrieben.
+*In der ViewModel Schicht:* +
+Jede `View` hat auch ein `ViewModel`, somit wurde in dem Projekt `Logic.Ui` im Ordner ViewModel die Klasse bzw. das ViewModel `PrintServiceWindowViewModel.cs` erstellt. Hierhinter verbirgt sich die Logik hinter der View `PrintServiceWindow.xaml`.
 
-.Ansicht Ui
-image:UI.PNG[]
+Zudem wurde die Klasse `OpenPrintServiceWindow.cs` erstellt, diese dient für den `MessageBus`, damit aus dem Hauptfenster das Fenster der Druckfunktion geöffnet werden kann.
 
-=== Layout
-Das Layout wird weitesgehend mittels `Grid` realisiert. Knapp 1/3 der Ui wird für die `Auswahl / Hinzufügen / Entfernen / Buttons` der Bücher verwendet. Der restliche Bereich ist für die Darstellung der Bücher im Detail. In der Abbildung ist eine grobe Skizze des Layout zu sehen. 
+*Als Service:* +
+Da die Druckfunktion als Service zu sehen ist, wurde im Ordner `Services` eine neue Klassenbibliothek `Service.PrintService` angelegt. In dieser Klassenbibliothek befindet sich die Klasse `PrintBookService.cs`, welche die Logik des Service beinhaltet. Hier wurde der NamesSpace `De.HsFlensburg.ClientApp011.Services.PrintService` verwendet.
+
+=== UML-Diagramm
+image:UML.svg[]
+
+=== Die View Schicht
+Die View der Druckfunktion wurde mittels XAML Definiert. Das Layout teilt sich in zwei Spalten auf (`BookControl` links und `BookPreview` rechts) und wurde mittels `Grid` realisiert.
+
+==== Layout
+
+*Layout BookControl:* +
+Die `BookControl` besteht aus den UI Elementen, womit der User interagieren kann. In diesem Fall die Listen `All Books` und `Selected Books`, sowie die einzelnen Buttons. Das Layout besteht aus einer Spalte und sechs Reihen. Die Reihen werden jeweils den Komponenten zugeteilt, siehe Abbildung Layout Row.
+
+*Layout BookPreview:* +
+Die `BookPreview` dient nur zur Vorschau der Daten des Buches, welches vom User in der `BookControl` ausgewählt wird. Dieses Layout besteht aus 2 Spalten mit 3 Reihen. Die entsprechenden Komponenten wurden hier auch dem Layout zugeteilt, siehe Abbildung Layout Row.
 
 |===
 |image:GridLayoutGlobal.png[] |image:GridLayoutRow.png[]
 
-|Diese Abbildung illustriert die Aufteilung des "Globalen Grids". 
-|Diese Abbildung illustriert die Aufteilung der einzelnen Reihen der Komponenten. 
+|Abbildung Globales Layout
+|Abbildung Layout detailliert
 |===
 
-=== Auswahl Bücher
-Die gespiecherten Bücher sind im `ViewModel` in der `BookCollectionViewModel` gespeichert. Beim Aufruf des Ui-Fensters wird die `BookCollectionViewModel` an das `PrintServiceWindowViewModel` übergeben. Da die Ui zugriff auf die `PrintServiceWindowViewModel` hat, kann die Ui bzw. die `ListView` auf die Collection zugreifen und somit in der Ui anzeigen.
+==== Funktion
+Die Bücher in der Liste `All Books` sind in einer 'BookCollectionViewModel' im ViewModel gespeichert. Beim Starten des UI-Fensters, wird die `BookCollectionViewModel` mit den angelegten Büchern an das `PrintServiceWindowViewModel` im `ViewModelLocator` übergeben. Da die UI übers `Binding` Zugriff auf das `PrintServiceWindowViewModel` hat, kann die UI mittels einer `ListView` die Daten von der Collection in einer Liste anzeigen.
 
-=== BookPreview Funktion
-image:BookPreview.gif[]
+Die Liste `Selected Books` ist ähnlich wie die Liste `All Books` aufgebaut. Diese besteht auch aus einer Collection des Typen `BookCollectionViewModel`. Wird über den Button `[ADD]` ein oder mehrere Bücher ausgewählt, werden diese Bücher im ViewModel der Collection `CheckedBooks` hinzugefügt, welche in der View dann angezeigt wird. Dazu übergibt die View mittels des `RelayCommands mit Parametern` die Bücher, welche vom Benutzer selektiert wurden, an das ViewModel. Diese werden in der `ListView` als `System.Windows.Controls.SelectedItemCollection` an das ViewModel gesendet. Ähnliche Logik verbirgt sich auch hinter den Button `[REMOVE]`, nur das hier entsprechend die übergebenen Bücher der Collection `CheckedBooks` entfernt werden. Die genauere Logik hierhinter wird in dem Kapitel https://github.com/choffmann/hsfl-awp-clientapp011/tree/update_doc/Doku/cedrik_hoffmann#33-viewmodel---printservicewindowviewmodel[ViewModel] genauer erläutert.
 
-Die Preview Funktion erfolgt durch `Binding` an das aktuell ausgewählte Element in der `ListView`. Die Eigenschaften des ausgewählte Elements bzw. Buch aus `BookViewModel` wird in der entsprechenden `TextBox` ausgegeben.
+[source, xaml]
+----
+<Button Content="Add" Margin="0,5,5,5"
+    CommandParameter="{Binding ElementName=BookListBox, Path=SelectedItems}"
+    Command="{Binding AddSelectedBookToCollection}"  />
+<Button Content="Remove" Margin="5,5,0,5"
+    CommandParameter="{Binding ElementName=BookListBox, Path=SelectedItems}"
+    Command="{Binding RemoveSelectedBookToCollection}" />
+----
+
+Die Liste `Selected Books` zeigt wie schon erwähnt, die Bücher der Collection `CheckedBooks` an. Diese `ListView` hat die Eigenschaft, dass diese nicht angeklickt werden kann. Dies Eigenschaft wurde mittels des Parameters `<ListView.ItemContainerStyle>` deaktiviert.
+
+[source, xaml]
+----
+<ListView Grid.Row="4" ItemsSource="{Binding CheckedBooks}">
+    <ListView.ItemContainerStyle>
+        <Style TargetType="ListViewItem">
+            <Setter Property="Focusable" Value="False"/>
+        </Style>
+     </ListView.ItemContainerStyle>
+     ...
+</ListView>
+----
+
+Der Bereich der `BookPreview` besteht größtenteils aus der Komponente `<TextBlock>`, welche den Wert des Buches ausgibt, welches aktuell vom Benutzer in der Liste `All Books` angeklickt wurde. Dazu werden die `TextBlock` Komponenten über das Binding an die `ListView` gebunden. Wird nun ein anderes Buch in der `ListView` angeklickt, passt sich die Preview zu dem angeklickten Buch an.
 
 [source, xaml]
 ----
@@ -69,70 +129,113 @@ Die Preview Funktion erfolgt durch `Binding` an das aktuell ausgewählte Element
 <TextBlock Text="{Binding ElementName=BookListBox, Path=SelectedItem.Weight}"/>
 ----
 
-=== Bücher zum drucken hinzufügen
-image:AddBooks.gif[]
+=== Die ViewModel Schicht
+Das ViewModel beinhaltet die Logik der UI. Die Klasse `PrintServiceWindowViewModel` ist somit das zugehörige ViewModel zur View `PrintServiceWindow`.
+Im ViewModel muss folgende Logik enthalten sein: 
 
-Wenn der Benutzer ein oder mehrere Bücher auswählt, werden diese in einer neue `Collection` gespeichert, welche anschließend an die Klassenbibliothek  `Service.PrintService` zum drucken weitergeben werden. Die ausgewählten Bücher werden mittels des Buttons `Add` an das ViewModel übergeben. Über das `RelayCommand mit Parametern` werden die Bücher in der `ListView` als `System.Windows.Controls.SelectedItemCollection` an das `ViewModel` übergeben. Ähnliche Logik verbirgt sich auch hinter den Button `Remove`. Unterschied hierbei ist, dass die ausgewählten Bücher nicht der Collection hinzugefügt, sondern entfernt werden. Die Logik hinter den Buttons verbirgt sich im `ViewModel`, welche im Kapitel https://github.com/choffmann/hsfl-awp-clientapp011/tree/cedrik/Doku/cedrik_hoffmann#viewmodel[ViewModle] erläutert werden.
+*1.* User fügt ein oder mehrere Bücher der Liste „Selected Books“ hinzu. +
+*2.* User entfernt ein oder mehrere Bücher aus der Liste „Selected Books“. +
+*3.* User möchte die ausgewählten Bücher ausdrucken. +
+*4.* User schließt das Fenster. +
+ 
+==== Verfügbare Properties
+Dieses ViewModel enthält mehrere Properties, wo die View drauf Zugriff hat.
 
-[source, xaml]
-----
-<Button Content="Add" Margin="0,5,5,5" 
-    CommandParameter="{Binding ElementName=BookListBox, Path=SelectedItems}" 
-    Command="{Binding AddSelectedBookToCollection}"  />
-<Button Content="Remove" Margin="5,5,0,5" 
-    CommandParameter="{Binding ElementName=BookListBox, Path=SelectedItems}" 
-    Command="{Binding RemoveSelectedBookToCollection}" />
-----
+|===
+|Property |Funktion |Typ
 
-Der Bereich `Selected Books` zeigt die entsprechende Collection der ausgewählten Bücher an. Diese Komponente ist auch eine `ListView`, welche auf die `CheckedBooks` vom Typ `BookCollectionViewModel` zugreift. Diese `ListView` wurde die Eigenschaft des anwählens mittels dem Parameter `<ListView.ItemContainerStyle>` entfernt.
+|`BookList`
+|Enthält die bereits angelegten Bücher der Anwendung.
+|`BookCollectionViewModel`
 
-[source, xaml]
-----
-<ListView Grid.Row="4" ItemsSource="{Binding CheckedBooks}">
-    <ListView.ItemContainerStyle>
-        <Style TargetType="ListViewItem">
-            <Setter Property="Focusable" Value="False"/>
-        </Style>
-    </ListView.ItemContainerStyle>
-    <ListView.ItemTemplate>
-        <DataTemplate>
-            <TextBlock Text="{Binding Title}" />
-        </DataTemplate>
-    </ListView.ItemTemplate>
-</ListView>
-----
+|`CheckedBooks`
+|Beinhaltet die Bücher, welche der Benutzer ausdrucken möchte.
+|`BookCollectionViewModel`
 
-== ViewModel
-Im `ViewModel` ist die Logik der Ui definiert. Hier werden die Properties und Funktionen kurz beschrieben.
+|`PrintBooks`
+|RelayCommand, welches ausgeführt wird, wenn der Benutzer den Button `[PRINT]` in der UI auswählt. Dies startet den Druckvorgang.
+|`ICommand`
 
-=== Verfügbare Properties
-- Die Property `BookList` beinhaltet alle bereits angelegten Bücher.
-- In der Property `CheckedBooks` werden alle Bücher abgespeichert, welche der Benutzer zum drucken ausgewählt hat.
-- Die Properties `PrintBooks, CloseWindow` werden zum starten des Druckvorgangs, bzw. zum shcließen des Fensters verwendet.
-- Die Properties `AddSelectedBookToCollection, RemoveSelectedBookToCollection` werden zum hinzufügen, bzw. entfernen der ausgewählten Bücher in `CheckedBooks Collection`.
+|`CloseWindow`
+|RelayCommand, welches ausgeführt wird, wenn der Benutzer den Button `[CLOSE]` in der UI auswählt. Schließt das aktuelle Fenster.
+|`ICommand`
 
-=== Funktion
-Im folgenden wird die Funktionsweise von der Funktion `AddSelectedBookToCollectionCommand` beschrieben.
+|`AddSelectedBookToCollection`
+|RelayCommand, welches ausgeführt wird, wenn der Benutzer den Button `[ADD]` in der UI auswählt. Fügt der Collection `CheckedBooks` die übergebenden Bücher der View hinzu.
+|`ICommand`
+
+|`RemoveSelectedBookToCollection`
+|RelayCommand, welches ausgeführt wird, wenn der Benutzer den Button `[REMOVE]` in der UI auswählt. Entfernt die übergebenden Bücher von der View in der Collection `CheckedBooks`.
+|`ICommand`
+|===
+
+==== Funktion
+*Konstruktor:* +
+wird das Fenster in der Ui geöffnet, wird über den `ViewModelLocator` die bereits angelegten Bücher, welche sich im `ViewModelLocator` in der Property `TheBookCollectionViewModel` befinden, über den Konstruktor an das ViewModel übergeben. Diese Collection wird dann schließlich beim Konstruktor Aufruf der Property `BookList` zugewiesen. Neben dieser Zuweisung werden den `ICommand` Properties mittels `RelayCommand` den entsprechenden Methoden zugeteilt.
+
+*User fügt ein oder mehrere Bücher der Liste „Selected Books“ hinzu:* +
+in diesem Moment wird von der View eine Collection vom Typen `SelectedItemCollection` an das ViewModel geschickt. Die Methode `AddSelectedBookToCollectionCommand(object param)` wird dabei aufgerufen. Die Methode castet den Inhalt der Collection zum Typen `BookViewModel`. Im Anschluss werden die Bücher, welche sich in der Collection befinden, der Collection `CheckedBooks` hinzugefügt. In diesem Zuge wird zudem überprüft, ob sich bereits ein Buch in der Collection `CheckedBooks` befindet. Dies wird mit der Hilfsmethode `CheckItemIsInCheckedBooks(BookViewModel currentBook)` überprüft.
 
 [source, c#]
 ----
-private void AddSelectedBookToCollectionCommand(object param)
-{
-    System.Collections.IList items = (System.Collections.IList)param; <1>
-    var collection = items.Cast<BookViewModel>(); <2>
-
-    foreach (BookViewModel book in collection) <3>
-    {
-        if(!CheckItemIsInCheckedBooks(book)) <4>
-        {
-            CheckedBooks.Add(book); 
-        }
+// Command to add selected book to BookCollection "CheckedBooks"
+private void AddSelectedBookToCollectionCommand(object param) {
+    // Save System.Windows.Controls.SelectedItemCollection 
+    // to IList and Cast to List<BookViewModel>
+    System.Collections.IList items = (System.Collections.IList)param;
+    var collection = items.Cast<BookViewModel>();
+    foreach (BookViewModel book in collection) {
+         if(!CheckItemIsInCheckedBooks(book)) {
+              CheckedBooks.Add(book);
+         }
     }
 }
-----
-<1> Hier wird das übergebene Objekt, welches vom Typ `System.Windows.Controls.SelectedItemCollection` stammt in einer neuen Liste gespeichert.
-<2> Hier wird die Liste in eine neue Liste vom Typ `BookViewModle` gecastet.
-<3> Nun wird die Colletion durchgegangen und in der `CheckedBooks Collection` hinzugefügt
-<4> `CheckItemIsInCheckedBooks` ist eine Hilfsmethode, welche überprüft, ob ein Buch bereits in der `CheckedBooks Collection` vorhanden ist. Ist dies der Fall, wird dieses Buch dementsprechend nicht nochmal hinzugefügt.
 
-== Service.PrintService
+// Helper Function to check if book is present in collection
+private bool CheckItemIsInCheckedBooks(BookViewModel currentBook) {
+    foreach(BookViewModel book in CheckedBooks) {
+         if(book.Equals(currentBook)) {
+              return true;
+         }
+    }
+    return false;
+}
+----
+
+*User entfernt ein oder mehrere Bücher aus der Liste Selected Books:* +
+wählt der User ein Buch aus, welches aus der Liste entfernt werden soll, ist die Logik ähnlich wie das hinzufügen eines Buches. Die View schickt auch hier eine Collection des Typen `SelectedItemCollection`. Auch hier wird der Inhalt der Collection zu `BookViewModel` gecastet. Anschließend werden die Bücher in der Collection `CheckedBooks` über die Methode `Remove()` entfernt.
+
+*User möchte die ausgewählten Bücher ausdrucken:* +
+Ist die Liste `Selected Books` gefüllt und der User startet den Druckvorgang, wird die Methode `PrintBooksCommand()` ausgeführt. Hier ist die Besonderheit, dass überprüft wird, ob sich mindestens ein Buch in der Collection `CheckedBooks` befindet. Ist dies der Fall, wird die Collection an das Objekt `PrintBookService` übergeben, welches die Daten der Collection in ein `FlowDocument` konvertiert. (Näheres dazu im Kapitel https://github.com/choffmann/hsfl-awp-clientapp011/tree/update_doc/Doku/cedrik_hoffmann#33-viewmodel---printservicewindowviewmodel[Service Schicht]). Befindet sich kein Buch in der Collection, wird eine `MessageBox` erstellt, welche dem User mitteilt, dass sich mindestens ein Buch in der Liste befinden muss.
+
+*User schließt das Fenster:* +
+schließt der User über den Button `[CLOSE]` das `PrintService` Fenster, wird die Methode `CloseWindowCommand(object param)` ausgeführt. Diese ist analog zu der Methode, welche im Skript vorgestellt wurde. Allerdings wird hier noch vor dem schließen die Collection `CheckedBooks` mittels der Methode `Clear()` geleert, damit diese beim neu Aufruf des Fensters leer ist. 
+
+=== Die Service Schicht
+Das schlussendliche Feature `PrintService` verbirgt sich als `Klassenbibliothek` im Ordner `Services`. In der Klasse `PrintBookService.cs` wird das `FlowDocument` erstellt, welches anschließend an den Drucker gesendet wird. `FlowDocument` bietet eine gute Möglichkeit, ein dynamisches Dokument zu erstellen, welches sich dem Text entsprechend anpasst.
+
+image:FlowDocumentExport.png[]
+
+==== Layout
+Das Layout besteht aus zwei Tabellen. Die erste Tabelle `MainTable`, besteht aus einer Reihe und zwei Spalten. In der ersten Spalte befindet sich das `Cover Image` vom Buch. In der zweiten Spalte befindet sich eine weitere Tabelle `ContentTable`. Diese Tabelle wird dazu verwendet, die Metadaten des Buches strukturiert anzeigen zu können. Die ContentTable besteht dabei aus 4 Reihen und 4 Spalten, wo sich die jeweiligen Überschriften wie `Title, Author, Genre, Preis und Kurzbeschreibung`, sowie die entsprechenden Attribute beinhaltet. Die Reihen Kurzbeschreibung und das dazugehörige Attribut erstrecken sich über die 4 Spalten.
+
+Die Überschrift der Attribute ist in der Schriftart Arial und Fett. Die jeweiligen Attribute in der Schriftart Consolas.
+
+image:FlowDocumentLayout.png[]
+
+==== Funktion
+Im ViewModel wird die Liste mit den Büchern, welche ausgedruckt werden sollen, an den Konstruktor des Objektes `PrintBookService` übergeben. Zudem wird im Konstruktor der Klassenvariable `flowDocument`, das entsprechende zugehörige Objekt `FlowDocument()` zugewiesen. Anschließend wird die Methode `BookDokument(BookCollection bookCollection)` aufgerufen. Diese Methode ist dafür zuständig, die Daten aus der Collection in ein `FlowDocument` umzuwandeln. Die Methode iteriert durch die Collection und legt für jeden Eintrag bzw. jedes Buch eine Tabelle an, welche dann dem FlowDocument hinzugefügt wird. Durch das Refactoring wurden mehrere Hilfsmethoden entwickelt, um den Code zu strukturieren. 
+
+Eine der wichtigsten Hilfsmethode ist hier `SetRowContent()`. Diese Methode befüllt die jeweilige Reihe der Content Table. Als Parameter erhält diese Methode die aktuelle `TableRow`, den `Content`, die `FontFamily` sowie die `FontWeights`.
+
+[source, c#]
+----
+// First Column fill with Headers
+String[] headers = { "Title:", "Author:", "Genre:", "Preis:" };
+SetRowContent(contentTable.RowGroups[0].Rows[0], headers, arial, FontWeights.Bold);
+// Second Column fill with Content
+String[] content = { book.Title, book.Author, book.Genre.ToString(), book.Price.ToString() };
+SetRowContent(contentTable.RowGroups[0].Rows[1], content, consolas, FontWeights.Normal);
+----
+
+Mit der Methode `Printing()` wird nun das Windows eigene Druckfenster geöffnet und das `FlowDocument` wird an den Drucker übergeben, welche der User über das `PrintDialog` ausgewählt hat.
