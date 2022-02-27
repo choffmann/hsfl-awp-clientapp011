@@ -34,7 +34,8 @@ namespace De.HsFlensburg.ClientApp011.Logic.Ui.ViewModels
             OpenNewClientWindowCommand = new RelayCommand(OpenNewClientWindowMethod);
             MyList = viewModelCollection;
             modelFileHandler = new ModelFileHandler();
-            pathForSerialization = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\ClientCollectionSerialization\\MyClients.cc";
+            pathForSerialization = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments)
+                + "\\ClientCollectionSerialization\\MyClients.cc";
         }
 
         private void RenameValueInModel()

@@ -188,7 +188,7 @@ namespace De.HsFlensburg.ClientApp011.Logic.Ui.Wrapper
                 {
                     return null;
                 }
-               
+
             }
             private set { }
         }

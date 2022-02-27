@@ -7,12 +7,14 @@
         mc:Ignorable="d"
         Title="NewClientWindow" Height="250" Width="500">
     <Window.DataContext>
-        <Binding Source="{StaticResource ViewModelLocator}" Path="TheNewClientWindowViewModel"></Binding>
+        <Binding Source="{StaticResource ViewModelLocator}" Path="TheNewClientWindowViewModel">
+        </Binding>
     </Window.DataContext>
     <Grid>
         <UniformGrid Grid.Column="0" Columns="2">
             <Label VerticalAlignment="Center" HorizontalAlignment="Right">Identifier</Label>
-            <TextBox VerticalAlignment="Center" x:Name="IdTextBox" Text="{Binding Path=Identifier}"/>
+            <TextBox VerticalAlignment="Center" x:Name="IdTextBox"
+                     Text="{Binding Path=Identifier}"/>
             <Label VerticalAlignment="Center" HorizontalAlignment="Right">Name</Label>
             <TextBox VerticalAlignment="Center" x:Name="NameTextBox" Text="{Binding Path=Name}"/>
             <Button Command="{Binding AddClient, Mode=OneWay}">Kunde erstellen</Button>

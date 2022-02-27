@@ -8,7 +8,8 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="250" Width="500">
     <Window.DataContext>
-        <Binding Source="{StaticResource ViewModelLocator}" Path="TheMainWindowViewModel"></Binding>
+        <Binding Source="{StaticResource ViewModelLocator}" Path="TheMainWindowViewModel">
+        </Binding>
     </Window.DataContext>
     <Window.IsEnabled>
         <Binding Source="{StaticResource MessageListener}" Path="BindableProperty"></Binding>
@@ -20,9 +21,13 @@
         </Grid.ColumnDefinitions>
         <UniformGrid Grid.Column="0" Rows="4">
             <Label VerticalAlignment="Center" HorizontalAlignment="Right">Identifier</Label>
-            <TextBox VerticalAlignment="Center" Text="{Binding ElementName=myDataGrid, Path=SelectedItem.Id}"></TextBox>
+            <TextBox VerticalAlignment="Center" 
+                     Text="{Binding ElementName=myDataGrid, Path=SelectedItem.Id}">
+            </TextBox>
             <Label VerticalAlignment="Center" HorizontalAlignment="Right">Name</Label>
-            <TextBox VerticalAlignment="Center" Text="{Binding ElementName=myDataGrid, Path=SelectedItem.Name}"></TextBox>
+            <TextBox VerticalAlignment="Center" 
+                     Text="{Binding ElementName=myDataGrid, Path=SelectedItem.Name}">
+            </TextBox>
             <Button Command="{Binding RenameValueInModelCommand}">Rename first Item</Button>
             <Button Command="{Binding OpenNewClientWindowCommand}">OpenClientWindow</Button>
             <Button Command="{Binding SaveCommand}">Save</Button>
