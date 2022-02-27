@@ -24,9 +24,9 @@ namespace De.HsFlensburg.ClientApp011.Logic.Ui.ViewModels
         {
             ServiceBus.Instance.Send(new OpenNewClientWindowMessage());
         }
-        public ClientCollectionViewModel MyList { get; set; }
+        public BookCollectionViewModel MyList { get; set; }
 
-        public MainWindowViewModel(ClientCollectionViewModel viewModelCollection)
+        public MainWindowViewModel(BookCollectionViewModel viewModelCollection)
         {
             RenameValueInModelCommand = new RelayCommand(RenameValueInModel);
             SaveCommand = new RelayCommand(SaveModel);
@@ -40,7 +40,7 @@ namespace De.HsFlensburg.ClientApp011.Logic.Ui.ViewModels
         private void RenameValueInModel()
         {
             var first = MyList.FirstOrDefault();
-            first.Model.Name = "Rename in model";
+            first.Model.Title = "Rename in model";
         }
 
         private void SaveModel()

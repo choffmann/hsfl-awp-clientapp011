@@ -55,8 +55,6 @@
     <Compile Include="ViewModels\NewClientWindowViewModel.cs" />
     <Compile Include="Wrapper\BookCollectionViewModel.cs" />
     <Compile Include="Wrapper\BookViewModel.cs" />
-    <Compile Include="Wrapper\ClientCollectionViewModel.cs" />
-    <Compile Include="Wrapper\ClientViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Business.Model\Business.Model.csproj">

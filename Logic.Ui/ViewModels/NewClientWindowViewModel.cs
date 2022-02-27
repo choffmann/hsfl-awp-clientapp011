@@ -12,19 +12,20 @@ namespace De.HsFlensburg.ClientApp011.Logic.Ui.ViewModels
     {
         public int Identifier { get; set; }
         public string Name { get; set; }
-        private ClientCollectionViewModel clientCollectionViewModel;
+        private BookCollectionViewModel bookCollectionViewModel;
         public ICommand AddClient { get; }
-        public NewClientWindowViewModel(ClientCollectionViewModel viewModelCollection)
+        public NewClientWindowViewModel(BookCollectionViewModel viewModelCollection)
         {
             AddClient = new RelayCommand(AddClientMethod);
-            clientCollectionViewModel = viewModelCollection;
+            bookCollectionViewModel = viewModelCollection;
         }
         private void AddClientMethod()
         {
-            ClientViewModel cvm = new ClientViewModel();
-            cvm.Id = Identifier;
-            cvm.Name = Name;
-            clientCollectionViewModel.Add(cvm);
+            BookViewModel bvm = new BookViewModel();
+            bvm.Author = Identifier.ToString(); /* Nur für die Abgabe, 
+                                                 * da das später ohnehin überarbeitet wird. */
+            bvm.Title = Name;
+            bookCollectionViewModel.Add(bvm);
         }
     }
 }
