@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace De.HsFlensburg.ClientApp011.Ui.Desktop.MessageBusLogic
 {
-    class MessageListener
+    public class MessageListener
     {
         public bool BindableProperty => true;
         public MessageListener()
@@ -18,12 +18,12 @@ namespace De.HsFlensburg.ClientApp011.Ui.Desktop.MessageBusLogic
 
         private void InitMessenger()
         {
-            ServiceBus.Instance.Register<OpenNewClientWindowMessage>(this, OpenNewClientWindow);
+            ServiceBus.Instance.Register<OpenNewBookWindowMessage>(this, OpenNewBookWindow);
         }
-        private void OpenNewClientWindow()
+        private void OpenNewBookWindow()
         {
-            NewClientWindow myWindow = new NewClientWindow();
-            myWindow.ShowDialog();
+            NewBookEntry newBookWindow = new NewBookEntry();
+            newBookWindow.ShowDialog();
         }
     }
 }

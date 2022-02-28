@@ -288,6 +288,7 @@ namespace De.HsFlensburg.ClientApp011.Logic.Ui.Wrapper
                 Model.Dimension = value;
             }
         }
+
         public override void NewModelAssigned()
         {
             throw new NotImplementedException();
