@@ -18,7 +18,34 @@ namespace De.HsFlensburg.ClientApp011.Ui.Desktop.MessageBusLogic
 
         private void InitMessenger()
         {
+            ServiceBus.Instance.Register<OpenNewTexBookCollectionWindowMessage>(this, OpenNewTexBookCollectionWindow);
+            ServiceBus.Instance.Register<OpenNewErrorWindowMessage>(this, OpenNewErrorWindow);
+            ServiceBus.Instance.Register<OpenPrintServiceWindowMessage>(this, OpenPrintServiceWindow);
+            ServiceBus.Instance.Register<OpenBookSearchWindowMessage>(this, OpenBookSearchWindow);
             ServiceBus.Instance.Register<OpenNewBookWindowMessage>(this, OpenNewBookWindow);
+        }
+        private void OpenPrintServiceWindow()
+        {
+            PrintServiceWindow printServiceWindow = new PrintServiceWindow();
+            printServiceWindow.ShowDialog();
+        }
+
+        private void OpenNewTexBookCollectionWindow()
+        {
+            TexBookCollectionWindow myWindow = new TexBookCollectionWindow();
+            myWindow.ShowDialog();
+        }
+
+        private void OpenBookSearchWindow()
+        {
+            BookSearchWindow bookSearchWindow = new BookSearchWindow();
+            bookSearchWindow.ShowDialog();
+        }
+
+        private void OpenNewErrorWindow()
+        {
+            ErrorWindow myWindow = new ErrorWindow();
+            myWindow.ShowDialog();
         }
         private void OpenNewBookWindow()
         {

@@ -1,0 +1,85 @@
+﻿<Window x:Class="De.HsFlensburg.ClientApp011.Ui.Desktop.BookSearchWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:De.HsFlensburg.ClientApp011.Ui.Desktop"
+        xmlns:viewModels="clr-namespace:De.HsFlensburg.ClientApp011.Logic.Ui;assembly=Logic.Ui"
+        xmlns:bookViewModel="clr-namespace:De.HsFlensburg.ClientApp011.Logic.Ui.Wrapper;assembly=Logic.Ui"
+        Title="BookSearchWindow" Height="768" Width="1024">
+    <Window.Resources>
+        <bookViewModel:BookViewModel x:Key="bookViewModel"></bookViewModel:BookViewModel>
+    </Window.Resources>
+    <Window.DataContext>
+        <Binding Source="{StaticResource ViewModelLocator}" 
+                Path="TheBookSearchWindowViewModel">
+        </Binding>
+    </Window.DataContext>
+    <Window.IsEnabled>
+        <Binding Source="{StaticResource MessageListener}" Path="BindableProperty"></Binding>
+    </Window.IsEnabled>
+    <Grid>
+        <Grid.RowDefinitions>
+            <!-- Book Filters -->
+            <RowDefinition Height="150"/>
+            <!-- Filtered Book Collection -->
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="3*"/>
+                <ColumnDefinition Width="2*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <UniformGrid VerticalAlignment="Center" Margin="10">
+                <TextBox Grid.Column="0" Grid.Row="0" Text="Titel, Autor, Stichwort, ISBN, .."/>
+                <Button Grid.Column="0" Grid.Row="0" Width="120"  Height="30" Command="{Binding SearchInputBook}">Suchen</Button>
+            </UniformGrid>
+            <UniformGrid Grid.Column="1" Grid.Row="0">
+                <Button  Width="120" Height="30" Command="{Binding ShowBestseller}">Bestseller</Button>
+                <Button  Width="120" Height="30" Command="{Binding ShowNovelties}">Neuheiten</Button>
+            </UniformGrid>
+            <UniformGrid Grid.Column="0" Grid.Row="1" Columns="3" Margin="10">
+                <ComboBox Name="RatingComboBox"
+                          IsEnabled="True"
+                          IsReadOnly="True"
+                          Text="Bewertung"
+                          Width="120"
+                          Height="30"
+                          IsSynchronizedWithCurrentItem="True"
+                          ItemsSource="{Binding Source={StaticResource bookViewModel}, Path=GenreValues}"
+                          SelectedItem="{Binding Source={StaticResource bookViewModel}, Path=Genre, Mode=TwoWay}">
+                    
+                </ComboBox>
+                <ComboBox Name="FormatComboBox"
+                        IsEnabled="True"
+                        IsReadOnly="True"
+                        Text="Buchart"
+                        Width="120"
+                        Height="30"                       
+                        IsSynchronizedWithCurrentItem="True"
+                        ItemsSource="{Binding Source={StaticResource bookViewModel}, Path=FormatValues}"
+                        SelectedItem="{Binding Source={StaticResource bookViewModel}, Path=Format, Mode=TwoWay}">
+                </ComboBox>
+                <ComboBox Name="GenreComboBox"
+                        IsEnabled="True"
+                        IsReadOnly="True"
+                        Text="Genre"
+                        Width="120"
+                        Height="30"
+                        IsSynchronizedWithCurrentItem="True"
+                        ItemsSource="{Binding Source={StaticResource bookViewModel}, Path=GenreValues}"
+                        SelectedItem="{Binding Source={StaticResource bookViewModel}, Path=Genre, Mode=TwoWay}">
+                </ComboBox>
+            </UniformGrid>
+            <Button Grid.Column="1" Grid.Row="1" Width="120" Height="30" Command="{Binding ResetFilter}">Filter Zurücksetzen</Button>
+        </Grid>
+        <DataGrid Grid.Row="1"
+            Name="fileredBookCollectionDataGrid"
+            ItemsSource="{Binding Path = FilteredBookCollection}">
+        </DataGrid>
+    </Grid>
+</Window>

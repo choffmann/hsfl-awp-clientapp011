@@ -3,9 +3,12 @@ using De.HsFlensburg.ClientApp011.Logic.Ui.Wrapper;
 using De.HsFlensburg.ClientApp011.Services.MessageBus;
 using De.HsFlensburg.ClientApp011.Services.SerializationService;
 using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace De.HsFlensburg.ClientApp011.Logic.Ui.ViewModels
@@ -19,38 +22,71 @@ namespace De.HsFlensburg.ClientApp011.Logic.Ui.ViewModels
         public ICommand SaveCommand { get; }
         public ICommand LoadCommand { get; }
         public ICommand OpenNewBookWindowCommand { get; }
-        public ICommand FillBookListCommand { get; }
-        public BookCollectionViewModel MyList { get; set; }
+        public ICommand FillBookListCommand { get; }        
 
-        private void OpenNewBookWindowMethod()
+        //public ICommand FillBookList { get; set; }
+        public ICommand OpenPrintServiceWindow { get; }
+        public ICommand OpenNewTexBookCollectionWindow { get; }
+        public ICommand OpenBookSearchWindow { get; }
+        public ICommand LoadFromFile { get; }
+        public BookCollectionViewModel BookCollection { get; set; } //public BookCollectionViewModel MyList { get; set; }
+        public MainWindowViewModel(BookCollectionViewModel bookCollectionViewModel)
         {
-            ServiceBus.Instance.Send(new OpenNewBookWindowMessage());
-        }
-
-        public MainWindowViewModel(BookCollectionViewModel viewModelCollection)
-        {
-            modelFileHandler = new ModelFileHandler();
-            pathForSerialization = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments)
-                + "\\BookManagerSerialization\\BooksGroup011.bmf";
-            RenameValueInModelCommand = new RelayCommand(RenameValueInModel);
-            SaveCommand = new RelayCommand(SaveModel);
-            LoadCommand = new RelayCommand(LoadModel);
-            OpenNewBookWindowCommand = new RelayCommand(OpenNewBookWindowMethod);
-            FillBookListCommand = new RelayCommand(FillBookListMethod);
-
-            MyList = viewModelCollection;
-            if (viewModelCollection.Count == 0)
+            BookCollection = bookCollectionViewModel;
+            if (BookCollection.Count == 0)
             {
                 try
                 {
-                    LoadModel();
+                    LoadFromFileCommand();
                 }
                 catch
                 {
                     FillBookListMethod();
                 }
             }
+            LoadFromFile = new RelayCommand(LoadFromFileCommand); //LoadCommand = new RelayCommand(LoadModel);
+            SaveCommand = new RelayCommand(SaveModel);
+            modelFileHandler = new ModelFileHandler();
+            pathForSerialization = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\BookManagerSerialization\\BooksGroup011.bmf";
+
+            // Open PrintService Window
+            OpenPrintServiceWindow = new RelayCommand(OpenPrintServiceWindowCommand);
+
+            // Open BibInport Window
+            OpenNewTexBookCollectionWindow = new RelayCommand(OpenNewTexBookCollectionWindowMethod);
+
+            // Open BookSearch Window
+            OpenBookSearchWindow = new RelayCommand(OpenBookSearchWindowCommand);
+            OpenNewBookWindowCommand = new RelayCommand(OpenNewBookWindowMethod);
+            FillBookListCommand = new RelayCommand(FillBookListMethod);
         }
+        private void OpenNewBookWindowMethod()
+        {
+            ServiceBus.Instance.Send(new OpenNewBookWindowMessage());
+        }
+        private void LoadFromFileCommand()
+        {
+            BookCollection.Model = modelFileHandler.ReadModelFromFile(pathForSerialization);
+        }
+        private void SaveModel()
+        {
+            modelFileHandler.WriteModelToFile(pathForSerialization, BookCollection.Model);
+        }
+        private void OpenPrintServiceWindowCommand()
+        {
+            ServiceBus.Instance.Send(new OpenPrintServiceWindowMessage());
+        }
+        private void OpenNewTexBookCollectionWindowMethod()
+        {
+            ServiceBus.Instance.Send(new OpenNewTexBookCollectionWindowMessage());
+        }
+
+        private void OpenBookSearchWindowCommand()
+        {
+            ServiceBus.Instance.Send(new OpenBookSearchWindowMessage());
+        }
+
+
         private void FillBookListMethod()
         {
             // DEMO BOOKS
@@ -85,22 +121,13 @@ namespace De.HsFlensburg.ClientApp011.Logic.Ui.ViewModels
                 string path = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.FullName + "\\img\\" + i + ".png";
                 Image image = Image.FromFile(path);
                 book.Cover = image;
-                MyList.Add(book);
+                BookCollection.Add(book);
             }
         }
         private void RenameValueInModel()
         {
-            var first = MyList.FirstOrDefault();
+            var first = BookCollection.FirstOrDefault();
             first.Model.Title = "Rename in model";
-        }
-        private void SaveModel()
-        {
-            modelFileHandler.WriteModelToFile(pathForSerialization, MyList.Model);
-        }
-
-        private void LoadModel()
-        {
-            MyList.Model = modelFileHandler.ReadModelFromFile(pathForSerialization);
         }
     }
 }
