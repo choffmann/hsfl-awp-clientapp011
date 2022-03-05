@@ -49,6 +49,7 @@
     <Compile Include="Base\IViewModel.cs" />
     <Compile Include="Base\ViewModelBase.cs" />
     <Compile Include="Base\ViewModelSyncCollection.cs" />
+    <Compile Include="MessageBusMessages\OpenNewBookWindowMessage.cs" />
     <Compile Include="MessageBusMessages\OpenBookSearchWindowMessage.cs" />
     <Compile Include="MessageBusMessages\OpenNewErrorWindowMessage.cs" />
     <Compile Include="MessageBusMessages\OpenNewTexBookCollectionWindowMessage.cs" />
