@@ -17,9 +17,9 @@ namespace De.HsFlensburg.ClientApp011.Ui.Desktop
     /// <summary>
     /// Interaction logic for NewBookEntry.xaml
     /// </summary>
-    public partial class NewBookEntry: Window
+    public partial class NewBookEntryWindow: Window
     {
-        public NewBookEntry()
+        public NewBookEntryWindow()
         {
             InitializeComponent();
         }

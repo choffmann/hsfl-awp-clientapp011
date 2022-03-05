@@ -25,8 +25,11 @@
             <RowDefinition />
         </Grid.RowDefinitions>
         <Button Content="Load Collection from *.bmf" Grid.Column="0" Grid.Row="0" 
-                HorizontalAlignment="Center" VerticalAlignment="Center" Width="150" Height="150" 
+                HorizontalAlignment="Center" VerticalAlignment="Top" Width="150" Height="100" 
                 Command="{Binding LoadFromFile}" />
+        <Button Content="Save Collection to *.bmf" Grid.Column="0"  Grid.Row="0"
+                HorizontalAlignment="Center" VerticalAlignment="Bottom" Width="150" Height="100" 
+                Command="{Binding SaveCommand}"/>
         <Button Content="Open PrintService Window" Grid.Column="1" Grid.Row="0" 
                 HorizontalAlignment="Center" VerticalAlignment="Center" Width="150" Height="150" 
                 Command="{Binding OpenPrintServiceWindow}" />
@@ -36,8 +39,8 @@
         <Button Content="Open BookSearcher" Grid.Column="0" Grid.Row="1" 
                 HorizontalAlignment="Center" VerticalAlignment="Center" Width="150" Height="150" 
                 Command="{Binding OpenBookSearchWindow}" />
-        <Button Content="Open Fabiansmist" Grid.Column="1" Grid.Row="2" 
+        <Button Content="Add new book" Grid.Column="1" Grid.Row="2" 
                 HorizontalAlignment="Center" VerticalAlignment="Center" Width="150" Height="150" 
-                Command="{Binding OpenBookSearchWindow}" />
+                Command="{Binding OpenNewBookWindowCommand}" />
     </Grid>
 </Window>

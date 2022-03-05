@@ -1,10 +1,5 @@
 ﻿using De.HsFlensburg.ClientApp011.Logic.Ui.MessageBusMessages;
 using De.HsFlensburg.ClientApp011.Services.MessageBus;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace De.HsFlensburg.ClientApp011.Ui.Desktop.MessageBusLogic
 {
@@ -49,7 +44,7 @@ namespace De.HsFlensburg.ClientApp011.Ui.Desktop.MessageBusLogic
         }
         private void OpenNewBookWindow()
         {
-            NewBookEntry newBookWindow = new NewBookEntry();
+            NewBookEntryWindow newBookWindow = new NewBookEntryWindow();
             newBookWindow.ShowDialog();
         }
     }

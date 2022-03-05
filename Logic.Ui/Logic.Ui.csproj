@@ -59,6 +59,7 @@
     <Compile Include="ViewModelLocator.cs" />
     <Compile Include="ViewModels\BookSearchWindowViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
+    <Compile Include="ViewModels\NewBookWindowViewModel.cs" />
     <Compile Include="ViewModels\TexBookCollectionWindowViewModel.cs" />
     <Compile Include="ViewModels\PrintServiceWindowViewModel.cs" />
     <Compile Include="Wrapper\BookCollectionViewModel.cs" />

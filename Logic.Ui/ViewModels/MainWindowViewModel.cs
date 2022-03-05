@@ -3,12 +3,9 @@ using De.HsFlensburg.ClientApp011.Logic.Ui.Wrapper;
 using De.HsFlensburg.ClientApp011.Services.MessageBus;
 using De.HsFlensburg.ClientApp011.Services.SerializationService;
 using System;
-using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace De.HsFlensburg.ClientApp011.Logic.Ui.ViewModels
@@ -33,7 +30,7 @@ namespace De.HsFlensburg.ClientApp011.Logic.Ui.ViewModels
         public MainWindowViewModel(BookCollectionViewModel bookCollectionViewModel)
         {
             BookCollection = bookCollectionViewModel;
-            if (BookCollection.Count == 0)
+            /*if (BookCollection.Count == 0)
             {
                 try
                 {
@@ -43,11 +40,12 @@ namespace De.HsFlensburg.ClientApp011.Logic.Ui.ViewModels
                 {
                     FillBookListMethod();
                 }
-            }
+            }*/
             LoadFromFile = new RelayCommand(LoadFromFileCommand); //LoadCommand = new RelayCommand(LoadModel);
             SaveCommand = new RelayCommand(SaveModel);
             modelFileHandler = new ModelFileHandler();
-            pathForSerialization = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\BookManagerSerialization\\BooksGroup011.bmf";
+            pathForSerialization = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments)
+                + "\\BookManagerSerialization\\BooksGroup011.bmf";
 
             // Open PrintService Window
             OpenPrintServiceWindow = new RelayCommand(OpenPrintServiceWindowCommand);

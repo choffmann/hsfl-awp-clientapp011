@@ -1,6 +1,4 @@
-﻿using System.Windows.Input;
-using System.Drawing;
-using Microsoft.Win32;
+﻿using Microsoft.Win32;
 using System.Windows;
 using De.HsFlensburg.ClientApp011.Logic.Ui.Wrapper;
 using System.Windows.Controls;
@@ -9,7 +7,7 @@ using System.Text.RegularExpressions;
 
 namespace De.HsFlensburg.ClientApp011.Logic.Ui.ViewModels
 {
-    public class NewBookViewModel
+    public class NewBookWindowViewModel
     {
         public BookViewModel BookVM { get; set; }
         /*
@@ -36,7 +34,7 @@ namespace De.HsFlensburg.ClientApp011.Logic.Ui.ViewModels
         public RelayCommand CloseWindow { get; }
         public BookCollectionViewModel MyBookCollectionVM { get; set; }
 
-        public NewBookViewModel(BookCollectionViewModel bookCollectionViewModel)
+        public NewBookWindowViewModel(BookCollectionViewModel bookCollectionViewModel)
         {
             AddBook = new RelayCommand(grid => AddBookMethod(grid));
             OpenFileDialog = new RelayCommand(OpenFileDialogMethod);

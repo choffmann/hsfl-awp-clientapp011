@@ -1,10 +1,5 @@
 ﻿using De.HsFlensburg.ClientApp011.Logic.Ui.ViewModels;
 using De.HsFlensburg.ClientApp011.Logic.Ui.Wrapper;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace De.HsFlensburg.ClientApp011.Logic.Ui
 {
@@ -15,6 +10,7 @@ namespace De.HsFlensburg.ClientApp011.Logic.Ui
         public PrintServiceWindowViewModel ThePrintServiceWindowViewModel { get; }
         public TexBookCollectionWindowViewModel TheTexBookCollectionWindowViewModel { get; set; }
         public BookSearchWindowViewModel TheBookSearchWindowViewModel { get; }
+        public NewBookWindowViewModel TheNewBookViewModel { get; set; }
 
         public ViewModelLocator()
         {
@@ -23,6 +19,7 @@ namespace De.HsFlensburg.ClientApp011.Logic.Ui
             ThePrintServiceWindowViewModel = new PrintServiceWindowViewModel(TheBookCollectionViewModel);
             TheTexBookCollectionWindowViewModel = new TexBookCollectionWindowViewModel(TheBookCollectionViewModel);
             TheBookSearchWindowViewModel = new BookSearchWindowViewModel(TheBookCollectionViewModel);
+            TheNewBookViewModel = new NewBookWindowViewModel(TheBookCollectionViewModel);
         }
     }
 }
