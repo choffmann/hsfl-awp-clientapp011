@@ -55,12 +55,19 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="BookSearchWindow.xaml.cs">
+      <DependentUpon>BookSearchWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ErrorWindow.xaml.cs">
       <DependentUpon>ErrorWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="TexBookCollectionWindow.xaml.cs">
       <DependentUpon>TexBookCollectionWindow.xaml</DependentUpon>
     </Compile>
+    <Page Include="BookSearchWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="ErrorWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -116,6 +123,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Business.Model\Business.Model.csproj">
+      <Project>{b0d6bad3-a2fd-4148-b9f4-a59265c7ec9e}</Project>
+      <Name>Business.Model</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Logic.Ui\Logic.Ui.csproj">
       <Project>{9e0c1133-9bdf-4042-ace6-b45905950cbf}</Project>
       <Name>Logic.Ui</Name>

@@ -15,12 +15,15 @@ namespace De.HsFlensburg.ClientApp011.Logic.Ui.ViewModels
 {
     public class MainWindowViewModel
     {
-        public ICommand FillBookList { get; set; }
+        //public ICommand FillBookList { get; set; }
         public ICommand OpenPrintServiceWindow { get; }
         public ICommand OpenNewTexBookCollectionWindow { get; }
-        private ModelFileHandler modelFileHandler;
-        private string pathForSerialization;
+        public ICommand OpenBookSearchWindow { get; }
         public ICommand LoadFromFile { get; }
+
+        private ModelFileHandler modelFileHandler;
+
+        private string pathForSerialization;
         public BookCollectionViewModel BookCollection { get; set; }
         public MainWindowViewModel(BookCollectionViewModel bookCollectionViewModel)
         {
@@ -34,6 +37,9 @@ namespace De.HsFlensburg.ClientApp011.Logic.Ui.ViewModels
 
             // Open BibInport Window
             OpenNewTexBookCollectionWindow = new RelayCommand(OpenNewTexBookCollectionWindowMethod);
+
+            // Open BookSearch Window
+            OpenBookSearchWindow = new RelayCommand(OpenBookSearchWindowCommand);
         }
 
         private void LoadFromFileCommand()
@@ -49,6 +55,11 @@ namespace De.HsFlensburg.ClientApp011.Logic.Ui.ViewModels
         private void OpenNewTexBookCollectionWindowMethod()
         {
             ServiceBus.Instance.Send(new OpenNewTexBookCollectionWindowMessage());
+        }
+
+        private void OpenBookSearchWindowCommand()
+        {
+            ServiceBus.Instance.Send(new OpenBookSearchWindowMessage());
         }
     }
 }

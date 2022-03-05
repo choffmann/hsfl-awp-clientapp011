@@ -14,6 +14,7 @@ namespace De.HsFlensburg.ClientApp011.Logic.Ui
         public BookCollectionViewModel TheBookCollectionViewModel { get; set; }
         public PrintServiceWindowViewModel ThePrintServiceWindowViewModel { get; }
         public TexBookCollectionWindowViewModel TheTexBookCollectionWindowViewModel { get; set; }
+        public BookSearchWindowViewModel TheBookSearchWindowViewModel { get; }
 
         public ViewModelLocator()
         {
@@ -21,6 +22,7 @@ namespace De.HsFlensburg.ClientApp011.Logic.Ui
             TheMainWindowViewModel = new MainWindowViewModel(TheBookCollectionViewModel);
             ThePrintServiceWindowViewModel = new PrintServiceWindowViewModel(TheBookCollectionViewModel);
             TheTexBookCollectionWindowViewModel = new TexBookCollectionWindowViewModel(TheBookCollectionViewModel);
+            TheBookSearchWindowViewModel = new BookSearchWindowViewModel(TheBookCollectionViewModel);
         }
     }
 }
