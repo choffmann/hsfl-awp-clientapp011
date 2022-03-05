@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace De.HsFlensburg.ClientApp011.Ui.Desktop.MessageBusLogic
 {
-    class MessageListener
+    public class MessageListener
     {
         public bool BindableProperty => true;
         public MessageListener()
@@ -22,6 +22,7 @@ namespace De.HsFlensburg.ClientApp011.Ui.Desktop.MessageBusLogic
             ServiceBus.Instance.Register<OpenNewErrorWindowMessage>(this, OpenNewErrorWindow);
             ServiceBus.Instance.Register<OpenPrintServiceWindowMessage>(this, OpenPrintServiceWindow);
             ServiceBus.Instance.Register<OpenBookSearchWindowMessage>(this, OpenBookSearchWindow);
+            ServiceBus.Instance.Register<OpenNewBookWindowMessage>(this, OpenNewBookWindow);
         }
         private void OpenPrintServiceWindow()
         {
@@ -45,6 +46,11 @@ namespace De.HsFlensburg.ClientApp011.Ui.Desktop.MessageBusLogic
         {
             ErrorWindow myWindow = new ErrorWindow();
             myWindow.ShowDialog();
+        }
+        private void OpenNewBookWindow()
+        {
+            NewBookEntry newBookWindow = new NewBookEntry();
+            newBookWindow.ShowDialog();
         }
     }
 }
