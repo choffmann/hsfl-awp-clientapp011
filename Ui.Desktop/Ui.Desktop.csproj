@@ -65,6 +65,9 @@
     <Compile Include="TexBookCollectionWindow.xaml.cs">
       <DependentUpon>TexBookCollectionWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ValidationErrorWindow.xaml.cs">
+      <DependentUpon>ValidationErrorWindow.xaml</DependentUpon>
+    </Compile>
     <Page Include="BookSearchWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -96,6 +99,10 @@
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
     </Compile>
+    <Page Include="ValidationErrorWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MessageBusLogic\MessageListener.cs" />

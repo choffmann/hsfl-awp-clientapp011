@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:De.HsFlensburg.ClientApp011.Ui.Desktop"
         xmlns:viewModels="clr-namespace:De.HsFlensburg.ClientApp011.Logic.Ui.ViewModels;assembly=Logic.Ui"
-       xmlns:ENUMS="clr-namespace:De.HsFlensburg.ClientApp011.Business.Model.BusinessObjects.ENUM;assembly=Business.Model"
+        xmlns:validator="clr-namespace:De.HsFlensburg.ClientApp011.Logic.Ui.Validator;assembly=Logic.Ui"
+        xmlns:ENUMS="clr-namespace:De.HsFlensburg.ClientApp011.Business.Model.BusinessObjects.ENUM;assembly=Business.Model"
         mc:Ignorable="d"
         Title="Neues Buch anlegen" Height="450" Width="800"
         x:Name="NewBookWindow">
@@ -68,34 +69,36 @@
         </UniformGrid>
         <Grid Grid.Row="2">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="3*"/>
+                <ColumnDefinition Width="1.5*"/>
                 <ColumnDefinition />
                 <ColumnDefinition />
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
-            <Label Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Right">Maße</Label>
-            <Label Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left" Width="20">H</Label>
+            <Label Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Right">Maße (in mm)</Label>
+            <Label Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" Width="20">H</Label>
             <TextBox Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Right" Width="40" 
                      Text="{Binding BookVM.Dimension.Height, StringFormat='#0 mm'}"></TextBox>
-            <Label Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Left" Width="20">B</Label>
+            <Label Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center" Width="20">B</Label>
             <TextBox Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Right" Width="40"
                      Text="{Binding BookVM.Dimension.Width, StringFormat='#0 mm'}"></TextBox>
-            <Label Grid.Column="3" VerticalAlignment="Center" HorizontalAlignment="Left" Width="20">T</Label>
+            <Label Grid.Column="3" VerticalAlignment="Center" HorizontalAlignment="Center" Width="20">T</Label>
             <TextBox Grid.Column="3" VerticalAlignment="Center" HorizontalAlignment="Right" Width="40"
-                     Text="{Binding BookVM.Dimension.Depth, StringFormat={}{0}mm}"></TextBox>
+                     Text="{Binding BookVM.Dimension.Depth, StringFormat={}{0} mm}"></TextBox>
         </Grid>
-        <UniformGrid Grid.Column="1" Grid.Row="1" Rows="5">
+        <UniformGrid Grid.Column="1" Grid.Row="1" Rows="7">
             <Label VerticalAlignment="Top" HorizontalAlignment="Right">ISBN</Label>
             <TextBox VerticalAlignment="Top" Text="{Binding BookVM.Isbn}"></TextBox>
             <Label VerticalAlignment="Top" HorizontalAlignment="Right">Auflage</Label>
             <TextBox VerticalAlignment="Top" Text="{Binding BookVM.Edition}"></TextBox>
+            <Label VerticalAlignment="Top" HorizontalAlignment="Right">Rating</Label>
+            <TextBox VerticalAlignment="Top" Text="{Binding BookVM.Rating}"/>
             <Label VerticalAlignment="Top" HorizontalAlignment="Right">Sprache</Label>
             <ComboBox VerticalAlignment="Top"
                       IsSynchronizedWithCurrentItem="True" 
                       ItemsSource="{Binding BookVM.LanguageValues}"
                       SelectedItem="{Binding BookVM.Language}"></ComboBox>
             <Label VerticalAlignment="Top" HorizontalAlignment="Right">Leseprobe</Label>
-            <TextBox Text="{Binding BookVM.Extract}"></TextBox>
+            <TextBox TextWrapping="Wrap" VerticalScrollBarVisibility="Visible" Text="{Binding BookVM.Extract}"></TextBox>
             <Label VerticalAlignment="Center" HorizontalAlignment="Right">Bestseller</Label>
             <CheckBox VerticalAlignment="Center" IsChecked="{Binding BookVM.Bestseller}"></CheckBox>
         </UniformGrid>

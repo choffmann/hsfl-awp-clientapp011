@@ -1,9 +1,11 @@
 ﻿using Microsoft.Win32;
 using System.Windows;
-using De.HsFlensburg.ClientApp011.Logic.Ui.Wrapper;
 using System.Windows.Controls;
 using System;
 using System.Text.RegularExpressions;
+using De.HsFlensburg.ClientApp011.Logic.Ui.Wrapper;
+using De.HsFlensburg.ClientApp011.Services.MessageBus;
+using De.HsFlensburg.ClientApp011.Logic.Ui.MessageBusMessages;
 
 namespace De.HsFlensburg.ClientApp011.Logic.Ui.ViewModels
 {
@@ -48,14 +50,14 @@ namespace De.HsFlensburg.ClientApp011.Logic.Ui.ViewModels
             //Console.WriteLine("container is of type: " + container.GetType());
             // Check ISBN Format
             //Regex checkIsbn = new Regex(@"^(?:ISBN)? ?\d{3}[- ]\d[- ]\d{3}[- ]\d{5}[- ]\d$|^(?:ISBN)? ?\d[- ]\d{3}[- ]\d{5}[- ]\d$");
-            //Match match = Regex.Match(BookVM.Isbn, @"^(?:ISBN)? ?\d{3}[- ]\d[- ]\d{3}[- ]\d{5}[- ]\d$|^(?:ISBN)? ?\d[- ]\d{3}[- ]\d{5}[- ]\d$");
-            if (Regex.Match(BookVM.Isbn, @"^(?:ISBN)? ?\d{3}[- ]\d[- ]\d{3}[- ]\d{5}[- ]\d$|^(?:ISBN)? ?\d[- ]\d{3}[- ]\d{5}[- ]\d$").Success)
+            Match match = Regex.Match(BookVM.Isbn, @"^(?:ISBN)? ?\d{3}[- ]\d*[- ]\d*[- ]\d*[- ]\d$");
+            if (match.Success)
             {
                 MyBookCollectionVM.Add(BookVM);
             }
             else
             {
-
+                ServiceBus.Instance.Send(new OpenNewValidationErrorMessage());
             }
 
             //ClearUIFields((Grid)container);

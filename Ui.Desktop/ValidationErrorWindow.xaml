@@ -1,0 +1,16 @@
+﻿<Window x:Class="De.HsFlensburg.ClientApp011.Ui.Desktop.ValidationErrorWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:De.HsFlensburg.ClientApp011.Ui.Desktop"
+        xmlns:viewModels="clr-namespace:De.HsFlensburg.ClientApp011.Logic.Ui.ViewModels;assembly=Logic.Ui"
+        mc:Ignorable="d"
+        x:Name="ValidationErrorPopUp" Title="Invalid Value" Height="200" Width="300">
+    <Grid>
+        <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center">Hello Error Message
+        </TextBlock>
+        <Button VerticalAlignment="Bottom" HorizontalAlignment="Center" Width="100"
+                    Command="{Binding CloseWindow}" CommandParameter="{Binding ElementName=ValidationErrorWindow}">OK</Button>
+    </Grid>
+</Window>
