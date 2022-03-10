@@ -5,7 +5,6 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:De.HsFlensburg.ClientApp011.Ui.Desktop"
         xmlns:viewModels="clr-namespace:De.HsFlensburg.ClientApp011.Logic.Ui.ViewModels;assembly=Logic.Ui"
-        xmlns:validator="clr-namespace:De.HsFlensburg.ClientApp011.Logic.Ui.Validator;assembly=Logic.Ui"
         xmlns:ENUMS="clr-namespace:De.HsFlensburg.ClientApp011.Business.Model.BusinessObjects.ENUM;assembly=Business.Model"
         mc:Ignorable="d"
         Title="Neues Buch anlegen" Height="450" Width="800"

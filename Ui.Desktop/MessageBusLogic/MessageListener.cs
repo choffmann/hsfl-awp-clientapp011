@@ -15,7 +15,6 @@ namespace De.HsFlensburg.ClientApp011.Ui.Desktop.MessageBusLogic
         {
             ServiceBus.Instance.Register<OpenNewTexBookCollectionWindowMessage>(this, OpenNewTexBookCollectionWindow);
             ServiceBus.Instance.Register<OpenNewErrorWindowMessage>(this, OpenNewErrorWindow);
-            ServiceBus.Instance.Register<OpenNewValidationErrorMessage>(this, OpenNewValidationErrorWindow);
             ServiceBus.Instance.Register<OpenPrintServiceWindowMessage>(this, OpenPrintServiceWindow);
             ServiceBus.Instance.Register<OpenBookSearchWindowMessage>(this, OpenBookSearchWindow);
             ServiceBus.Instance.Register<OpenNewBookWindowMessage>(this, OpenNewBookWindow);
@@ -43,11 +42,7 @@ namespace De.HsFlensburg.ClientApp011.Ui.Desktop.MessageBusLogic
             ErrorWindow myWindow = new ErrorWindow();
             myWindow.ShowDialog();
         }
-        private void OpenNewValidationErrorWindow()
-        {
-            ValidationErrorWindow myWindow = new ValidationErrorWindow();
-            myWindow.ShowDialog();
-        }
+
         private void OpenNewBookWindow()
         {
             NewBookEntryWindow newBookWindow = new NewBookEntryWindow();

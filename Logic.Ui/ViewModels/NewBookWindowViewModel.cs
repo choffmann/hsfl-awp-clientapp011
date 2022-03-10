@@ -4,33 +4,12 @@ using System.Windows.Controls;
 using System;
 using System.Text.RegularExpressions;
 using De.HsFlensburg.ClientApp011.Logic.Ui.Wrapper;
-using De.HsFlensburg.ClientApp011.Services.MessageBus;
-using De.HsFlensburg.ClientApp011.Logic.Ui.MessageBusMessages;
 
 namespace De.HsFlensburg.ClientApp011.Logic.Ui.ViewModels
 {
     public class NewBookWindowViewModel
     {
         public BookViewModel BookVM { get; set; }
-        /*
-            public String Author { get; set; }
-            private Decimal Price { get; set; }
-            private String Description { get; set; }
-            private DateTime ReleaseDate { get; set; }
-            private String Publisher { get; set; }
-            private int Pages { get; set; }
-            private int Weight { get; set; }
-            private String Isbn { get; set; }
-            private int Edition { get; set; }
-            private Boolean Bestseller { get; set; }
-            private Image Cover { get; set; }
-            private String Extract { get; set; }
-            private Genre Genre { get; set; }
-            private Format Format { get; set; }
-            private Language Language { get; set; }
-            private Dimension Dimension { get; set; }
-        */
-
         public RelayCommand AddBook { get; }
         public RelayCommand OpenFileDialog { get; }
         public RelayCommand CloseWindow { get; }
@@ -47,17 +26,29 @@ namespace De.HsFlensburg.ClientApp011.Logic.Ui.ViewModels
 
         private void AddBookMethod(object container)
         {
-            //Console.WriteLine("container is of type: " + container.GetType());
             // Check ISBN Format
             //Regex checkIsbn = new Regex(@"^(?:ISBN)? ?\d{3}[- ]\d[- ]\d{3}[- ]\d{5}[- ]\d$|^(?:ISBN)? ?\d[- ]\d{3}[- ]\d{5}[- ]\d$");
             Match match = Regex.Match(BookVM.Isbn, @"^(?:ISBN)? ?\d{3}[- ]\d*[- ]\d*[- ]\d*[- ]\d$");
-            if (match.Success)
+            if (!match.Success)
             {
-                MyBookCollectionVM.Add(BookVM);
+                MessageBox.Show("Die ISBN hat nicht das richtige Format. \n" +
+                    "Bitte korrigieren Sie den Eintrag und versuchen Sie es erneut."
+                    , "Fehler im Eintrag", MessageBoxButton.OK);
+            }
+            else if (BookVM.Rating < 0 || BookVM.Rating > 0)
+            {
+                MessageBox.Show("Das Rating ist außerhalb des gültigen Bereichs von 0 bis 5. \n" +
+                    "Bitte korrigieren Sie den Eintrag und versuchen Sie es erneut."
+                    , "Fehler im Eintrag", MessageBoxButton.OK);
+            }
+            else if (CheckDuplicateTitle(BookVM.Title))
+            {
+                MessageBox.Show("Der Buchtitle ist bereits im Book Manager vorhanden."
+                    , "Fehler im Eintrag", MessageBoxButton.OK);
             }
             else
             {
-                ServiceBus.Instance.Send(new OpenNewValidationErrorMessage());
+                MyBookCollectionVM.Add(BookVM);
             }
 
             //ClearUIFields((Grid)container);
@@ -90,6 +81,15 @@ namespace De.HsFlensburg.ClientApp011.Logic.Ui.ViewModels
                     ClearUIFields((Grid)ctl);
                 }*/
             }
+        }
+        private bool CheckDuplicateTitle(String currentTitle)
+        {
+            bool result = false;
+            for (int i = 0; i < MyBookCollectionVM.Count && !result; i++)
+            {
+                result = MyBookCollectionVM[i].Title.Equals(currentTitle);
+            }
+            return result;
         }
     }
 }
