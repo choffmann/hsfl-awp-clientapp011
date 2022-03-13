@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using System.Text.RegularExpressions;
 
 namespace De.HsFlensburg.ClientApp011.Logic.Ui.ViewModels
 {
@@ -16,6 +17,7 @@ namespace De.HsFlensburg.ClientApp011.Logic.Ui.ViewModels
         public BookCollectionViewModel FilteredBookCollection { get; set; }
 
         public ICommand CloseWindow { get; }
+        public ICommand WindowLoaded { get; }
 
         public ICommand ActivateFilter { get; }
 
@@ -23,25 +25,37 @@ namespace De.HsFlensburg.ClientApp011.Logic.Ui.ViewModels
 
         public ICommand ShowBestseller { get; }
         public ICommand ShowNovelties { get; }
+        public ICommand ShowSpecificGenre { get; }
+        public ICommand ShowSpecificFormat { get; }
+
+        public ICommand ShowTextFilteredBooks { get; set; }
+
 
         public BookSearchWindowViewModel(BookCollectionViewModel bookCollectionViewModel)
         {
             BookCollection = bookCollectionViewModel;
-            FilteredBookCollection = BookCollection;
+            FilteredBookCollection = new BookCollectionViewModel();
+            WindowLoaded = new RelayCommand(param => WindowLoadedCommand());
             CloseWindow = new RelayCommand(param => CloseWindowCommand(param));
             ShowBestseller = new RelayCommand(param => ShowBestsellerCommand());
             ShowNovelties = new RelayCommand(param => ShowNoveltiesCommand());
+            ShowSpecificGenre = new RelayCommand(param => ShowSpecificGenreCommand(param));
+            ShowSpecificFormat = new RelayCommand(param => ShowSpecificFormatCommand(param));
+            ShowTextFilteredBooks = new RelayCommand(param => ShowTextFilteredBooksCommand(param));
             ResetFilter = new RelayCommand(param => ResetFilteredBookCollectionCommand());
+        }
+        private void WindowLoadedCommand()
+        {
+            resetFilteredBookCollection();
         }
         private void CloseWindowCommand(object param)
         {
-            FilteredBookCollection = BookCollection;
             Window window = (Window)param;
             window.Close();
         }
         private void ShowBestsellerCommand()
-        {
-            FilteredBookCollection = new BookCollectionViewModel();
+        {            
+            FilteredBookCollection.Clear();
             foreach(BookViewModel book in BookCollection)
             {
                 if (book.Bestseller)
@@ -52,8 +66,8 @@ namespace De.HsFlensburg.ClientApp011.Logic.Ui.ViewModels
         }
         private void ShowNoveltiesCommand()
         {
-            FilteredBookCollection = new BookCollectionViewModel();
-            foreach(BookViewModel book in BookCollection)
+            FilteredBookCollection.Clear();
+            foreach (BookViewModel book in BookCollection)
             {
                 if (book.ReleaseDate > DateTime.Today.AddMonths(-3))
                 {
@@ -61,9 +75,59 @@ namespace De.HsFlensburg.ClientApp011.Logic.Ui.ViewModels
                 }
             }
         }
+        private void ShowSpecificGenreCommand(object param)
+        {
+            FilteredBookCollection.Clear();
+            foreach (BookViewModel book in BookCollection)
+            {
+                //Wieso funktioniert AddedItems.firstOrDefault nicht?
+                if (book.Genre.ToString() == ((System.Windows.Controls.SelectionChangedEventArgs)param).AddedItems[0].ToString())
+                {
+                    FilteredBookCollection.Add(book);
+                }
+            }
+        }
+        private void ShowSpecificFormatCommand(object param)
+        {
+            FilteredBookCollection.Clear();
+            foreach (BookViewModel book in BookCollection)
+            {
+                if (book.Format.ToString() == ((System.Windows.Controls.SelectionChangedEventArgs)param).AddedItems[0].ToString())
+                {
+                    FilteredBookCollection.Add(book);
+                }
+            }
+        }
+        private void ShowTextFilteredBooksCommand(object param)
+        {
+            FilteredBookCollection.Clear();
+            String searchInput = ((System.Windows.Controls.TextBox)((System.Windows.Controls.TextChangedEventArgs)param).OriginalSource).Text;           
+            if(searchInput == "")
+            {
+                resetFilteredBookCollection();
+            } else {
+                foreach (BookViewModel book in BookCollection)
+                {
+                    String textFields = book.Author + book.Genre.ToString() + book.Title
+                        + book.Isbn + book.Publisher + book.Description;
+                    if (textFields.Contains(searchInput))
+                    {
+                        FilteredBookCollection.Add(book);
+                    }
+                }
+            }
+        }
         private void ResetFilteredBookCollectionCommand()
         {
-            FilteredBookCollection = BookCollection;
+            resetFilteredBookCollection();
+        }
+        private void resetFilteredBookCollection()
+        {
+            FilteredBookCollection.Clear();
+            foreach (BookViewModel book in BookCollection)
+            {
+                FilteredBookCollection.Add(book);
+            }
         }
     }
 }
