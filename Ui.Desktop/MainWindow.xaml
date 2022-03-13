@@ -4,10 +4,12 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
         xmlns:local="clr-namespace:De.HsFlensburg.ClientApp011.Ui.Desktop" 
-        xmlns:viewModels="clr-namespace:De.HsFlensburg.ClientApp011.Logic.Ui;assembly=Logic.Ui" mc:Ignorable="d" 
+        xmlns:viewModels="clr-namespace:De.HsFlensburg.ClientApp011.Logic.Ui;assembly=Logic.Ui"
+        mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Window.DataContext>
-        <Binding Source="{StaticResource ViewModelLocator}" Path="TheMainWindowViewModel"></Binding>
+        <Binding Source="{StaticResource ViewModelLocator}" Path="TheMainWindowViewModel">
+        </Binding>
     </Window.DataContext>
     <Window.IsEnabled>
         <Binding Source="{StaticResource MessageListener}" Path="BindableProperty"></Binding>
@@ -22,10 +24,20 @@
             <RowDefinition />
             <RowDefinition />
         </Grid.RowDefinitions>
-        <Button Content="Load Collection from *.bmf" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center" Width="150" Height="150" Command="{Binding LoadFromFile}" />
-        <Button Content="Open PrintService Window" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center" Width="150" Height="150" Command="{Binding OpenPrintServiceWindow}" />
-        <Button Content="Open Bib Import" Grid.Column="2" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center" Width="150" Height="150" Command="{Binding OpenNewTexBookCollectionWindow}" />
-        <Button Content="Open BookSearcher" Grid.Column="0" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Width="150" Height="150" Command="{Binding OpenBookSearchWindow}" />
-        <Button Content="Open Fabiansmist" Grid.Column="1" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Width="150" Height="150" Command="{Binding OpenBookSearchWindow}" />
+        <Button Content="Load Collection from *.bmf" Grid.Column="0" Grid.Row="0" 
+                HorizontalAlignment="Center" VerticalAlignment="Center" Width="150" Height="150" 
+                Command="{Binding LoadFromFile}" />
+        <Button Content="Open PrintService Window" Grid.Column="1" Grid.Row="0" 
+                HorizontalAlignment="Center" VerticalAlignment="Center" Width="150" Height="150" 
+                Command="{Binding OpenPrintServiceWindow}" />
+        <Button Content="Open Bib Import" Grid.Column="2" Grid.Row="0" 
+                HorizontalAlignment="Center" VerticalAlignment="Center" Width="150" Height="150" 
+                Command="{Binding OpenNewTexBookCollectionWindow}" />
+        <Button Content="Open BookSearcher" Grid.Column="0" Grid.Row="1" 
+                HorizontalAlignment="Center" VerticalAlignment="Center" Width="150" Height="150" 
+                Command="{Binding OpenBookSearchWindow}" />
+        <Button Content="Open Fabiansmist" Grid.Column="1" Grid.Row="2" 
+                HorizontalAlignment="Center" VerticalAlignment="Center" Width="150" Height="150" 
+                Command="{Binding OpenBookSearchWindow}" />
     </Grid>
 </Window>
