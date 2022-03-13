@@ -6,7 +6,13 @@
         xmlns:local="clr-namespace:De.HsFlensburg.ClientApp011.Ui.Desktop"
         xmlns:viewModels="clr-namespace:De.HsFlensburg.ClientApp011.Logic.Ui;assembly=Logic.Ui"
         xmlns:bookViewModel="clr-namespace:De.HsFlensburg.ClientApp011.Logic.Ui.Wrapper;assembly=Logic.Ui"
-        Title="BookSearchWindow" Height="768" Width="1024">
+        xmlns:cmd="http://schemas.microsoft.com/xaml/behaviors"
+        Title="BookSearchWindow" Height="768" Width="1024" MinWidth="850" MinHeight="350">
+    <cmd:Interaction.Triggers>
+        <cmd:EventTrigger EventName="Loaded">
+            <cmd:InvokeCommandAction Command="{Binding WindowLoaded}" />
+        </cmd:EventTrigger>
+    </cmd:Interaction.Triggers>
     <Window.Resources>
         <bookViewModel:BookViewModel x:Key="bookViewModel"></bookViewModel:BookViewModel>
     </Window.Resources>
@@ -16,15 +22,14 @@
         </Binding>
     </Window.DataContext>
     <Window.IsEnabled>
-        <Binding Source="{StaticResource MessageListener}" Path="BindableProperty"></Binding>
+        <Binding Source="{StaticResource MessageListener}" Path="BindablePropery"></Binding>
     </Window.IsEnabled>
     <Grid>
         <Grid.RowDefinitions>
-            <!-- Book Filters -->
-            <RowDefinition Height="150"/>
-            <!-- Filtered Book Collection -->
+            <RowDefinition Height="120"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
+        <!-- Book Filters -->
         <Grid Grid.Row="0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="3*"/>
@@ -34,52 +39,104 @@
                 <RowDefinition/>
                 <RowDefinition />
             </Grid.RowDefinitions>
-            <UniformGrid VerticalAlignment="Center" Margin="10">
-                <TextBox Grid.Column="0" Grid.Row="0" Text="Titel, Autor, Stichwort, ISBN, .."/>
-                <Button Grid.Column="0" Grid.Row="0" Width="120"  Height="30" Command="{Binding SearchInputBook}">Suchen</Button>
-            </UniformGrid>
-            <UniformGrid Grid.Column="1" Grid.Row="0">
-                <Button  Width="120" Height="30" Command="{Binding ShowBestseller}">Bestseller</Button>
-                <Button  Width="120" Height="30" Command="{Binding ShowNovelties}">Neuheiten</Button>
-            </UniformGrid>
-            <UniformGrid Grid.Column="0" Grid.Row="1" Columns="3" Margin="10">
-                <ComboBox Name="RatingComboBox"
-                          IsEnabled="True"
-                          IsReadOnly="True"
-                          Text="Bewertung"
-                          Width="120"
-                          Height="30"
-                          IsSynchronizedWithCurrentItem="True"
-                          ItemsSource="{Binding Source={StaticResource bookViewModel}, Path=GenreValues}"
-                          SelectedItem="{Binding Source={StaticResource bookViewModel}, Path=Genre, Mode=TwoWay}">
-                    
+            <TextBox Grid.Column="0" Grid.Row="0" Height="30" 
+                     Text="Titel, Autor, Stichwort, ISBN, .."
+                     VerticalAlignment="Center" Margin="10">
+                <cmd:Interaction.Triggers>
+                    <cmd:EventTrigger EventName="TextChanged">
+                        <cmd:InvokeCommandAction Command="{Binding ShowTextFilteredBooks}" 
+                                                 PassEventArgsToCommand="True"/>
+                    </cmd:EventTrigger>
+                </cmd:Interaction.Triggers>
+            </TextBox>
+            <Button Grid.Column="1" Grid.Row="0" Width="120" Height="30"
+                    Command="{Binding ShowBestseller}">Bestseller</Button>
+            <Button Grid.Column="1" Grid.Row="0" Width="120" Height="30" Margin="10"
+                    HorizontalAlignment="Right" VerticalAlignment="Center"
+                    Command="{Binding ShowNovelties}">Neuheiten</Button>
+            <DockPanel Grid.Column="0" Grid.Row="1"
+                       HorizontalAlignment="Left" VerticalAlignment="Center">
+                <ComboBox Name="RatingComboBox" Text="Bewertung"      
+                          IsReadOnly="True" IsEditable="True"                  
+                          Width="120" Height="30"
+                          Margin="10 0 0 0">
+                    <ComboBoxItem>1 Stern</ComboBoxItem>
+                    <ComboBoxItem>2 Sterne</ComboBoxItem>
+                    <ComboBoxItem>3 Sterne</ComboBoxItem>
+                    <ComboBoxItem>4 Sterne</ComboBoxItem>
+                    <ComboBoxItem>5 Sterne</ComboBoxItem>
                 </ComboBox>
-                <ComboBox Name="FormatComboBox"
-                        IsEnabled="True"
-                        IsReadOnly="True"
-                        Text="Buchart"
-                        Width="120"
-                        Height="30"                       
-                        IsSynchronizedWithCurrentItem="True"
-                        ItemsSource="{Binding Source={StaticResource bookViewModel}, Path=FormatValues}"
-                        SelectedItem="{Binding Source={StaticResource bookViewModel}, Path=Format, Mode=TwoWay}">
+                <ComboBox Name="FormatComboBox" Text="Buchart"
+                          IsReadOnly="True" IsEditable="True"                     
+                          Width="120" Height="30"
+                          IsSynchronizedWithCurrentItem="True" 
+                          Margin="10 0 0 0" 
+                          ItemsSource="{Binding FormatValues, Source={StaticResource bookViewModel}}"
+                          SelectedItem="{Binding Format, Mode=TwoWay, Source={StaticResource bookViewModel}}">
+                    <cmd:Interaction.Triggers>
+                        <cmd:EventTrigger EventName="SelectionChanged">
+                            <cmd:InvokeCommandAction Command="{Binding ShowSpecificFormat}" 
+                                                     PassEventArgsToCommand="True"/>
+                        </cmd:EventTrigger>
+                    </cmd:Interaction.Triggers>
                 </ComboBox>
-                <ComboBox Name="GenreComboBox"
-                        IsEnabled="True"
-                        IsReadOnly="True"
-                        Text="Genre"
-                        Width="120"
-                        Height="30"
-                        IsSynchronizedWithCurrentItem="True"
-                        ItemsSource="{Binding Source={StaticResource bookViewModel}, Path=GenreValues}"
-                        SelectedItem="{Binding Source={StaticResource bookViewModel}, Path=Genre, Mode=TwoWay}">
+                <ComboBox Name="GenreComboBox" Text="Genre"
+                          IsReadOnly="True" IsEditable="True"         
+                          Width="120" Height="30"
+                          Margin="10 0 0 0"
+                          IsSynchronizedWithCurrentItem="True"                 
+                          ItemsSource="{Binding Source={StaticResource bookViewModel},
+                                                Path=GenreValues}"
+                          SelectedItem="{Binding Source={StaticResource bookViewModel},
+                                                 Path=Genre, Mode=TwoWay}">
+                    <cmd:Interaction.Triggers>
+                        <cmd:EventTrigger EventName="SelectionChanged">
+                            <cmd:InvokeCommandAction Command="{Binding ShowSpecificGenre}"
+                                                     PassEventArgsToCommand="True"/>
+                        </cmd:EventTrigger>
+                    </cmd:Interaction.Triggers>
                 </ComboBox>
-            </UniformGrid>
-            <Button Grid.Column="1" Grid.Row="1" Width="120" Height="30" Command="{Binding ResetFilter}">Filter Zurücksetzen</Button>
+            </DockPanel>
+            <Button Grid.Column="1" Grid.Row="1" Width="120" Height="30" Margin="10"
+                    HorizontalAlignment="Right" VerticalAlignment="Center"
+                    Command="{Binding ResetFilter}">Filter Zurücksetzen</Button>
         </Grid>
-        <DataGrid Grid.Row="1"
-            Name="fileredBookCollectionDataGrid"
-            ItemsSource="{Binding Path = FilteredBookCollection}">
-        </DataGrid>
+        <!-- Filtered Book Collection -->
+        <ListView Grid.Row="1" Name="filteredList"
+                  HorizontalContentAlignment="Stretch"
+                  ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                  ItemsSource="{Binding Path = FilteredBookCollection}">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Border Name="border" BorderBrush="Black" BorderThickness="1"
+                            Padding="5" Margin="5" CornerRadius="8">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition Width="120"/>
+                                <ColumnDefinition Width="120"/>
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Row="0" Grid.Column="0" Text="{Binding Title}"
+                                       TextWrapping="Wrap" Margin="12,0,0,6"/>
+                            <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding Genre}"
+                                       Margin="12,0,0,6"/>
+                            <TextBlock Grid.Row="0" Grid.Column="2" Text="{Binding Language}"
+                                       Margin="12,0,0,6"/>
+                            <TextBlock Grid.Row="1" Grid.Column="0" Text="{Binding Author}"
+                                       Margin="12,0,0,6" />
+                            <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding Rating}"
+                                       Margin="12,0,0,6"/>
+                            <TextBlock Grid.Column="3" Grid.RowSpan="2" Text="{Binding Description}"
+                                       TextWrapping="Wrap" Margin="12,0,0,6" />
+                        </Grid>
+                    </Border>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
     </Grid>
 </Window>
