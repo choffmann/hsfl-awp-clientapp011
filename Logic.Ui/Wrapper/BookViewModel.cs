@@ -10,10 +10,9 @@ using System.Windows.Media.Imaging;
 
 namespace De.HsFlensburg.ClientApp011.Logic.Ui.Wrapper
 {
-    
     public class BookViewModel : ViewModelBase<Book>
     {
-        private DimensionViewModel dimension; 
+        private DimensionViewModel dimension;
         public BookViewModel() : base()
         {
             Dimension = new DimensionViewModel();

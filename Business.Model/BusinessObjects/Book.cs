@@ -6,7 +6,7 @@ using De.HsFlensburg.ClientApp011.Business.Model.BusinessObjects.ENUM;
 namespace De.HsFlensburg.ClientApp011.Business.Model.BusinessObjects
 {
     [Serializable]
-    public class Book: INotifyPropertyChanged
+    public class Book : INotifyPropertyChanged
     {
         private String title;
         private String author;
@@ -26,11 +26,7 @@ namespace De.HsFlensburg.ClientApp011.Business.Model.BusinessObjects
         private Format format;
         private Language language;
         private Dimension dimension;
-        
-        /*public Book()
-        {
-            // dimension = new Dimension();
-        }*/
+
         public String Title
         {
             get

@@ -1,10 +1,8 @@
 ﻿using Microsoft.Win32;
 using System.Windows;
-using System.Windows.Controls;
 using System;
 using System.Text.RegularExpressions;
 using De.HsFlensburg.ClientApp011.Logic.Ui.Wrapper;
-using System.Reflection;
 using System.ComponentModel;
 
 namespace De.HsFlensburg.ClientApp011.Logic.Ui.ViewModels
@@ -48,7 +46,6 @@ namespace De.HsFlensburg.ClientApp011.Logic.Ui.ViewModels
         private void AddBookMethod(object container)
         {
             // Check ISBN Format
-            //Regex checkIsbn = new Regex(@"^(?:ISBN)? ?\d{3}[- ]\d[- ]\d{3}[- ]\d{5}[- ]\d$|^(?:ISBN)? ?\d[- ]\d{3}[- ]\d{5}[- ]\d$");
             Match match = Regex.Match(BookVM?.Isbn + "", @"^(?:ISBN)? ?\d{3}[- ]\d*[- ]\d*[- ]\d*[- ]\d$");
             if (!match.Success)
             {

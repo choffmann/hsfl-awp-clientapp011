@@ -95,11 +95,9 @@ namespace De.HsFlensburg.ClientApp011.Logic.Ui.ViewModels
                 book.Bestseller = i % 2 == 0;
                 book.ReleaseDate = new DateTime();
 
-                //Business.Model.BusinessObjects.Dimension dimension = new Business.Model.BusinessObjects.Dimension();
                 book.Dimension.Depth = 1 * (i + 1);
                 book.Dimension.Height = 3 * (i + 1);
                 book.Dimension.Width = 2 * (i + 1);
-                //book.Dimension = dimension;
                 
                 // Root Directory of Repository => \img\
                 string path = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.FullName + "\\img\\" + i + ".png";
