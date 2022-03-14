@@ -26,22 +26,11 @@ namespace De.HsFlensburg.ClientApp011.Logic.Ui.ViewModels
         public ICommand OpenNewTexBookCollectionWindow { get; }
         public ICommand OpenBookSearchWindow { get; }
         public ICommand LoadFromFile { get; }
-        public BookCollectionViewModel BookCollection { get; set; } //public BookCollectionViewModel MyList { get; set; }
+        public BookCollectionViewModel BookCollection { get; set; }
         public MainWindowViewModel(BookCollectionViewModel bookCollectionViewModel)
         {
             BookCollection = bookCollectionViewModel;
-            /*if (BookCollection.Count == 0)
-            {
-                try
-                {
-                    LoadFromFileCommand();
-                }
-                catch
-                {
-                    FillBookListMethod();
-                }
-            }*/
-            LoadFromFile = new RelayCommand(LoadFromFileCommand); //LoadCommand = new RelayCommand(LoadModel);
+            LoadFromFile = new RelayCommand(LoadFromFileCommand);
             SaveCommand = new RelayCommand(SaveModel);
             modelFileHandler = new ModelFileHandler();
             pathForSerialization = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments)
@@ -49,10 +38,8 @@ namespace De.HsFlensburg.ClientApp011.Logic.Ui.ViewModels
 
             // Open PrintService Window
             OpenPrintServiceWindow = new RelayCommand(OpenPrintServiceWindowCommand);
-
             // Open BibInport Window
             OpenNewTexBookCollectionWindow = new RelayCommand(OpenNewTexBookCollectionWindowMethod);
-
             // Open BookSearch Window
             OpenBookSearchWindow = new RelayCommand(OpenBookSearchWindowCommand);
             OpenNewBookWindowCommand = new RelayCommand(OpenNewBookWindowMethod);
@@ -78,7 +65,6 @@ namespace De.HsFlensburg.ClientApp011.Logic.Ui.ViewModels
         {
             ServiceBus.Instance.Send(new OpenNewTexBookCollectionWindowMessage());
         }
-
         private void OpenBookSearchWindowCommand()
         {
             ServiceBus.Instance.Send(new OpenBookSearchWindowMessage());
@@ -109,12 +95,12 @@ namespace De.HsFlensburg.ClientApp011.Logic.Ui.ViewModels
                 book.Bestseller = i % 2 == 0;
                 book.ReleaseDate = new DateTime();
 
-                Business.Model.BusinessObjects.Dimension dimension = new Business.Model.BusinessObjects.Dimension();
-                dimension.Depth = 1 * (i + 1);
-                dimension.Height = 3 * (i + 1);
-                dimension.Width = 2 * (i + 1);
-                book.Dimension = dimension;
-
+                //Business.Model.BusinessObjects.Dimension dimension = new Business.Model.BusinessObjects.Dimension();
+                book.Dimension.Depth = 1 * (i + 1);
+                book.Dimension.Height = 3 * (i + 1);
+                book.Dimension.Width = 2 * (i + 1);
+                //book.Dimension = dimension;
+                
                 // Root Directory of Repository => \img\
                 string path = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.FullName + "\\img\\" + i + ".png";
                 Image image = Image.FromFile(path);

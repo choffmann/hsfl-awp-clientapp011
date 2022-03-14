@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Drawing;
 using De.HsFlensburg.ClientApp011.Business.Model.BusinessObjects.ENUM;
 
@@ -30,7 +26,11 @@ namespace De.HsFlensburg.ClientApp011.Business.Model.BusinessObjects
         private Format format;
         private Language language;
         private Dimension dimension;
-
+        
+        /*public Book()
+        {
+            // dimension = new Dimension();
+        }*/
         public String Title
         {
             get
