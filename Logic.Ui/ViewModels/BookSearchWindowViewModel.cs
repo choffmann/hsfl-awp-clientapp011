@@ -7,56 +7,101 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using System.Text.RegularExpressions;
+using System.Windows.Controls;
+using System.ComponentModel;
 
 namespace De.HsFlensburg.ClientApp011.Logic.Ui.ViewModels
 {
-    public class BookSearchWindowViewModel
+    public class BookSearchWindowViewModel : INotifyPropertyChanged
     {
+        private string genreComboBoxText = "Genre";
+        private string formatComboBoxText = "Buchart";
+        private string ratingComboBoxText = "Bewertung";
+        private bool filterComboBoxes = true;
         public BookCollectionViewModel BookCollection { get; set; }
-
         public BookCollectionViewModel FilteredBookCollection { get; set; }
-
+        public event PropertyChangedEventHandler PropertyChanged;
+        public string GenreComboBoxText
+        {
+            get
+            {
+                return genreComboBoxText;             
+            }
+            set
+            {
+                genreComboBoxText = value;
+                OnPropertyChanged("GenreComboBoxText");
+            }
+        }
+        public string FormatComboBoxText
+        {
+            get
+            {
+                return formatComboBoxText;
+            }
+            set
+            {
+                formatComboBoxText = value;
+                OnPropertyChanged("FormatComboBoxText");
+            }
+        }
+        public string RatingComboBoxText
+        {
+            get
+            {
+                return ratingComboBoxText;
+            }
+            set
+            {
+                ratingComboBoxText = value;
+                OnPropertyChanged("RatingComboBoxText");
+            }
+        }
         public ICommand CloseWindow { get; }
         public ICommand WindowLoaded { get; }
-
-        public ICommand ActivateFilter { get; }
-
         public ICommand ResetFilter { get; }
-
         public ICommand ShowBestseller { get; }
         public ICommand ShowNovelties { get; }
         public ICommand ShowSpecificGenre { get; }
         public ICommand ShowSpecificFormat { get; }
-
-        public ICommand ShowTextFilteredBooks { get; set; }
-
+        public ICommand ShowSpecificRating { get; }
+        public ICommand ShowTextFilteredBooks { get; }
 
         public BookSearchWindowViewModel(BookCollectionViewModel bookCollectionViewModel)
         {
             BookCollection = bookCollectionViewModel;
             FilteredBookCollection = new BookCollectionViewModel();
-            WindowLoaded = new RelayCommand(param => WindowLoadedCommand());
-            CloseWindow = new RelayCommand(param => CloseWindowCommand(param));
+            WindowLoaded = new RelayCommand(param => WindowLoadedCommand(param));
+            //CloseWindow = new RelayCommand(param => CloseWindowCommand(param));
             ShowBestseller = new RelayCommand(param => ShowBestsellerCommand());
             ShowNovelties = new RelayCommand(param => ShowNoveltiesCommand());
             ShowSpecificGenre = new RelayCommand(param => ShowSpecificGenreCommand(param));
             ShowSpecificFormat = new RelayCommand(param => ShowSpecificFormatCommand(param));
+            ShowSpecificRating = new RelayCommand(param => ShowSpecificRatingCommand(param));
             ShowTextFilteredBooks = new RelayCommand(param => ShowTextFilteredBooksCommand(param));
-            ResetFilter = new RelayCommand(param => ResetFilteredBookCollectionCommand());
+            ResetFilter = new RelayCommand(param => ResetFilterCommand(param));
         }
-        private void WindowLoadedCommand()
+        protected void OnPropertyChanged(string propertyName)
         {
-            resetFilteredBookCollection();
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+            }
         }
-        private void CloseWindowCommand(object param)
+        private void WindowLoadedCommand(object param)
         {
-            Window window = (Window)param;
-            window.Close();
+            ResetFilteredBookCollection();
+            ResetComboBoxes((DockPanel)param);
         }
+        //private void CloseWindowCommand(object param)
+        //{
+        //    Window window = (Window)param;
+        //    window.Close();
+        //}
         private void ShowBestsellerCommand()
-        {            
+        {
             FilteredBookCollection.Clear();
-            foreach(BookViewModel book in BookCollection)
+            foreach (BookViewModel book in BookCollection)
             {
                 if (book.Bestseller)
                 {
@@ -77,38 +122,63 @@ namespace De.HsFlensburg.ClientApp011.Logic.Ui.ViewModels
         }
         private void ShowSpecificGenreCommand(object param)
         {
-            FilteredBookCollection.Clear();
-            foreach (BookViewModel book in BookCollection)
+            if (filterComboBoxes)
             {
-                //Wieso funktioniert AddedItems.firstOrDefault nicht?
-                if (book.Genre.ToString() == ((System.Windows.Controls.SelectionChangedEventArgs)param).AddedItems[0].ToString())
+                FilteredBookCollection.Clear();
+                ComboBox genreComboBox = (ComboBox)((SelectionChangedEventArgs)param).Source;
+                string searchedGenre = genreComboBox.SelectedValue?.ToString() ?? "";
+                foreach (BookViewModel book in BookCollection)
                 {
-                    FilteredBookCollection.Add(book);
+                    if (book.Genre.ToString() == searchedGenre || genreComboBox.SelectedIndex == -1)
+                    {
+                        FilteredBookCollection.Add(book);
+                    }
                 }
             }
         }
         private void ShowSpecificFormatCommand(object param)
         {
-            FilteredBookCollection.Clear();
-            foreach (BookViewModel book in BookCollection)
+            if (filterComboBoxes)
             {
-                if (book.Format.ToString() == ((System.Windows.Controls.SelectionChangedEventArgs)param).AddedItems[0].ToString())
+                FilteredBookCollection.Clear();
+                ComboBox formatComboBox = (ComboBox)((SelectionChangedEventArgs)param).Source;
+                string searchedFormat = formatComboBox.SelectedValue?.ToString() ?? "";
+                foreach (BookViewModel book in BookCollection)
                 {
-                    FilteredBookCollection.Add(book);
+                    if (book.Format.ToString() == searchedFormat || formatComboBox.SelectedIndex == -1)
+                    {
+                        FilteredBookCollection.Add(book);
+                    }
+                }
+            }
+        }
+        private void ShowSpecificRatingCommand(object param)
+        {
+            if (filterComboBoxes)
+            {
+                FilteredBookCollection.Clear();
+                ComboBox ratingComboBox = (ComboBox)((SelectionChangedEventArgs)param).Source;
+                ComboBoxItem selectedComboBoxItem = (ComboBoxItem)ratingComboBox.SelectedItem;
+                foreach (BookViewModel book in BookCollection)
+                {
+                    if (book.Rating >= Convert.ToInt32(selectedComboBoxItem?.Tag) || ratingComboBox.SelectedIndex == -1)
+                    {
+                        FilteredBookCollection.Add(book);
+                    }
                 }
             }
         }
         private void ShowTextFilteredBooksCommand(object param)
         {
             FilteredBookCollection.Clear();
-            String searchInput = ((System.Windows.Controls.TextBox)((System.Windows.Controls.TextChangedEventArgs)param).OriginalSource).Text;           
+            string searchInput = ((TextBox)((TextChangedEventArgs)param).OriginalSource).Text;
             if(searchInput == "")
             {
-                resetFilteredBookCollection();
+                ResetFilteredBookCollection();
             } else {
                 foreach (BookViewModel book in BookCollection)
                 {
-                    String textFields = book.Author + book.Genre.ToString() + book.Title
+                    string textFields = book.Author + book.Genre.ToString() + book.Title
                         + book.Isbn + book.Publisher + book.Description;
                     if (textFields.Contains(searchInput))
                     {
@@ -117,17 +187,33 @@ namespace De.HsFlensburg.ClientApp011.Logic.Ui.ViewModels
                 }
             }
         }
-        private void ResetFilteredBookCollectionCommand()
+        private void ResetFilterCommand(object param)
         {
-            resetFilteredBookCollection();
+            ResetFilteredBookCollection();
+            ResetComboBoxes((DockPanel)param);
         }
-        private void resetFilteredBookCollection()
+        private void ResetFilteredBookCollection()
         {
             FilteredBookCollection.Clear();
             foreach (BookViewModel book in BookCollection)
             {
                 FilteredBookCollection.Add(book);
             }
+        }
+        private void ResetComboBoxes(DockPanel comboBoxDockPanel)
+        {
+            filterComboBoxes = false;
+            foreach (Control control in comboBoxDockPanel.Children)
+            {
+                if (control is ComboBox box)
+                {
+                    box.SelectedIndex = -1;
+                }
+            }
+            filterComboBoxes = true;
+            GenreComboBoxText = "Genre";
+            FormatComboBoxText = "Buchart";
+            RatingComboBoxText = "Bewertung";
         }
     }
 }
