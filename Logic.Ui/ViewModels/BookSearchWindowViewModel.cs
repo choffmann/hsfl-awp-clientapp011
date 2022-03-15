@@ -6,7 +6,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
-using System.Text.RegularExpressions;
 using System.Windows.Controls;
 using System.ComponentModel;
 
@@ -57,7 +56,6 @@ namespace De.HsFlensburg.ClientApp011.Logic.Ui.ViewModels
                 OnPropertyChanged("RatingComboBoxText");
             }
         }
-        public ICommand CloseWindow { get; }
         public ICommand WindowLoaded { get; }
         public ICommand ResetFilter { get; }
         public ICommand ShowBestseller { get; }
@@ -72,7 +70,6 @@ namespace De.HsFlensburg.ClientApp011.Logic.Ui.ViewModels
             BookCollection = bookCollectionViewModel;
             FilteredBookCollection = new BookCollectionViewModel();
             WindowLoaded = new RelayCommand(param => WindowLoadedCommand(param));
-            //CloseWindow = new RelayCommand(param => CloseWindowCommand(param));
             ShowBestseller = new RelayCommand(param => ShowBestsellerCommand());
             ShowNovelties = new RelayCommand(param => ShowNoveltiesCommand());
             ShowSpecificGenre = new RelayCommand(param => ShowSpecificGenreCommand(param));
@@ -91,13 +88,9 @@ namespace De.HsFlensburg.ClientApp011.Logic.Ui.ViewModels
         private void WindowLoadedCommand(object param)
         {
             ResetFilteredBookCollection();
-            ResetComboBoxes((DockPanel)param);
+            ResetComboBoxes((WrapPanel)param);
         }
-        //private void CloseWindowCommand(object param)
-        //{
-        //    Window window = (Window)param;
-        //    window.Close();
-        //}
+
         private void ShowBestsellerCommand()
         {
             FilteredBookCollection.Clear();
@@ -179,7 +172,8 @@ namespace De.HsFlensburg.ClientApp011.Logic.Ui.ViewModels
                 foreach (BookViewModel book in BookCollection)
                 {
                     string textFields = book.Author + book.Genre.ToString() + book.Title
-                        + book.Isbn + book.Publisher + book.Description;
+                        + book.Isbn + book.Publisher + book.Description + book.Language.ToString()
+                        + book.Extract;
                     if (textFields.Contains(searchInput))
                     {
                         FilteredBookCollection.Add(book);
@@ -190,7 +184,7 @@ namespace De.HsFlensburg.ClientApp011.Logic.Ui.ViewModels
         private void ResetFilterCommand(object param)
         {
             ResetFilteredBookCollection();
-            ResetComboBoxes((DockPanel)param);
+            ResetComboBoxes((WrapPanel)param);
         }
         private void ResetFilteredBookCollection()
         {
@@ -200,10 +194,10 @@ namespace De.HsFlensburg.ClientApp011.Logic.Ui.ViewModels
                 FilteredBookCollection.Add(book);
             }
         }
-        private void ResetComboBoxes(DockPanel comboBoxDockPanel)
+        private void ResetComboBoxes(WrapPanel comboBoxWrapPanel)
         {
             filterComboBoxes = false;
-            foreach (Control control in comboBoxDockPanel.Children)
+            foreach (Control control in comboBoxWrapPanel.Children)
             {
                 if (control is ComboBox box)
                 {
