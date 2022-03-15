@@ -12,6 +12,11 @@ namespace De.HsFlensburg.ClientApp011.Logic.Ui.Wrapper
 {
     public class BookViewModel : ViewModelBase<Book>
     {
+        private DimensionViewModel dimension;
+        public BookViewModel() : base()
+        {
+            Dimension = new DimensionViewModel();
+        }
         public String Title
         {
             get
@@ -274,16 +279,15 @@ namespace De.HsFlensburg.ClientApp011.Logic.Ui.Wrapper
                 return value.ToArray<String>();
             }
         }
-
-        public Dimension Dimension
+        public DimensionViewModel Dimension
         {
             get
             {
-                return Model.Dimension;
+                return dimension;
             }
             set
             {
-                Model.Dimension = value;
+                dimension = value;
             }
         }
 

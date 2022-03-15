@@ -1,16 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Drawing;
 using De.HsFlensburg.ClientApp011.Business.Model.BusinessObjects.ENUM;
 
 namespace De.HsFlensburg.ClientApp011.Business.Model.BusinessObjects
 {
     [Serializable]
-    public class Book: INotifyPropertyChanged
+    public class Book : INotifyPropertyChanged
     {
         private String title;
         private String author;

@@ -1,19 +1,32 @@
 ﻿using Microsoft.Win32;
 using System.Windows;
-using System.Windows.Controls;
 using System;
 using System.Text.RegularExpressions;
 using De.HsFlensburg.ClientApp011.Logic.Ui.Wrapper;
+using System.ComponentModel;
 
 namespace De.HsFlensburg.ClientApp011.Logic.Ui.ViewModels
 {
-    public class NewBookWindowViewModel
+    public class NewBookWindowViewModel : INotifyPropertyChanged
     {
-        public BookViewModel BookVM { get; set; }
+        private BookViewModel bookvm;
+        public BookViewModel BookVM
+        {
+            get
+            {
+                return bookvm;
+            }
+            set
+            {
+                bookvm = value;
+                OnPropertyChanged("BookVM");
+            }
+        }
         public RelayCommand AddBook { get; }
         public RelayCommand OpenFileDialog { get; }
         public RelayCommand CloseWindow { get; }
         public BookCollectionViewModel MyBookCollectionVM { get; set; }
+        public event PropertyChangedEventHandler PropertyChanged;
 
         public NewBookWindowViewModel(BookCollectionViewModel bookCollectionViewModel)
         {
@@ -23,19 +36,24 @@ namespace De.HsFlensburg.ClientApp011.Logic.Ui.ViewModels
             MyBookCollectionVM = bookCollectionViewModel;
             BookVM = new BookViewModel();
         }
-
+        protected void OnPropertyChanged(string propertyName)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+            }
+        }
         private void AddBookMethod(object container)
         {
             // Check ISBN Format
-            //Regex checkIsbn = new Regex(@"^(?:ISBN)? ?\d{3}[- ]\d[- ]\d{3}[- ]\d{5}[- ]\d$|^(?:ISBN)? ?\d[- ]\d{3}[- ]\d{5}[- ]\d$");
-            Match match = Regex.Match(BookVM.Isbn, @"^(?:ISBN)? ?\d{3}[- ]\d*[- ]\d*[- ]\d*[- ]\d$");
+            Match match = Regex.Match(BookVM?.Isbn + "", @"^(?:ISBN)? ?\d{3}[- ]\d*[- ]\d*[- ]\d*[- ]\d$");
             if (!match.Success)
             {
                 MessageBox.Show("Die ISBN hat nicht das richtige Format. \n" +
                     "Bitte korrigieren Sie den Eintrag und versuchen Sie es erneut."
                     , "Fehler im Eintrag", MessageBoxButton.OK);
             }
-            else if (BookVM.Rating < 0 || BookVM.Rating > 0)
+            else if (BookVM.Rating < 0 || BookVM.Rating > 5)
             {
                 MessageBox.Show("Das Rating ist außerhalb des gültigen Bereichs von 0 bis 5. \n" +
                     "Bitte korrigieren Sie den Eintrag und versuchen Sie es erneut."
@@ -49,9 +67,9 @@ namespace De.HsFlensburg.ClientApp011.Logic.Ui.ViewModels
             else
             {
                 MyBookCollectionVM.Add(BookVM);
+                // Workaround, damit Buch nicht laufend beim Anlegen überschrieben wird.
+                BookVM = new BookViewModel();
             }
-
-            //ClearUIFields((Grid)container);
         }
         private void OpenFileDialogMethod()
         {
@@ -61,26 +79,9 @@ namespace De.HsFlensburg.ClientApp011.Logic.Ui.ViewModels
         }
         private void CloseWindowMethod(object window)
         {
+            BookVM = new BookViewModel();
             Window locWindow = (Window)window;
             locWindow.Close();
-        }
-        private void ClearUIFields(Grid container)
-        {
-            foreach (Control ctl in container.Children)
-            {
-                if (ctl.GetType() == typeof(CheckBox))
-                {
-                    ((CheckBox)ctl).IsChecked = false;
-                }
-                else if (ctl.GetType() == typeof(TextBox))
-                {
-                    ((TextBox)ctl).Text = String.Empty;
-                }
-                /*else if (ctl.GetType() == typeof(Grid))
-                {
-                    ClearUIFields((Grid)ctl);
-                }*/
-            }
         }
         private bool CheckDuplicateTitle(String currentTitle)
         {

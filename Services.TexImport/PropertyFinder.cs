@@ -9,7 +9,7 @@ namespace De.HsFlensburg.ClientApp011.Services.TexImport
     class PropertyFinder
     {
         private string currentLine;
-        private string property; 
+        private string property;
         private string[] cathegories = {"TITLE", "AUTHOR", "PRICE", "YEAR", "PUBLISHER",
             "DESCRIPTION","PAGES", "WEIGHT", "ISBN", "isbn", "RATING", "EDITION", "BESTSELLER",
             "EXTRACT", "GENRE", "FORMAT", "LANGUAGE"};
@@ -28,7 +28,7 @@ namespace De.HsFlensburg.ClientApp011.Services.TexImport
                 return null;
             }
         }
-        
+
         public string PropertyContent
         {
             get
