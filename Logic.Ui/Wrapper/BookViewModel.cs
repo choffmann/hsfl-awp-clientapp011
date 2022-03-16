@@ -17,7 +17,7 @@ namespace De.HsFlensburg.ClientApp011.Logic.Ui.Wrapper
         {
             Dimension = new DimensionViewModel();
         }
-        public String Title
+        public string Title
         {
             get
             {
@@ -28,7 +28,7 @@ namespace De.HsFlensburg.ClientApp011.Logic.Ui.Wrapper
                 Model.Title = value;
             }
         }
-        public String Author
+        public string Author
         {
             get
             {
@@ -39,7 +39,7 @@ namespace De.HsFlensburg.ClientApp011.Logic.Ui.Wrapper
                 Model.Author = value;
             }
         }
-        public Decimal Price
+        public decimal Price
         {
             get
             {
@@ -61,7 +61,7 @@ namespace De.HsFlensburg.ClientApp011.Logic.Ui.Wrapper
                 Model.ReleaseDate = value;
             }
         }
-        public String Publisher
+        public string Publisher
         {
             get
             {
@@ -72,7 +72,7 @@ namespace De.HsFlensburg.ClientApp011.Logic.Ui.Wrapper
                 Model.Publisher = value;
             }
         }
-        public String Description
+        public string Description
         {
             get
             {
@@ -105,7 +105,7 @@ namespace De.HsFlensburg.ClientApp011.Logic.Ui.Wrapper
                 Model.Weight = value;
             }
         }
-        public String Isbn
+        public string Isbn
         {
             get
             {
@@ -149,7 +149,7 @@ namespace De.HsFlensburg.ClientApp011.Logic.Ui.Wrapper
                 Model.Bestseller = value;
             }
         }
-        public String Extract
+        public string Extract
         {
             get
             {
@@ -207,7 +207,7 @@ namespace De.HsFlensburg.ClientApp011.Logic.Ui.Wrapper
                 Model.Genre = value;
             }
         }
-        public String[] GenreValues
+        public string[] GenreValues
         {
             get
             {
@@ -230,7 +230,7 @@ namespace De.HsFlensburg.ClientApp011.Logic.Ui.Wrapper
                 Model.Format = value;
             }
         }
-        public String[] FormatValues
+        public string[] FormatValues
         {
             get
             {
@@ -253,7 +253,7 @@ namespace De.HsFlensburg.ClientApp011.Logic.Ui.Wrapper
                 Model.Language = value;
             }
         }
-        public String[] LanguageValues
+        public string[] LanguageValues
         {
             get
             {

@@ -1,6 +1,5 @@
 ﻿using Microsoft.Win32;
 using System.Windows;
-using System;
 using System.Text.RegularExpressions;
 using De.HsFlensburg.ClientApp011.Logic.Ui.Wrapper;
 using System.ComponentModel;
@@ -30,7 +29,7 @@ namespace De.HsFlensburg.ClientApp011.Logic.Ui.ViewModels
 
         public NewBookWindowViewModel(BookCollectionViewModel bookCollectionViewModel)
         {
-            AddBook = new RelayCommand(grid => AddBookMethod(grid));
+            AddBook = new RelayCommand(AddBookMethod);
             OpenFileDialog = new RelayCommand(OpenFileDialogMethod);
             CloseWindow = new RelayCommand(param => CloseWindowMethod(param));
             MyBookCollectionVM = bookCollectionViewModel;
@@ -43,7 +42,7 @@ namespace De.HsFlensburg.ClientApp011.Logic.Ui.ViewModels
                 PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
             }
         }
-        private void AddBookMethod(object container)
+        private void AddBookMethod()
         {
             // Check ISBN Format
             Match match = Regex.Match(BookVM?.Isbn + "", @"^(?:ISBN)? ?\d{3}[- ]\d*[- ]\d*[- ]\d*[- ]\d$");
@@ -83,7 +82,7 @@ namespace De.HsFlensburg.ClientApp011.Logic.Ui.ViewModels
             Window locWindow = (Window)window;
             locWindow.Close();
         }
-        private bool CheckDuplicateTitle(String currentTitle)
+        private bool CheckDuplicateTitle(string currentTitle)
         {
             bool result = false;
             for (int i = 0; i < MyBookCollectionVM.Count && !result; i++)
