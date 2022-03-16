@@ -22,7 +22,7 @@
     </Window.IsEnabled>
     <behaviors:Interaction.Triggers>
         <behaviors:EventTrigger EventName="Loaded">
-            <behaviors:InvokeCommandAction Command="{Binding WindowLoaded}"
+            <behaviors:InvokeCommandAction Command="{Binding ResetView}"
                                      CommandParameter="{Binding ElementName=ComboBoxWrapPanel}"/>
         </behaviors:EventTrigger>
     </behaviors:Interaction.Triggers>
@@ -101,7 +101,7 @@
             </WrapPanel>
             <Button Grid.Column="1" Grid.Row="1" Width="120" Height="30" Margin="10"
                     HorizontalAlignment="Right" VerticalAlignment="Center"
-                    Command="{Binding ResetFilter}"
+                    Command="{Binding ResetView}"
                     CommandParameter="{Binding ElementName=ComboBoxWrapPanel}">Filter zurücksetzen</Button>
         </Grid>
         <!-- Filtered Book Collection -->
