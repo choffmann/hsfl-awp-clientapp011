@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:De.HsFlensburg.ClientApp011.Ui.Desktop"
         xmlns:viewModels="clr-namespace:De.HsFlensburg.ClientApp011.Logic.Ui;assembly=Logic.Ui"
         xmlns:bookViewModel="clr-namespace:De.HsFlensburg.ClientApp011.Logic.Ui.Wrapper;assembly=Logic.Ui"
-        xmlns:cmd="http://schemas.microsoft.com/xaml/behaviors"
+        xmlns:behaviors="http://schemas.microsoft.com/xaml/behaviors"
         Title="BookSearchWindow" Name="BookSearchWindowName" 
         Height="768" Width="1024" MinWidth="850" MinHeight="350">
     <Window.Resources>
@@ -20,12 +20,12 @@
     <Window.IsEnabled>
         <Binding Source="{StaticResource MessageListener}" Path="BindablePropery"></Binding>
     </Window.IsEnabled>
-    <cmd:Interaction.Triggers>
-        <cmd:EventTrigger EventName="Loaded">
-            <cmd:InvokeCommandAction Command="{Binding WindowLoaded}"
-                                     CommandParameter="{Binding ElementName=ComboBoxDockPanel}"/>
-        </cmd:EventTrigger>
-    </cmd:Interaction.Triggers>
+    <behaviors:Interaction.Triggers>
+        <behaviors:EventTrigger EventName="Loaded">
+            <behaviors:InvokeCommandAction Command="{Binding WindowLoaded}"
+                                     CommandParameter="{Binding ElementName=ComboBoxWrapPanel}"/>
+        </behaviors:EventTrigger>
+    </behaviors:Interaction.Triggers>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="120"/>
@@ -44,19 +44,19 @@
             <TextBox Grid.Column="0" Grid.Row="0" Height="30"
                      Text="Titel, Autor, Stichwort, ISBN, .."
                      VerticalAlignment="Center" Margin="10">
-                <cmd:Interaction.Triggers>
-                    <cmd:EventTrigger EventName="TextChanged">
-                        <cmd:InvokeCommandAction Command="{Binding ShowTextFilteredBooks}" 
+                <behaviors:Interaction.Triggers>
+                    <behaviors:EventTrigger EventName="TextChanged">
+                        <behaviors:InvokeCommandAction Command="{Binding ShowTextFilteredBooks}" 
                                                  PassEventArgsToCommand="True"/>
-                    </cmd:EventTrigger>
-                </cmd:Interaction.Triggers>
+                    </behaviors:EventTrigger>
+                </behaviors:Interaction.Triggers>
             </TextBox>
             <Button Grid.Column="1" Grid.Row="0" Width="120" Height="30"
                     Command="{Binding ShowBestseller}">Bestseller</Button>
             <Button Grid.Column="1" Grid.Row="0" Width="120" Height="30" Margin="10"
                     HorizontalAlignment="Right" VerticalAlignment="Center"
                     Command="{Binding ShowNovelties}">Neuheiten</Button>
-            <DockPanel Grid.Column="0" Grid.Row="1" Name="ComboBoxDockPanel"
+            <WrapPanel Grid.Column="0" Grid.Row="1" Name="ComboBoxWrapPanel"
                        HorizontalAlignment="Left" VerticalAlignment="Center">
                 <ComboBox Name="RatingComboBox" Text="{Binding RatingComboBoxText}"
                           IsReadOnly="True" IsEditable="True"        
@@ -67,45 +67,42 @@
                     <ComboBoxItem Content="3 Sterne" Tag="3"/>
                     <ComboBoxItem Content="4 Sterne" Tag="4"/>
                     <ComboBoxItem Content="5 Sterne" Tag="5"/>
-                    <cmd:Interaction.Triggers>
-                        <cmd:EventTrigger EventName="SelectionChanged">
-                            <cmd:InvokeCommandAction Command="{Binding ShowSpecificRating}" 
+                    <behaviors:Interaction.Triggers>
+                        <behaviors:EventTrigger EventName="SelectionChanged">
+                            <behaviors:InvokeCommandAction Command="{Binding ShowSpecificRating}" 
                                                      PassEventArgsToCommand="True"/>
-                        </cmd:EventTrigger>
-                    </cmd:Interaction.Triggers>
+                        </behaviors:EventTrigger>
+                    </behaviors:Interaction.Triggers>
                 </ComboBox>
                 <ComboBox Name="FormatComboBox" Text="{Binding FormatComboBoxText}"
                           IsReadOnly="True" IsEditable="True"                     
                           Width="120" Height="30"                        
                           Margin="10 0 0 0" 
-                          ItemsSource="{Binding FormatValues, 
-                                Source={StaticResource bookViewModel}}">
-                    <cmd:Interaction.Triggers>
-                        <cmd:EventTrigger EventName="SelectionChanged">
-                            <cmd:InvokeCommandAction Command="{Binding ShowSpecificFormat}" 
+                          ItemsSource="{Binding FormatValues, Source={StaticResource bookViewModel}}">
+                    <behaviors:Interaction.Triggers>
+                        <behaviors:EventTrigger EventName="SelectionChanged">
+                            <behaviors:InvokeCommandAction Command="{Binding ShowSpecificFormat}" 
                                                      PassEventArgsToCommand="True"/>
-                        </cmd:EventTrigger>
-                    </cmd:Interaction.Triggers>
+                        </behaviors:EventTrigger>
+                    </behaviors:Interaction.Triggers>
                 </ComboBox>
                 <ComboBox Name="GenreComboBox" Text="{Binding GenreComboBoxText}"
                           IsReadOnly="True" IsEditable="True"         
                           Width="120" Height="30"
                           Margin="10 0 0 0"              
-                          ItemsSource="{Binding Source={StaticResource bookViewModel},
-                                                Path=GenreValues}">
-                    <cmd:Interaction.Triggers>
-                        <cmd:EventTrigger EventName="SelectionChanged">
-                            <cmd:InvokeCommandAction Command="{Binding ShowSpecificGenre}"
+                          ItemsSource="{Binding GenreValues, Source={StaticResource bookViewModel}}">
+                    <behaviors:Interaction.Triggers>
+                        <behaviors:EventTrigger EventName="SelectionChanged">
+                            <behaviors:InvokeCommandAction Command="{Binding ShowSpecificGenre}"
                                                      PassEventArgsToCommand="True"/>
-                        </cmd:EventTrigger>
-                    </cmd:Interaction.Triggers>
+                        </behaviors:EventTrigger>
+                    </behaviors:Interaction.Triggers>
                 </ComboBox>
-            </DockPanel>
+            </WrapPanel>
             <Button Grid.Column="1" Grid.Row="1" Width="120" Height="30" Margin="10"
                     HorizontalAlignment="Right" VerticalAlignment="Center"
                     Command="{Binding ResetFilter}"
-                    CommandParameter="{Binding ElementName=ComboBoxDockPanel}">
-                Filter Zurücksetzen</Button>
+                    CommandParameter="{Binding ElementName=ComboBoxWrapPanel}">Filter zurücksetzen</Button>
         </Grid>
         <!-- Filtered Book Collection -->
         <Grid Grid.Row="1">

@@ -23,20 +23,5 @@ namespace De.HsFlensburg.ClientApp011.Ui.Desktop
         {
             InitializeComponent();
         }
-
-        private void RatingComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-
-        }
-
-        private void FormatComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-
-        }
-
-        private void GenreComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-
-        }
     }
 }
