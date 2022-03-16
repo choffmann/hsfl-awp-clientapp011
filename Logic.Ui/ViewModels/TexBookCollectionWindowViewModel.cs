@@ -1,16 +1,11 @@
-﻿using De.HsFlensburg.ClientApp011.Business.Model.BusinessObjects;
-using De.HsFlensburg.ClientApp011.Logic.Ui.MessageBusMessages;
+﻿using De.HsFlensburg.ClientApp011.Logic.Ui.MessageBusMessages;
 using De.HsFlensburg.ClientApp011.Logic.Ui.Wrapper;
 using De.HsFlensburg.ClientApp011.Services.MessageBus;
 using De.HsFlensburg.ClientApp011.Services.TexImport;
 using Microsoft.Win32;
-using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace De.HsFlensburg.ClientApp011.Logic.Ui.ViewModels
@@ -18,7 +13,7 @@ namespace De.HsFlensburg.ClientApp011.Logic.Ui.ViewModels
     public class TexBookCollectionWindowViewModel
     {
         public BookCollectionViewModel TempBooks { get; set; }
-        
+
         private BookCollectionViewModel bookCollectionViewModel;
         public ICommand OpenFile { get; }
         public ICommand ImportFile { get; set; }
@@ -27,7 +22,7 @@ namespace De.HsFlensburg.ClientApp011.Logic.Ui.ViewModels
         {
             OpenFile = new RelayCommand(OpenFileMethod);
             ImportFile = new RelayCommand(ImportFileMethod);
-            bookCollectionViewModel = viewModelCollection; 
+            bookCollectionViewModel = viewModelCollection;
             TempBooks = new BookCollectionViewModel();
         }
 
@@ -75,5 +70,5 @@ namespace De.HsFlensburg.ClientApp011.Logic.Ui.ViewModels
             return foundSameBook;
         }
     }
-        
+
 }
