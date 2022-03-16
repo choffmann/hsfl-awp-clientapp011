@@ -34,7 +34,7 @@ namespace De.HsFlensburg.ClientApp011.Logic.Ui.ViewModels
             SaveCommand = new RelayCommand(SaveModel);
             modelFileHandler = new ModelFileHandler();
             pathForSerialization = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments)
-                + "\\BookManagerSerialization\\BooksGroup011.bmf";
+                + "\\BookManagerSerialization\\BooksGroup017.bmf";
 
             // Open PrintService Window
             OpenPrintServiceWindow = new RelayCommand(OpenPrintServiceWindowCommand);
