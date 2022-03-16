@@ -15,7 +15,7 @@ using System.Windows.Shapes;
 namespace De.HsFlensburg.ClientApp011.Ui.Desktop
 {
     /// <summary>
-    /// Interaction logic for BookSearchWindow.xaml
+    /// Code-Behind for BookSearchWindow.xaml
     /// </summary>
     public partial class BookSearchWindow : Window
     {

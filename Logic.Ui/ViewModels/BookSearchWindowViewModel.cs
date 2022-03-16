@@ -19,28 +19,24 @@ namespace De.HsFlensburg.ClientApp011.Logic.Ui.ViewModels
         private string ratingComboBoxText = "Bewertung";
 
         /// <summary>
-        /// Variale to ensure that combobox filters only come from user
+        /// Variale to ensure that combobox filters commands only come from user
         /// </summary>
         private bool filterComboBoxes = true;
-
         /// <summary>
         /// BookCollection that contains all available BookViewModel
         /// </summary>
         public BookCollectionViewModel BookCollection { get; set; }
-
         /// <summary>
         /// BookCollectionViewModel that contains all BookViewModels from
-        /// BookCollection which to the filters
+        /// BookCollection which fit to the filters
         /// </summary>
         public BookCollectionViewModel FilteredBookCollection { get; set; }
-
         /// <summary>
         /// Variable to store OnPropertyChanged delegate
         /// </summary>
         public event PropertyChangedEventHandler PropertyChanged;
-
         /// <summary>
-        /// Properties for binding the Combobox.Text Property
+        /// Properties for binding the Combobox.Text property
         /// </summary>
         public string GenreComboBoxText
         {
@@ -78,7 +74,6 @@ namespace De.HsFlensburg.ClientApp011.Logic.Ui.ViewModels
                 OnPropertyChanged("RatingComboBoxText");
             }
         }
-
         /// <summary>
         /// ICommand Properties which are available for the view
         /// </summary>
@@ -106,7 +101,6 @@ namespace De.HsFlensburg.ClientApp011.Logic.Ui.ViewModels
             ShowSpecificRating = new RelayCommand(param => ShowSpecificRatingCommand(param));
             ShowTextFilteredBooks = new RelayCommand(param => ShowTextFilteredBooksCommand(param));
         }
-
         /// <summary>
         /// Method fires PropertyChanged Event for properties of the viewmodel
         /// </summary>
@@ -118,7 +112,6 @@ namespace De.HsFlensburg.ClientApp011.Logic.Ui.ViewModels
                 PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
             }
         }
-
         /// <summary>
         /// Method to resets view
         /// </summary>
@@ -128,9 +121,8 @@ namespace De.HsFlensburg.ClientApp011.Logic.Ui.ViewModels
             ResetFilteredBookCollection();
             ResetComboBoxes((WrapPanel)param);
         }
-
         /// <summary>
-        /// Method to get the bestseller from the BookCollection
+        /// Method to get bestseller from the BookCollection
         /// </summary>
         private void ShowBestsellerCommand()
         {
@@ -143,9 +135,8 @@ namespace De.HsFlensburg.ClientApp011.Logic.Ui.ViewModels
                 }
             }
         }
-
         /// <summary>
-        /// Method to get the novelties from the BookCollection
+        /// Method to get novelties from the BookCollection
         /// </summary>
         private void ShowNoveltiesCommand()
         {
@@ -158,7 +149,6 @@ namespace De.HsFlensburg.ClientApp011.Logic.Ui.ViewModels
                 }
             }
         }
-
         /// <summary>
         /// Method to get speficic genre from the BookCollection
         /// </summary>
@@ -180,7 +170,6 @@ namespace De.HsFlensburg.ClientApp011.Logic.Ui.ViewModels
                 }
             }
         }
-
         /// <summary>
         /// Methodd to get specific format from the BookCollection
         /// </summary>
@@ -202,7 +191,6 @@ namespace De.HsFlensburg.ClientApp011.Logic.Ui.ViewModels
                 }
             }
         }
-
         /// <summary>
         /// Method to get specific rated books from the BookCollection
         /// </summary>
@@ -224,9 +212,8 @@ namespace De.HsFlensburg.ClientApp011.Logic.Ui.ViewModels
                 }
             }
         }
-
         /// <summary>
-        /// Method to get specific books which contain searched input from BookCollections
+        /// Method to get specific books which contain a searched input from BookCollections
         /// </summary>
         /// <param name="param"></param>
         private void ShowTextFilteredBooksCommand(object param)
@@ -239,17 +226,19 @@ namespace De.HsFlensburg.ClientApp011.Logic.Ui.ViewModels
             } else {
                 foreach (BookViewModel book in BookCollection)
                 {
-                    string textFields = book.Author + book.Genre.ToString() + book.Title
-                        + book.Isbn + book.Publisher + book.Description + book.Language.ToString()
-                        + book.Extract;
-                    if (textFields.Contains(searchInput))
+                    if ((book.Author != null && book.Author.Contains(searchInput))
+                        || book.Genre.ToString().Contains(searchInput)
+                        || (book.Title != null && book.Title.Contains(searchInput))
+                        || (book.Isbn != null && book.Isbn.Contains(searchInput))
+                        || (book.Description != null && book.Description.Contains(searchInput))
+                        || book.Language.ToString().Contains(searchInput)
+                        || (book.Extract != null && book.Extract.Contains(searchInput)))
                     {
                         FilteredBookCollection.Add(book);
                     }
                 }
             }
         }
-
         /// <summary>
         /// Method to reset the FilteredBookCollection and show all books from BookCollection
         /// </summary>
@@ -261,7 +250,6 @@ namespace De.HsFlensburg.ClientApp011.Logic.Ui.ViewModels
                 FilteredBookCollection.Add(book);
             }
         }
-
         /// <summary>
         /// Method to reset the comboboxes in the view
         /// </summary>
