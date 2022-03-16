@@ -27,7 +27,7 @@
         <Label Grid.Row="0" Grid.ColumnSpan="2" HorizontalAlignment="Center">
             Neues Buch Anlegen</Label>
         <UniformGrid Grid.Column="0" Grid.Row="1" Rows="11">
-            <Label VerticalAlignment="Center" HorizontalAlignment="Right">Title</Label>
+            <Label VerticalAlignment="Center" HorizontalAlignment="Right">Titel</Label>
             <TextBox x:Name="Title" VerticalAlignment="Center" Text="{Binding BookVM.Title}"/>
             <Label VerticalAlignment="Center" HorizontalAlignment="Right">Autor</Label>
             <ComboBox x:Name="Author" VerticalAlignment="Center" 

@@ -39,7 +39,7 @@
         <Button Content="Open BookSearcher" Grid.Column="0" Grid.Row="1" 
                 HorizontalAlignment="Center" VerticalAlignment="Center" Width="150" Height="150" 
                 Command="{Binding OpenBookSearchWindow}" />
-        <Button Content="Add new book" Grid.Column="1" Grid.Row="2" 
+        <Button Content="Add a new book" Grid.Column="1" Grid.Row="2" 
                 HorizontalAlignment="Center" VerticalAlignment="Center" Width="150" Height="150" 
                 Command="{Binding OpenNewBookWindowCommand}" />
     </Grid>
