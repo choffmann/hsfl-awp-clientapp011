@@ -39,7 +39,6 @@ namespace De.HsFlensburg.ClientApp011.Logic.Ui.Wrapper
                 Model.Author = value;
             }
         }
-
         public Decimal Price
         {
             get
@@ -51,7 +50,6 @@ namespace De.HsFlensburg.ClientApp011.Logic.Ui.Wrapper
                 Model.Price = value;
             }
         }
-
         public DateTime ReleaseDate
         {
             get
@@ -63,7 +61,6 @@ namespace De.HsFlensburg.ClientApp011.Logic.Ui.Wrapper
                 Model.ReleaseDate = value;
             }
         }
-
         public String Publisher
         {
             get
@@ -75,7 +72,6 @@ namespace De.HsFlensburg.ClientApp011.Logic.Ui.Wrapper
                 Model.Publisher = value;
             }
         }
-
         public String Description
         {
             get
@@ -87,7 +83,6 @@ namespace De.HsFlensburg.ClientApp011.Logic.Ui.Wrapper
                 Model.Description = value;
             }
         }
-
         public int Pages
         {
             get
@@ -99,7 +94,6 @@ namespace De.HsFlensburg.ClientApp011.Logic.Ui.Wrapper
                 Model.Pages = value;
             }
         }
-
         public int Weight
         {
             get
@@ -111,7 +105,6 @@ namespace De.HsFlensburg.ClientApp011.Logic.Ui.Wrapper
                 Model.Weight = value;
             }
         }
-
         public String Isbn
         {
             get
@@ -123,7 +116,6 @@ namespace De.HsFlensburg.ClientApp011.Logic.Ui.Wrapper
                 Model.Isbn = value;
             }
         }
-
         public double Rating
         {
             get
@@ -135,7 +127,6 @@ namespace De.HsFlensburg.ClientApp011.Logic.Ui.Wrapper
                 Model.Rating = value;
             }
         }
-
         public int Edition
         {
             get
@@ -147,7 +138,6 @@ namespace De.HsFlensburg.ClientApp011.Logic.Ui.Wrapper
                 Model.Edition = value;
             }
         }
-
         public bool Bestseller
         {
             get
@@ -159,7 +149,6 @@ namespace De.HsFlensburg.ClientApp011.Logic.Ui.Wrapper
                 Model.Bestseller = value;
             }
         }
-
         public String Extract
         {
             get
@@ -171,7 +160,6 @@ namespace De.HsFlensburg.ClientApp011.Logic.Ui.Wrapper
                 Model.Extract = value;
             }
         }
-
         public BitmapImage BindableCoverImage
         {
             get
@@ -231,7 +219,6 @@ namespace De.HsFlensburg.ClientApp011.Logic.Ui.Wrapper
                 return value.ToArray<String>();
             }
         }
-
         public Format Format
         {
             get
@@ -255,7 +242,6 @@ namespace De.HsFlensburg.ClientApp011.Logic.Ui.Wrapper
                 return value.ToArray<String>();
             }
         }
-
         public Language Language
         {
             get

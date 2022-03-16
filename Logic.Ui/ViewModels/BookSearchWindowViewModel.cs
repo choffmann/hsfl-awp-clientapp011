@@ -1,12 +1,6 @@
 ﻿using De.HsFlensburg.ClientApp011.Logic.Ui.Wrapper;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Input;
-using System.Text.RegularExpressions;
 using System.Windows.Controls;
 using System.ComponentModel;
 
@@ -129,7 +123,8 @@ namespace De.HsFlensburg.ClientApp011.Logic.Ui.ViewModels
                 string searchedGenre = genreComboBox.SelectedValue?.ToString() ?? "";
                 foreach (BookViewModel book in BookCollection)
                 {
-                    if (book.Genre.ToString() == searchedGenre || genreComboBox.SelectedIndex == -1)
+                    if (book.Genre.ToString() == searchedGenre || 
+                        genreComboBox.SelectedIndex == -1)
                     {
                         FilteredBookCollection.Add(book);
                     }
@@ -145,7 +140,8 @@ namespace De.HsFlensburg.ClientApp011.Logic.Ui.ViewModels
                 string searchedFormat = formatComboBox.SelectedValue?.ToString() ?? "";
                 foreach (BookViewModel book in BookCollection)
                 {
-                    if (book.Format.ToString() == searchedFormat || formatComboBox.SelectedIndex == -1)
+                    if (book.Format.ToString() == searchedFormat || 
+                        formatComboBox.SelectedIndex == -1)
                     {
                         FilteredBookCollection.Add(book);
                     }
@@ -161,7 +157,8 @@ namespace De.HsFlensburg.ClientApp011.Logic.Ui.ViewModels
                 ComboBoxItem selectedComboBoxItem = (ComboBoxItem)ratingComboBox.SelectedItem;
                 foreach (BookViewModel book in BookCollection)
                 {
-                    if (book.Rating >= Convert.ToInt32(selectedComboBoxItem?.Tag) || ratingComboBox.SelectedIndex == -1)
+                    if (book.Rating >= Convert.ToInt32(selectedComboBoxItem?.Tag) || 
+                        ratingComboBox.SelectedIndex == -1)
                     {
                         FilteredBookCollection.Add(book);
                     }

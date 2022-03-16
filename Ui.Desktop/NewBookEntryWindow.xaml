@@ -24,10 +24,11 @@
             <RowDefinition Height="Auto"></RowDefinition>
         </Grid.RowDefinitions>
 
-        <Label Grid.Row="0" Grid.ColumnSpan="2" HorizontalAlignment="Center">Neues Buch Anlegen</Label>
+        <Label Grid.Row="0" Grid.ColumnSpan="2" HorizontalAlignment="Center">
+            Neues Buch Anlegen</Label>
         <UniformGrid Grid.Column="0" Grid.Row="1" Rows="11">
             <Label VerticalAlignment="Center" HorizontalAlignment="Right">Title</Label>
-            <TextBox x:Name="Title" VerticalAlignment="Center" Text="{Binding BookVM.Title}"></TextBox>
+            <TextBox x:Name="Title" VerticalAlignment="Center" Text="{Binding BookVM.Title}"/>
             <Label VerticalAlignment="Center" HorizontalAlignment="Right">Autor</Label>
             <ComboBox x:Name="Author" VerticalAlignment="Center" 
                       ItemsSource="{Binding MyBookCollectionVM}"
@@ -50,7 +51,7 @@
                       ItemsSource="{Binding BookVM.FormatValues}"
                       SelectedItem="{Binding BookVM.Format}"></ComboBox>
             <Label VerticalAlignment="Center" HorizontalAlignment="Right">Erscheinungsdatum</Label>
-            <DatePicker VerticalAlignment="Center" SelectedDate="{Binding BookVM.ReleaseDate}" ></DatePicker>
+            <DatePicker VerticalAlignment="Center" SelectedDate="{Binding BookVM.ReleaseDate}" />
             <Label VerticalAlignment="Center" HorizontalAlignment="Right">Verlag</Label>
             <TextBox VerticalAlignment="Center" Text="{Binding BookVM.Publisher}"></TextBox>
             <Label VerticalAlignment="Center" HorizontalAlignment="Right">Seitenzahl</Label>
@@ -65,43 +66,49 @@
                 <ColumnDefinition />
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
-            <Label Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Right">Maße (in mm)</Label>
-            <Label Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" Width="20">H</Label>
-            <TextBox Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Right" Width="40" 
-                     Text="{Binding BookVM.Dimension.Height}"></TextBox>
-            <Label Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center" Width="20">B</Label>
-            <TextBox Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Right" Width="40"
-                     Text="{Binding BookVM.Dimension.Width}"></TextBox>
-            <Label Grid.Column="3" VerticalAlignment="Center" HorizontalAlignment="Center" Width="20">T</Label>
-            <TextBox Grid.Column="3" VerticalAlignment="Center" HorizontalAlignment="Right" Width="40"
-                     Text="{Binding BookVM.Dimension.Depth}"></TextBox>
+            <Label Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Right">
+                Maße (in mm)</Label>
+            <Label Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" 
+                   Width="20">H</Label>
+            <TextBox Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Right" 
+                     Width="40" Text="{Binding BookVM.Dimension.Height}" />
+            <Label Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center" 
+                   Width="20">B</Label>
+            <TextBox Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Right" 
+                     Width="40" Text="{Binding BookVM.Dimension.Width}"/>
+            <Label Grid.Column="3" VerticalAlignment="Center" HorizontalAlignment="Center" 
+                   Width="20">T</Label>
+            <TextBox Grid.Column="3" VerticalAlignment="Center" HorizontalAlignment="Right" 
+                     Width="40" Text="{Binding BookVM.Dimension.Depth}" />
         </Grid>
         <UniformGrid Grid.Column="1" Grid.Row="1" Rows="7">
             <Label VerticalAlignment="Top" HorizontalAlignment="Right">ISBN</Label>
-            <TextBox VerticalAlignment="Top" Text="{Binding BookVM.Isbn}"></TextBox>
+            <TextBox VerticalAlignment="Top" Text="{Binding BookVM.Isbn}" />
             <Label VerticalAlignment="Top" HorizontalAlignment="Right">Auflage</Label>
-            <TextBox VerticalAlignment="Top" Text="{Binding BookVM.Edition}"></TextBox>
+            <TextBox VerticalAlignment="Top" Text="{Binding BookVM.Edition}" />
             <Label VerticalAlignment="Top" HorizontalAlignment="Right">Rating</Label>
             <TextBox VerticalAlignment="Top" Text="{Binding BookVM.Rating}"/>
             <Label VerticalAlignment="Top" HorizontalAlignment="Right">Sprache</Label>
             <ComboBox VerticalAlignment="Top"
                       IsSynchronizedWithCurrentItem="True" 
                       ItemsSource="{Binding BookVM.LanguageValues}"
-                      SelectedItem="{Binding BookVM.Language}"></ComboBox>
+                      SelectedItem="{Binding BookVM.Language}" />
             <Label VerticalAlignment="Top" HorizontalAlignment="Right">Leseprobe</Label>
-            <TextBox TextWrapping="NoWrap" Text="{Binding BookVM.Extract}"></TextBox>
+            <TextBox TextWrapping="NoWrap" Text="{Binding BookVM.Extract}" />
             <Label VerticalAlignment="Center" HorizontalAlignment="Right">Bestseller</Label>
-            <CheckBox VerticalAlignment="Center" IsChecked="{Binding BookVM.Bestseller}"></CheckBox>
+            <CheckBox VerticalAlignment="Center" IsChecked="{Binding BookVM.Bestseller}" />
         </UniformGrid>
         <UniformGrid Grid.Column="1" Grid.Row="2" Grid.RowSpan="2">
             <Button Command="{Binding OpenFileDialog}">Buchcover hochladen</Button>
-            <Image Height="75" Source="{Binding BookVM.BindableCoverImage}"></Image>
+            <Image Height="75" Source="{Binding BookVM.BindableCoverImage}" />
         </UniformGrid>
         <UniformGrid Grid.Column="0" Grid.Row="3">
             <Button VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="200" Height="40"
-                    Command="{Binding AddBook}" CommandParameter="{Binding ElementName=NewBookGrid}">Speichern</Button>
+                    Command="{Binding AddBook}" 
+                    CommandParameter="{Binding ElementName=NewBookGrid}">Speichern</Button>
             <Button VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="200" Height="40"
-                    Command="{Binding CloseWindow}" CommandParameter="{Binding ElementName=NewBookWindow}">Abbrechen</Button>
+                    Command="{Binding CloseWindow}" 
+                    CommandParameter="{Binding ElementName=NewBookWindow}">Abbrechen</Button>
         </UniformGrid>
     </Grid>
 </Window>

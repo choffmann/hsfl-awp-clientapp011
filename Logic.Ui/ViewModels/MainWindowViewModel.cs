@@ -39,7 +39,8 @@ namespace De.HsFlensburg.ClientApp011.Logic.Ui.ViewModels
             // Open PrintService Window
             OpenPrintServiceWindow = new RelayCommand(OpenPrintServiceWindowCommand);
             // Open BibInport Window
-            OpenNewTexBookCollectionWindow = new RelayCommand(OpenNewTexBookCollectionWindowMethod);
+            OpenNewTexBookCollectionWindow = 
+                new RelayCommand(OpenNewTexBookCollectionWindowMethod);
             // Open BookSearch Window
             OpenBookSearchWindow = new RelayCommand(OpenBookSearchWindowCommand);
             OpenNewBookWindowCommand = new RelayCommand(OpenNewBookWindowMethod);
@@ -100,7 +101,8 @@ namespace De.HsFlensburg.ClientApp011.Logic.Ui.ViewModels
                 book.Dimension.Width = 2 * (i + 1);
                 
                 // Root Directory of Repository => \img\
-                string path = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.FullName + "\\img\\" + i + ".png";
+                string path = Directory.GetParent(Directory.GetCurrentDirectory()).
+                    Parent.Parent.FullName + "\\img\\" + i + ".png";
                 Image image = Image.FromFile(path);
                 book.Cover = image;
                 BookCollection.Add(book);

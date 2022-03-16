@@ -78,7 +78,8 @@
                           IsReadOnly="True" IsEditable="True"                     
                           Width="120" Height="30"                        
                           Margin="10 0 0 0" 
-                          ItemsSource="{Binding FormatValues, Source={StaticResource bookViewModel}}">
+                          ItemsSource="{Binding FormatValues, 
+                                Source={StaticResource bookViewModel}}">
                     <cmd:Interaction.Triggers>
                         <cmd:EventTrigger EventName="SelectionChanged">
                             <cmd:InvokeCommandAction Command="{Binding ShowSpecificFormat}" 
@@ -103,7 +104,8 @@
             <Button Grid.Column="1" Grid.Row="1" Width="120" Height="30" Margin="10"
                     HorizontalAlignment="Right" VerticalAlignment="Center"
                     Command="{Binding ResetFilter}"
-                    CommandParameter="{Binding ElementName=ComboBoxDockPanel}">Filter Zurücksetzen</Button>
+                    CommandParameter="{Binding ElementName=ComboBoxDockPanel}">
+                Filter Zurücksetzen</Button>
         </Grid>
         <!-- Filtered Book Collection -->
         <Grid Grid.Row="1">
@@ -143,7 +145,8 @@
                                            Margin="12,0,0,6"/>
                                 <TextBlock Grid.Row="1" Grid.Column="2" Text="{Binding Publisher}"
                                            Margin="12,0,0,6"/>
-                                <TextBlock Grid.Column="3" Grid.RowSpan="2" Text="{Binding Description}"
+                                <TextBlock Grid.Column="3" Grid.RowSpan="2" 
+                                           Text="{Binding Description}"
                                            TextWrapping="Wrap" Margin="12,0,0,6" />
                             </Grid>
                         </Border>
